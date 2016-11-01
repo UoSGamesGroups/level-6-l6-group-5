@@ -29,7 +29,11 @@ function Update ()
 		if (touchDistanceX < - 100)
 		{
 		Debug.Log("Swipe right");
-		sail.externalAcceleration.x += 5;
+			sail.externalAcceleration.x += 5;
+			if(sail.externalAcceleration.x > 50)
+			{
+				sail.externalAcceleration.x = 50;
+			}
 		}
 		break;
 	}

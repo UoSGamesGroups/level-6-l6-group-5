@@ -85,5 +85,3 @@ function OnMouseDown()
 	fire3Lifetime = Mathf.Max(0.38, fire3Lifetime);
 	
 }
-
-
