@@ -1,50 +1,102 @@
-﻿#pragma strict
+#pragma strict
 
-public var water: float;
-public var boatSpeed: float;
-public var distance: float = 1500;
-public var distanceTrav: float;
-public var sail: Cloth;
-public var fires: int;
 public var nextEventTimeMinMax: Vector2;
 public var nextEventTime: float;
 public var lastEventTime: Time;
+public var choice: int;
+public var boats: GameObject[];
+public var boatSelected: GameObject;
+public var time: float;
+public var finished: boolean;
+
+@Space(20)
+@Header ("All should add to 100")
+public var fires: int;
+public var birds: int;
+public var krakens: int;
 
 function Start () 
 {
-
+	//Gets all boats and randoms start time
+	boats = GameObject.FindGameObjectsWithTag("Boat");
+	nextEventTime = Random.Range(nextEventTimeMinMax.x, nextEventTimeMinMax.y);
 }
 
 function Update () 
 {
-	if(distanceTrav >= distance)
+	//Set time to current scene time
+	time = Time.time;
+	
+	CheckDistance();
+	
+	//If time is more than next event time random a number then call mechanic
+	if(Time.time >= nextEventTime)
+	{
+		choice = Random.Range(1, 101);
+		boatSelected = boats[Random.Range(0, boats.Length)];		
+	
+		if(choice <= fires)
+		{
+			Fire();
+			Debug.Log("Fire");
+		}
+		else if(choice > fires && choice <= fires + birds)
+		{
+			Bird();
+			Debug.Log("Bird");
+		}
+		else if(choice > fires + birds && choice <= fires + birds + krakens)
+		{
+			Debug.Log("Kraken");
+		}
+
+		nextEventTime = Time.time + Random.Range(nextEventTimeMinMax.x, nextEventTimeMinMax.y);
+		
+	}
+}
+
+//If fire not already on boat then create fire
+function Fire()
+{
+	if(!boatSelected.GetComponent(Boat).hasFire)
+	{
+		boatSelected.GetComponent(Boat).CreateFire();
+	}
+}
+
+//Create a bird for the boat
+function Bird()
+{
+	boatSelected.GetComponent(Boat).CreateBird();
+}
+
+//If kraken not already on boat then create kraken
+function Kraken()
+{
+	if(!boatSelected.GetComponent(Boat).hasKraken)
+	{
+		boatSelected.GetComponent(Boat).CreateKraken();
+	}
+}
+
+//Check distance on all boats. If more than end distance end level
+function CheckDistance()
+{
+	for(var i = 0; i < boats.Length; i++)
+	{
+		if(boats[i].GetComponent(Boat).reachedEnd)
+		{
+			finished = true;	
+		}
+		else 
+		{
+			finished = false;
+			break;
+		}
+	}
+	
+	if(finished)
 	{
 		Debug.Log("Level Completed");
 	}
-
-	distanceTrav += boatSpeed * Time.deltaTime;
-
-	boatSpeed = sail.externalAcceleration.x;
-
-	Random.Range(nextEventTimeMinMax.x, nextEventTimeMinMax.y);
-
 }
-
-/*
-public var total: int;
-public var choice: int;
-
-
-total = fires + holes + birds + kraken;
-
-choice = Random.Range(0, total);
-
-if(choice <= fires)
-	fire();
-else if( choice > fire && choice < birds)
-	hole();
-else if( choice > birds && < kraken)
-	bird();
-
-
-*/

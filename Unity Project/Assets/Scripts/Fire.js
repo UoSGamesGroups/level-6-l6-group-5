@@ -62,13 +62,13 @@ function FixedUpdate ()
 	if(fire1Lifetime > 1.5 && fire2Lifetime > 1.5 && fire3Lifetime > 1.5)
 	{
 		Debug.Log("Dead");
-		Destroy(this.gameObject);
 	}
 		
 	//If all fires to small remove fire
 	if(fire1Lifetime < 0.4 && fire2Lifetime < 0.4 && fire3Lifetime < 0.4)
 	{
 		Instantiate(smoke, transform.position, transform.rotation);
+		GetComponentInParent(Boat).hasFire = false;
 		Destroy(this.gameObject);
 	}
 }
