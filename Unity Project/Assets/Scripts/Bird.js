@@ -44,8 +44,17 @@ function Update ()
 		}
 
 }
+
 function OnMouseDown()
 {
 	Destroy(this.gameObject);
 }
 
+function OnCollisionStay(other : Collision)
+{
+	Debug.Log("Collided");
+	if(other.gameObject.tag == "Boat") 
+	{
+		Destroy(this.gameObject);
+	}
+}

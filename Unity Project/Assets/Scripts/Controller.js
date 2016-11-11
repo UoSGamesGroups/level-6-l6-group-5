@@ -8,6 +8,7 @@ public var boats: GameObject[];
 public var boatSelected: GameObject;
 public var time: float;
 public var finished: boolean;
+public var selectedBoat: boolean;
 
 @Space(20)
 @Header ("All should add to 100")

@@ -16,8 +16,14 @@ public var krakenPos: Vector3;
 public var mainCamera: GameObject;
 public var boatCamera: GameObject;
 public var backButton: GameObject;
+public var controller: GameObject;
 
 public var reachedEnd: boolean;
+
+function Start()
+{
+	controller = GameObject.FindGameObjectWithTag("Controller");
+}
 
 function Update () 
 {
@@ -33,7 +39,6 @@ function Update ()
 	//Set speed to sail acceleration
 	boatSpeed = sail.externalAcceleration.x;
 
-	mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 }
 
 //Create a fire and set it to child object of boat
@@ -60,8 +65,12 @@ function CreateKraken ()
 
 function OnMouseDown()
 {
-	Debug.Log("Boat Clicked");
-	mainCamera.SetActive(false);
-	boatCamera.SetActive(true);
-	backButton.SetActive(true);	
+	if(!controller.GetComponent(Controller).selectedBoat)
+	{
+		Debug.Log("Boat Clicked");
+		mainCamera.SetActive(false);
+		boatCamera.SetActive(true);
+		backButton.SetActive(true);
+		controller.GetComponent(Controller).selectedBoat = true;
+	}
 }

@@ -3,6 +3,7 @@
 public var button: GameObject;
 public var cameras: GameObject[];
 public var mainCamera: GameObject;
+public var controller: GameObject;
 
 function Start()
 {
@@ -12,6 +13,8 @@ function Start()
 	{
 		cameras[i].SetActive(false);
 	}
+	
+	button.SetActive(false);
 }
 
 function clicked () 
@@ -24,4 +27,6 @@ function clicked ()
 	}
 
 	button.SetActive(false);
+	controller.GetComponent(Controller).selectedBoat = false;
+	
 }
