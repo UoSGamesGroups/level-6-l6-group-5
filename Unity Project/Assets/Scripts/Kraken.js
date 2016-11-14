@@ -48,10 +48,18 @@ function Update()
 								if(canKill)
 								{
 									Destroy(this.gameObject);
+									GetComponentInParent(Boat).hasKraken = false;
+									
 								}
 							}
 							break;
 	}
+	
+if(Input.GetKeyDown(KeyCode.K))
+{
+	Destroy(this.gameObject);
+	GetComponentInParent(Boat).hasKraken = false;
+}
 } 
 
 //Loops through animation of up and down

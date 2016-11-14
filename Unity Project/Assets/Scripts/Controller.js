@@ -48,6 +48,7 @@ function Update ()
 		}
 		else if(choice > fires + birds && choice <= fires + birds + krakens)
 		{
+			Kraken();
 			Debug.Log("Kraken");
 		}
 

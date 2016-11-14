@@ -16,6 +16,11 @@ ModelImporter:
     100016: Bone009
     100018: Box001
     100020: //RootNode
+    100022: Bone010
+    100024: Bone011
+    100026: Bone012
+    100028: Bone013
+    100030: Bone014
     400000: Bone001
     400002: Bone002
     400004: Bone003
@@ -27,6 +32,11 @@ ModelImporter:
     400016: Bone009
     400018: Box001
     400020: //RootNode
+    400022: Bone010
+    400024: Bone011
+    400026: Bone012
+    400028: Bone013
+    400030: Bone014
     4300000: Box001
     9500000: //RootNode
     13700000: Box001

@@ -23,6 +23,10 @@ public var reachedEnd: boolean;
 function Start()
 {
 	controller = GameObject.FindGameObjectWithTag("Controller");
+	firePos = new Vector3(transform.position.x + 14, transform.position.y, transform.position.z - 7);
+	birdPos = new Vector3(transform.position.x + 45, transform.position.y + 13, transform.position.z + 6);
+	krakenPos = new Vector3(transform.position.x + 15, transform.position.y - 21, transform.position.z + 3);
+	
 }
 
 function Update () 
@@ -52,7 +56,7 @@ function CreateFire ()
 //Create a bird
 function CreateBird () 
 {
-	Instantiate(bird, birdPos, transform.rotation);
+	Instantiate(bird, birdPos, Quaternion.Euler(90,0,0));
 }
 
 //Create a kraken and set it to child object of boat
@@ -72,5 +76,7 @@ function OnMouseDown()
 		boatCamera.SetActive(true);
 		backButton.SetActive(true);
 		controller.GetComponent(Controller).selectedBoat = true;
+		GetComponent(BoxCollider).enabled = false;
+		
 	}
 }

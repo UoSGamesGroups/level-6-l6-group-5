@@ -38,7 +38,8 @@ function Update ()
 		break;
 	}
 
-
-
-
+if(Input.GetKeyDown(KeyCode.S))
+{
+	sail.externalAcceleration.x += 5;
+}
 }
