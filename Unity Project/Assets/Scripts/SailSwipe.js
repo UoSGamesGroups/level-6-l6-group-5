@@ -5,6 +5,7 @@ public var touchStart: Vector2;
 public var touchEnd: Vector2;
 public var touchDistanceX: float;
 public var touchDistanceY: float;
+public var sailDecreaseRate: float;
 public var sail: Cloth;
 
 function Start () 
@@ -38,8 +39,13 @@ function Update ()
 		break;
 	}
 
-if(Input.GetKeyDown(KeyCode.S))
-{
-	sail.externalAcceleration.x += 5;
-}
+	if(Input.GetKeyDown(KeyCode.S))
+	{
+		sail.externalAcceleration.x += 5;
+	}
+//makes the sail decrease over time
+	if (sail.externalAcceleration.x > 0)
+		sail.externalAcceleration.x -= sailDecreaseRate * Time.deltaTime;
+
+
 }
