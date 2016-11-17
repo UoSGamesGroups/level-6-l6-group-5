@@ -17,6 +17,8 @@ public var mainCamera: GameObject;
 public var boatCamera: GameObject;
 public var backButton: GameObject;
 public var controller: GameObject;
+public var leftOrRight: int;
+
 
 public var reachedEnd: boolean;
 
@@ -24,7 +26,7 @@ function Start()
 {
 	controller = GameObject.FindGameObjectWithTag("Controller");
 	firePos = new Vector3(transform.position.x + 14, transform.position.y, transform.position.z - 7);
-	birdPos = new Vector3(transform.position.x + 45, transform.position.y + 13, transform.position.z + 6);
+	birdPos = new Vector3(transform.position.x + 45, transform.position.y + 13, transform.position.z - 6);
 	krakenPos = new Vector3(transform.position.x + 15, transform.position.y - 21, transform.position.z + 3);
 	
 }
@@ -56,6 +58,19 @@ function CreateFire ()
 //Create a bird
 function CreateBird () 
 {
+	birdPos.y = Random.Range(148, 170);
+	
+	leftOrRight = Random.Range(0,2);
+	
+	if(leftOrRight == 0) 
+	{
+		birdPos.x = 9;
+	}
+	else 
+	{
+		birdPos.x = 70;
+	}
+	
 	Instantiate(bird, birdPos, Quaternion.Euler(90,0,0));
 }
 

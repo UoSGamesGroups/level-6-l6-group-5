@@ -9,16 +9,42 @@ public var StartOFBoat: float;
 public var maxHeight: float;
 public var minHeight: float;
 public var isAttacking: boolean;
+public var force: Vector3;
+
 
 function Start () 
 {
 	//Decide at what point the bird will attack the boat
 	attackPos = Random.Range(EndOfBoat, StartOFBoat);
+	if(transform.position.x > 50)
+	{
+		force.x = -400;
+	}
+	else
+	{
+		force.x = 400;
+		
+	}
+	
+	this.gameObject.GetComponent.<Rigidbody>().useGravity = true;
+	this.gameObject.GetComponent.<Rigidbody>().AddForce(force);
 }
 
 function Update () 
 {
-	//flight for the bird
+	if(Input.GetKeyDown(KeyCode.B))
+	{
+		this.gameObject.GetComponent.<Rigidbody>().useGravity = true;
+		this.gameObject.GetComponent.<Rigidbody>().AddForce(force);
+	}	
+
+
+	if(this.gameObject.GetComponent.<Rigidbody>().velocity.y <= 0)
+	{
+		this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(0, -2, 0));
+	}
+	
+/*	//flight for the bird
 	if (!isAttacking)
 	{
 		transform.position.x -= speed * Time.deltaTime; 
@@ -41,7 +67,7 @@ function Update ()
 	if (transform.position.x <= attackPos)
 		{
 			isAttacking = true;
-		}
+		}*/
 
 }
 
@@ -49,4 +75,19 @@ function OnMouseDown()
 {
 	Debug.Log("Destroy");
 	Destroy(this.gameObject);
+}
+
+function OnCollisionEnter(other: Collision)
+{
+	if(other.gameObject.tag == "BoatObj")
+	{
+		yield WaitForSeconds(1);
+		Destroy(this.gameObject);
+	}
+	
+	if(other.gameObject.tag == "Water")
+	{
+		yield WaitForSeconds(1);
+		Destroy(this.gameObject);
+	}
 }

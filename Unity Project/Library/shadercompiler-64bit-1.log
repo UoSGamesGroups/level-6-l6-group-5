@@ -1,3 +1,34 @@
 Base path: C:/Program Files/Unity/Editor/Data
-Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-5124
+Pipe name: \\.\pipe\UnityShaderCompiler-64bit-1-6100
 Cmd: getPlatforms
+Cmd: preprocess
+  insize=4264 outsize=813 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (80): undeclared identifier 'unity_WorldToObject'\nCompiling Vertex program
+  api=4 type=0 insize=3768 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=4258 outsize=812 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (100): undeclared identifier 'unity_ObjectToWorld'\nCompiling Vertex program
+  api=4 type=0 insize=3762 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=4252 outsize=813 ok=1
+Cmd: compileSnippet
+  error: 2 plat 4 at (101): undeclared identifier 'unity_WorldToObject'\nCompiling Vertex program
+  api=4 type=0 insize=3756 outsize=0 kw= pd= ok=0
+Cmd: preprocess
+  insize=4246 outsize=813 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=3750 outsize=3492 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=3750 outsize=762 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=4 insize=3750 outsize=5661 kw= pd= ok=1
+Cmd: preprocess
+  insize=4246 outsize=811 ok=1
+Cmd: compileSnippet
+  api=4 type=0 insize=3750 outsize=3492 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=1 insize=3750 outsize=762 kw= pd= ok=1
+Cmd: compileSnippet
+  api=4 type=4 insize=3750 outsize=5661 kw= pd= ok=1
