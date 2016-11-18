@@ -10,6 +10,7 @@ public var maxHeight: float;
 public var minHeight: float;
 public var isAttacking: boolean;
 public var force: Vector3;
+public var once: boolean;
 
 
 function Start () 
@@ -43,14 +44,21 @@ function Update ()
 	{
 		//this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(0, -2, 0));
 		this.gameObject.GetComponent.<Rigidbody>().drag = 0.5;
-		if(transform.position.x < 28)
+		
+		
+		if(transform.position.x < 28 && !once)
 		{
-			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(20,0,0));
+			//this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(20,0,0));
+			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(0,-20,0));
+			once = true;
 		}
-		else if(transform.position.x > 58)
+		else if(transform.position.x > 58 && !once)
 		{
-			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(-20,0,0));
+			//this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(-20,0,0));
+			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(0,-20,0));
+			once = true;
 		}
+		
 	}
 	
 /*	//flight for the bird
