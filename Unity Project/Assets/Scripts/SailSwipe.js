@@ -7,9 +7,14 @@ public var touchDistanceX: float;
 public var touchDistanceY: float;
 public var sailDecreaseRate: float;
 public var sail: Cloth;
+public var brokenSail: GameObject;
+public var bottomBone: GameObject;
+public var bottomBoneFixedPos: Vector3;
+public var isBroken: boolean;
 
 function Start () 
 {
+	bottomBoneFixedPos = bottomBone.transform.position;
 //sail = GameObject.FindGameObjectWithTag("sail");
 }
 
@@ -33,6 +38,7 @@ function Update ()
 			sail.externalAcceleration.x += 5;
 			if(sail.externalAcceleration.x > 50)
 			{
+				BreakSail();
 				sail.externalAcceleration.x = 50;
 			}
 		}
@@ -43,9 +49,24 @@ function Update ()
 	{
 		sail.externalAcceleration.x += 5;
 	}
-//makes the sail decrease over time
-	if (sail.externalAcceleration.x > 0)
-		sail.externalAcceleration.x -= sailDecreaseRate * Time.deltaTime;
+
+// if sail force too strong, break sail
+if(!isBroken)
+	{
+		if(sail.externalAcceleration.x > 50)
+			{
+				BreakSail();
+			}
+	}
+
+}
 
 
+function BreakSail()
+{
+	isBroken = true;
+	brokenSail.SetActive (true);
+	sail.gameObject.SetActive (false);
+	brokenSail.GetComponent.<Cloth>().externalAcceleration.x = sail.externalAcceleration.x; 
+	
 }
