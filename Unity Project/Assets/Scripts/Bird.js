@@ -18,11 +18,11 @@ function Start ()
 	attackPos = Random.Range(EndOfBoat, StartOFBoat);
 	if(transform.position.x > 50)
 	{
-		force.x = -400;
+		force.x = Random.Range(-450, -550);
 	}
 	else
 	{
-		force.x = 400;
+		force.x =  Random.Range(550, 650);
 		
 	}
 	
@@ -41,7 +41,16 @@ function Update ()
 
 	if(this.gameObject.GetComponent.<Rigidbody>().velocity.y <= 0)
 	{
-		this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(0, -2, 0));
+		//this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(0, -2, 0));
+		this.gameObject.GetComponent.<Rigidbody>().drag = 0.5;
+		if(transform.position.x < 28)
+		{
+			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(20,0,0));
+		}
+		else if(transform.position.x > 58)
+		{
+			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(-20,0,0));
+		}
 	}
 	
 /*	//flight for the bird

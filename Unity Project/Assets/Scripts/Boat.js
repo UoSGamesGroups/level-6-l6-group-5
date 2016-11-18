@@ -45,6 +45,11 @@ function Update ()
 	//Set speed to sail acceleration
 	boatSpeed = sail.externalAcceleration.x;
 
+
+	if(Input.GetKeyDown(KeyCode.T))
+	{
+		CreateBird();
+	}
 }
 
 //Create a fire and set it to child object of boat
@@ -58,7 +63,8 @@ function CreateFire ()
 //Create a bird
 function CreateBird () 
 {
-	birdPos.y = Random.Range(148, 170);
+	//birdPos.y = Random.Range(148, 170);
+	birdPos.y = 150;
 	
 	leftOrRight = Random.Range(0,2);
 	
