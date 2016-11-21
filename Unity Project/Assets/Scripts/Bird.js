@@ -46,18 +46,26 @@ function Update ()
 		this.gameObject.GetComponent.<Rigidbody>().drag = 0.5;
 		
 		
-		if(transform.position.x < 28 && !once)
+		/*if(transform.position.x < 28 && !once)
 		{
-			//this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(20,0,0));
-			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(0,-20,0));
+			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(20,200,0));
 			once = true;
 		}
 		else if(transform.position.x > 58 && !once)
 		{
-			//this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(-20,0,0));
-			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(0,-20,0));
+			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(-20,200,0));
 			once = true;
+		}*/
+		
+		if(transform.position.y <= 152 && transform.position.x < 31)
+		{
+			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(100,500,0));
 		}
+		else if(transform.position.y <= 152 && transform.position.x > 50)
+		{
+			this.gameObject.GetComponent.<Rigidbody>().AddForce(new Vector3(-100,500,0));
+		}
+		
 		
 	}
 	

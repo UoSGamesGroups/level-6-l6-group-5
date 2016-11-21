@@ -6,10 +6,13 @@ public var touchDistanceX: float;
 public var anim: Animator;
 public var canKill: boolean;
 public var valid: boolean;
+public var boatXPos: Vector2;
+public var kraken: GameObject;
 
 function Start () 
 {
 	anim = GetComponent(Animator);
+	kraken = this.gameObject;
 	
 	Down();
 }
@@ -68,7 +71,9 @@ function Down ()
 	anim.SetBool("Down", true);
 	anim.SetBool("Up", false);
 	canKill = false;
-	yield WaitForSeconds(5);
+	
+	yield WaitForSeconds(Random.Range(2,4));
+	
 	Up();
 }
 
@@ -77,12 +82,20 @@ function Up ()
 	anim.SetBool("Down", false);
 	anim.SetBool("Up", true);
 	canKill = true;
-	yield WaitForSeconds(5);
+	
+	yield WaitForSeconds(Random.Range(2,4));
+	
 	Hold();
 }
 
 function Hold() 
 {
 	Down();
+	MovePos();
 }
 
+
+function MovePos()
+{
+	kraken.transform.position.x = Random.Range(boatXPos.x, boatXPos.y);
+}

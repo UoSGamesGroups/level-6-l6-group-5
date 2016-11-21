@@ -18,7 +18,7 @@ public var boatCamera: GameObject;
 public var backButton: GameObject;
 public var controller: GameObject;
 public var leftOrRight: int;
-
+public var boatXPos: Vector2;
 
 public var reachedEnd: boolean;
 
@@ -28,7 +28,6 @@ function Start()
 	firePos = new Vector3(transform.position.x + 14, transform.position.y, transform.position.z - 7);
 	birdPos = new Vector3(transform.position.x + 45, transform.position.y + 13, transform.position.z - 6);
 	krakenPos = new Vector3(transform.position.x + 15, transform.position.y - 21, transform.position.z + 3);
-	
 }
 
 function Update () 
@@ -83,6 +82,7 @@ function CreateBird ()
 //Create a kraken and set it to child object of boat
 function CreateKraken () 
 {
+	krakenPos.x = Random.Range(boatXPos.x, boatXPos.y);
 	var childKraken = Instantiate(kraken, krakenPos, transform.rotation);
 	childKraken.transform.parent = gameObject.transform;
 	hasKraken = true; 
