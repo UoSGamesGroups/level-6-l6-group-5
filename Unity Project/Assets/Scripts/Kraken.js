@@ -8,12 +8,18 @@ public var canKill: boolean;
 public var valid: boolean;
 public var boatXPos: Vector2;
 public var kraken: GameObject;
+public var leftPos: Vector3;
+public var clicked: Vector3;
+public var lift: Vector3;
+public var clickedTime: float;
+public var clickedPos: int;
+public var cam: GameObject;
+public var pos: int;
 
 function Start () 
 {
 	anim = GetComponent(Animator);
 	kraken = this.gameObject;
-	
 	Down();
 }
  
@@ -50,9 +56,7 @@ function Update()
 								Debug.Log("Kraken Hit");
 								if(canKill)
 								{
-									Destroy(this.gameObject);
-									GetComponentInParent(Boat).hasKraken = false;
-									
+									//Kill();
 								}
 							}
 							break;
@@ -98,4 +102,35 @@ function Hold()
 function MovePos()
 {
 	kraken.transform.position.x = Random.Range(boatXPos.x, boatXPos.y);
+	pos ++;
+}
+
+function OnMouseDown()
+{
+	cam = GameObject.FindGameObjectWithTag("BoatCamera");
+	
+	Debug.Log("Down");
+	clicked = cam.GetComponent(Camera).WorldToScreenPoint(Input.mousePosition);
+	clickedTime = Time.time;
+	clickedPos = pos;
+}
+
+function OnMouseUp()
+{
+	Debug.Log("Up");
+	
+	lift = cam.GetComponent(Camera).WorldToScreenPoint(Input.mousePosition);
+	
+	Debug.Log(lift.x - clicked.x);
+	
+	if(Time.time - clickedTime <= 1 && lift.x - clicked.x >= 2000 && lift.x - clicked.x <= 3000 && clickedPos == pos)
+	{
+		Kill();
+	}
+}
+
+function Kill ()
+{
+	Destroy(this.gameObject);
+	GetComponentInParent(Boat).hasKraken = false;
 }
