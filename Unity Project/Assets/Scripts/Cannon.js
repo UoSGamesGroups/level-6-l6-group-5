@@ -12,18 +12,26 @@ public var ball: GameObject;
 public var force: Vector3;
 public var forceMinMax: Vector2;
 public var once: boolean; 
+public var reloadTime: float;
+public var finishReload: float;
+public var reloadImage: GameObject;
+public var reloaded: boolean;
+
+public var reloadPercent: float;
+public var time: float;
+public var timeLeft: float;
 
 
 function Start () 
 {
 	enemy = GameObject.FindGameObjectWithTag("Enemy");
+	transform.LookAt(enemy.transform, Vector3.forward);
+	transform.rotation.z = 0;
+	transform.rotation.x = 0;
 }
 
 function Update () 
 {
-	transform.LookAt(enemy.transform, Vector3.forward);
-	transform.rotation.z = 0;
-	transform.rotation.x = 0;
 	
 	if (Input.touchCount > 0)
 	var touch: Touch = Input.GetTouch(0);
@@ -70,15 +78,31 @@ function Update ()
 	{
 		Fire();
 	}
+	if(finishReload > Time.time)
+	{
+		time = Time.time;
+		timeLeft = finishReload - time;
+		reloadPercent = (((timeLeft / reloadTime) / 2) + 0.5);
+		reloadImage.GetComponent.<Renderer>().material.SetFloat("_Cutoff", reloadPercent); 
+	}
+	
+	if(finishReload <= Time.time)
+	{
+		reloadImage.SetActive(false);
+		reloaded = true;
+	}
 }
 
 function Fire()
 {
-	if(once)
+	if(once && reloaded)
 	{
 		clicked = false;
 		var childBall = Instantiate(ball, ballPos, transform.rotation);
 		childBall.transform.parent = cannon.transform;
+		reloadImage.SetActive(true);
+		reloaded = false;
+		finishReload = reloadTime + Time.time;
 		once = false;
 	}
 }

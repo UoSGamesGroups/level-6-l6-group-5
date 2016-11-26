@@ -1,6 +1,8 @@
 ﻿#pragma strict
 
 public var ballForce: Vector3;
+public var damage: int;
+public var canDamage: boolean;
 
 
 function Start () 
@@ -19,8 +21,10 @@ function Update ()
 
 function OnCollisionEnter(other: Collision)
 {
-	if(other.gameObject.tag == "Enemy")
+	if(other.gameObject.tag == "Enemy" && canDamage)
 	{
+		other.gameObject.GetComponentInParent(Boss).health -= damage;
+		canDamage = false;
 		yield WaitForSeconds(1);
 		Destroy(this.gameObject);
 	}

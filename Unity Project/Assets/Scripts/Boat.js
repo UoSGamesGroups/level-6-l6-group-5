@@ -19,6 +19,7 @@ public var backButton: GameObject;
 public var controller: GameObject;
 public var leftOrRight: int;
 public var boatXPos: Vector2;
+public var health: int;
 
 public var reachedEnd: boolean;
 
