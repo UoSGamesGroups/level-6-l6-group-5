@@ -5,19 +5,27 @@ public var touchStart: Vector2;
 public var touchEnd: Vector2;
 public var touchDistanceX: float;
 public var touchDistanceY: float;
-public var zoneUnlocked: int;
-public var zone1Number: int;
+public var zoneUnlocked: int; //number of zones player has unlocked
+//holds number of zone
+public var zone1Number: int; 
 public var zone2Number: int;
 public var zone3Number: int;
 public var zone4Number: int;
+//holds the text for each zone
 public var zone1Text: Text;
 public var zone2Text: Text;
 public var zone3Text: Text;
 public var zone4Text: Text;
+//holds wether the zone is locked
 public var zone1Locked: boolean;
 public var zone2Locked: boolean;
 public var zone3Locked: boolean;
 public var zone4Locked: boolean;
+//holds the locked image for each zone
+public var zone1LockedImage: GameObject;
+public var zone2LockedImage: GameObject;
+public var zone3LockedImage: GameObject;
+public var zone4LockedImage: GameObject;
 
 function Start () 
 {
@@ -71,38 +79,46 @@ function UpdateText()
 	zone2Text.text = "Zone: " + zone2Number;
 	zone3Text.text = "Zone: " + zone3Number;
 	zone4Text.text = "Zone: " + zone4Number;
-//sets if zone is locked or not
+//sets if zone is locked or not and displays locked image
 	if (zone1Number > zoneUnlocked)
 	{
 		zone1Locked = true;
+		zone1LockedImage.SetActive (zone1Locked);
 	}
 	else
 	{
 		zone1Locked = false;
+		zone1LockedImage.SetActive (zone1Locked);
 	}
 	if (zone2Number > zoneUnlocked)
 	{
 		zone2Locked = true;
+		zone2LockedImage.SetActive (zone2Locked);
 	}
 	else
 	{
 		zone2Locked = false;
+		zone2LockedImage.SetActive (zone2Locked);
 	}
 	if (zone3Number > zoneUnlocked)
 	{
 		zone3Locked = true;
+		zone3LockedImage.SetActive (zone3Locked);
 	}
 	else
 	{
 		zone3Locked = false;
+		zone3LockedImage.SetActive (zone3Locked);
 	}
 	if (zone4Number > zoneUnlocked)
 	{
 		zone4Locked = true;
+		zone4LockedImage.SetActive (zone4Locked);
 	}
 	else
 	{
 		zone4Locked = false;
+		zone4LockedImage.SetActive (zone4Locked);
 	}
 }
 function SwipeLeft()

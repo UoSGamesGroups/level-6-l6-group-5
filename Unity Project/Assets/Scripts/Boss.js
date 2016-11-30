@@ -26,6 +26,7 @@ function Update ()
 	if(health <= 0)
 	{
 		Destroy(this.gameObject);
+		WaitAndLoad();
 	}
 	
 	if(nextShot <= Time.time)
@@ -40,4 +41,10 @@ function Shoot()
 {
 	var childBall = Instantiate(ball, ballPos, transform.rotation);
 	childBall.transform.parent = boss.transform;
+}
+
+function WaitAndLoad ()
+{
+//yield WaitForSeconds (3);
+Application.LoadLevel ("LevelSelect");
 }
