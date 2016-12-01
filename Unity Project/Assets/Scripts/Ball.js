@@ -1,4 +1,4 @@
-﻿#pragma strict
+﻿ #pragma strict
 
 public var ballForce: Vector3;
 public var damage: int;
@@ -9,6 +9,7 @@ function Start ()
 {
 	ballForce = GetComponentInParent(Cannon).force;
 	this.gameObject.GetComponent.<Rigidbody>().AddRelativeForce(ballForce);
+	damage = 10 * PlayerPrefs.GetInt("CannonBall");
 }
 
 function Update () 

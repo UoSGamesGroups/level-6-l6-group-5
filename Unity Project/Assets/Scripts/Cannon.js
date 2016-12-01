@@ -29,6 +29,7 @@ function Start ()
 	transform.rotation.z = 0;
 	transform.rotation.x = 0;
 	
+	reloadTime = 1 - (PlayerPrefs.GetInt("Reload") / 10);
 }
 
 function Update () 
@@ -56,19 +57,21 @@ function Update ()
 								touchTrav.y = touchEnd.y - touchStart.y;
 								Mathf.Max(touchTrav.y, 0);
 								
-								Analytic();
 								
 								if(touchTrav.y <= forceMinMax.y && touchTrav.y >= forceMinMax.x)
 								{
 									force = new Vector3 (0, 800, 650);
+									Analytic("Ok", touchTrav.y);
 								}
 								else if(touchTrav.y < forceMinMax.x)
 								{
 									force = new Vector3 (0, (touchTrav.y/forceMinMax.x) * 800,650);
+									Analytic("Short", touchTrav.y);
 								}
 								else if(touchTrav.y > forceMinMax.y)
 								{
 									force = new Vector3 (0, (touchTrav.y/forceMinMax.y) * 800,650);
+									Analytic("Too far", touchTrav.y);
 								}
 
 								Fire();
@@ -79,7 +82,7 @@ function Update ()
 	if(Input.GetKeyDown(KeyCode.P))
 	{
 		touchTrav.y = Random.Range(50, 400);
-		Analytic();
+		Analytic("Cheated", touchTrav.y);
 		Fire();
 	}
 	
@@ -127,11 +130,11 @@ function OnMouseUp ()
 	clicked = false;
 }
 
-function Analytic()
+function Analytic(name: String, num: float)
 {
 	//Test for analytics. Might change. 
 	var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
-	params.Add("Y Distance", touchTrav.y);
-	var returnVal = Analytics.Analytics.CustomEvent("Finger Movement", params);
+	params.Add("Distance", num);
+	var returnVal = Analytics.Analytics.CustomEvent(name, params);
 	Debug.Log(returnVal);
 }
