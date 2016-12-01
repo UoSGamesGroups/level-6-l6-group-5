@@ -1,6 +1,5 @@
 ﻿#pragma strict
-
 function LoadTopDownScene()
 {
-Application.LoadLevel ("scene 1");
+	Application.LoadLevel ("scene 1");
 }

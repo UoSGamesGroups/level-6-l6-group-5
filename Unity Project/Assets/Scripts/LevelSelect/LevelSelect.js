@@ -26,6 +26,8 @@ public var zone1LockedImage: GameObject;
 public var zone2LockedImage: GameObject;
 public var zone3LockedImage: GameObject;
 public var zone4LockedImage: GameObject;
+//hint for locked zone
+public var hint2: GameObject;
 
 function Start () 
 {
@@ -137,3 +139,48 @@ function SwipeRight()
 	zone4Number -= 4;
 	UpdateText();
 }
+
+function Explore(number:int)
+{
+	switch (number)
+	{
+	case 1: if (!zone1Locked)
+			{
+				Application.LoadLevel ("Scene 1");
+			}
+			else
+			{
+				hint2.SetActive (true);
+			}
+	break;
+	case 2:	if (!zone2Locked)
+			{
+				Application.LoadLevel ("Scene 1");
+			}
+			else
+			{
+				hint2.SetActive (true);
+			}
+	break;
+	case 3:	if (!zone3Locked)
+			{
+				Application.LoadLevel ("Scene 1");
+			}
+			else
+			{
+				hint2.SetActive (true);
+			}
+	break;
+	case 4:	if (!zone4Locked)
+			{
+				Application.LoadLevel ("Scene 1");
+			}
+			else
+			{
+				hint2.SetActive (true);
+			}
+	break;
+	}
+
+}
+

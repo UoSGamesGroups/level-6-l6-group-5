@@ -5,8 +5,11 @@ public var marker: GameObject;
 public var distance: float = 4.5;
 public var speed: float = 4.5;
 public var travelTo: GameObject;
-public var health: int;
+public var health: float;
 public var mousePos: Vector3;
+public var started: boolean;
+public var healthImage: Image;
+public var maxHealth: int;
 
 
 function Start () {
@@ -15,6 +18,7 @@ function Start () {
 
 function Update () 
 {
+	healthImage.fillAmount = health/100;
 
 	var step = speed * Time.deltaTime;
 
@@ -53,16 +57,15 @@ function Update ()
 		var rotation = Quaternion.LookRotation(lookPos); //calculates rotation
 		transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping); // rotates boat to face marker
 //Old control method
+		transform.position += transform.forward * Time.deltaTime;//makes boat move forwards
 		//transform.position = Vector3.MoveTowards(transform.position, travelTo.transform.position, step); // moves boat towards marker
 
 
 	}
 
 
-		transform.position += transform.forward * Time.deltaTime;//makes boat move forwards
 
-
-	if (health < 0)
+	if (health <= 0)
 	Application.LoadLevel(Application.loadedLevel);
 
 
