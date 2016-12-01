@@ -4,6 +4,8 @@ public var unlocked: boolean;
 public var selected: boolean;
 public var lockedImage: GameObject;
 public var sails: GameObject[];
+public var sailColour: Renderer;
+public var colour: Color;
 
 
 function Start()
@@ -23,5 +25,10 @@ function Clicked()
  	if(unlocked)
 	 {
 	 	selected = true;
+	 	sailColour.material.color = colour;
 	 }
+	
+	 
+
+
 }
