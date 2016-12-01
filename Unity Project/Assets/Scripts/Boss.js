@@ -10,6 +10,15 @@ public var nextShotTime: float;
 public var boss: GameObject;
 public var ball: GameObject;
 public var ballPos: Vector3;
+public var loot: GameObject;
+public var wood: int;
+public var cloth: int;
+public var metal: int;
+public var woodText: Text;
+public var clothText: Text;
+public var metalText: Text;
+public var dead: boolean;
+
 
 function Start () 
 {
@@ -23,10 +32,10 @@ function Update ()
 	healthPercent = health/healthStart * 10.93461;
 	bar.transform.localScale.x = healthPercent;
 	
-	if(health <= 0)
+	if(health <= 0 && !dead)
 	{
-		Destroy(this.gameObject);
-		WaitAndLoad();
+		dead = true;
+		LootAmounts();
 	}
 	
 	if(nextShot <= Time.time)
@@ -43,8 +52,24 @@ function Shoot()
 	childBall.transform.parent = boss.transform;
 }
 
+function LootAmounts()
+{
+	wood = Random.Range(0, 6);
+	cloth = Random.Range(0, 6);	
+	metal = Random.Range(0, 6);	
+
+	loot.SetActive(true);
+			
+	woodText.text = "+" + wood;
+	clothText.text = "+" + cloth;
+	metalText.text = "+" + metal;
+	
+	yield WaitForSeconds(2);
+	WaitAndLoad();
+}
+
 function WaitAndLoad ()
 {
-//yield WaitForSeconds (3);
-Application.LoadLevel ("LevelSelect");
+	
+	Application.LoadLevel ("LevelSelect");
 }

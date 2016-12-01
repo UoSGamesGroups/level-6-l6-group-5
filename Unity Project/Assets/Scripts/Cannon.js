@@ -20,7 +20,7 @@ public var reloaded: boolean;
 public var reloadPercent: float;
 public var time: float;
 public var timeLeft: float;
-
+public var params = new System.Collections.Generic.Dictionary.<System.String, System.Object>();
 
 function Start () 
 {
@@ -28,11 +28,11 @@ function Start ()
 	transform.LookAt(enemy.transform, Vector3.forward);
 	transform.rotation.z = 0;
 	transform.rotation.x = 0;
+	
 }
 
 function Update () 
 {
-	
 	if (Input.touchCount > 0)
 	var touch: Touch = Input.GetTouch(0);
 	
@@ -56,6 +56,8 @@ function Update ()
 								touchTrav.y = touchEnd.y - touchStart.y;
 								Mathf.Max(touchTrav.y, 0);
 								
+								Analytic();
+								
 								if(touchTrav.y <= forceMinMax.y && touchTrav.y >= forceMinMax.x)
 								{
 									force = new Vector3 (0, 800, 650);
@@ -74,10 +76,18 @@ function Update ()
 							break;
 	}
 	
+	if(Input.GetKeyDown(KeyCode.P))
+	{
+		touchTrav.y = Random.Range(50, 400);
+		Analytic();
+		Fire();
+	}
+	
 	if(Input.GetKeyDown(KeyCode.C))
 	{
 		Fire();
 	}
+	
 	if(finishReload > Time.time)
 	{
 		time = Time.time;
@@ -115,4 +125,13 @@ function OnMouseDown ()
 function OnMouseUp () 
 {
 	clicked = false;
+}
+
+function Analytic()
+{
+	//Test for analytics. Might change. 
+	var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
+	params.Add("Y Distance", touchTrav.y);
+	var returnVal = Analytics.Analytics.CustomEvent("Finger Movement", params);
+	Debug.Log(returnVal);
 }
