@@ -142,6 +142,8 @@ function SwipeRight()
 
 function Explore(number:int)
 {
+	PlayerPrefs.SetInt("Level", number);
+
 	switch (number)
 	{
 	case 1: if (!zone1Locked)

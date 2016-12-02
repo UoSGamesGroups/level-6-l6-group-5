@@ -20,6 +20,8 @@ public var controller: GameObject;
 public var leftOrRight: int;
 public var boatXPos: Vector2;
 public var health: int;
+public var dead: GameObject;
+
 
 public var reachedEnd: boolean;
 
@@ -30,7 +32,7 @@ function Start()
 	birdPos = new Vector3(transform.position.x + 45, transform.position.y + 13, transform.position.z - 6);
 	krakenPos = new Vector3(transform.position.x + 15, transform.position.y - 21, transform.position.z + 3);
 	
-	health = 100 * PlayerPrefs.GetInt("Healt");
+	health = 100 * PlayerPrefs.GetInt("Health");
 }
 
 function Update () 
@@ -46,6 +48,11 @@ function Update ()
 	
 	//Set speed to sail acceleration
 	boatSpeed = sail.externalAcceleration.x;
+
+	if(health <= 0)
+	{
+		dead.SetActive(true);
+	}
 
 
 	if(Input.GetKeyDown(KeyCode.T))

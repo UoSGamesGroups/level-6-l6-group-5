@@ -11,15 +11,18 @@ public var ballPos: Vector3;
 public var ball: GameObject; 
 public var force: Vector3;
 public var forceMinMax: Vector2;
+public var forceMinMaxX: Vector2;
 public var once: boolean; 
 public var reloadTime: float;
 public var finishReload: float;
 public var reloadImage: GameObject;
 public var reloaded: boolean;
-
+public var xForce: float;
 public var reloadPercent: float;
 public var time: float;
 public var timeLeft: float;
+public var acuracyLevel: int;
+public var acuracy: Vector2;
 public var params = new System.Collections.Generic.Dictionary.<System.String, System.Object>();
 
 function Start () 
@@ -28,6 +31,7 @@ function Start ()
 	transform.LookAt(enemy.transform, Vector3.forward);
 	transform.rotation.z = 0;
 	transform.rotation.x = 0;
+	acuracyLevel = PlayerPrefs.GetInt("Cannon");
 	
 	reloadTime = 1 - (PlayerPrefs.GetInt("Reload") / 10);
 }
@@ -55,22 +59,27 @@ function Update ()
 							{
 								touchEnd = touch.position;
 								touchTrav.y = touchEnd.y - touchStart.y;
+								touchTrav.x =  touchEnd.x - touchStart.x;
 								Mathf.Max(touchTrav.y, 0);
+
+								acuracy.x = -100 + acuracyLevel;
+								acuracy.y = 100 - acuracyLevel;
 								
-								
+								touchTrav.x = touchTrav.x + Random.Range(acuracy.x, acuracy.y);
+
 								if(touchTrav.y <= forceMinMax.y && touchTrav.y >= forceMinMax.x)
 								{
-									force = new Vector3 (0, 800, 650);
+									force = new Vector3 (touchTrav.x, 800, 650);
 									Analytic("Ok", touchTrav.y);
 								}
 								else if(touchTrav.y < forceMinMax.x)
 								{
-									force = new Vector3 (0, (touchTrav.y/forceMinMax.x) * 800,650);
+									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.x) * 800,650);
 									Analytic("Short", touchTrav.y);
 								}
 								else if(touchTrav.y > forceMinMax.y)
 								{
-									force = new Vector3 (0, (touchTrav.y/forceMinMax.y) * 800,650);
+									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.y) * 800,650);
 									Analytic("Too far", touchTrav.y);
 								}
 
