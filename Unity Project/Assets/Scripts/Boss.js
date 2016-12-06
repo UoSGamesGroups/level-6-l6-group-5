@@ -18,6 +18,7 @@ public var woodText: Text;
 public var clothText: Text;
 public var metalText: Text;
 public var dead: boolean;
+public var cannon: GameObject;
 
 
 function Start () 
@@ -28,6 +29,8 @@ function Start ()
 	force.x = Random.Range(-100, 100);
 	force.y = Random.Range(600, 1000);
 	force.z = Random.Range(-800, -500);	
+
+	cannon = GameObject.FindGameObjectWithTag("Cannon");
 }
 
 function Update () 
@@ -38,6 +41,11 @@ function Update ()
 	
 	if(health <= 0 && !dead)
 	{
+		var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
+		params.Add("Shooting", cannon.GetComponent(Cannon).shotCounter);
+		var returnVal = Analytics.Analytics.CustomEvent("Amount", params);
+		Debug.Log(returnVal);
+
 		dead = true;
 		LootAmounts();
 	}

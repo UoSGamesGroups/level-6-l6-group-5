@@ -24,6 +24,7 @@ public var timeLeft: float;
 public var acuracyLevel: int;
 public var acuracy: Vector2;
 public var params = new System.Collections.Generic.Dictionary.<System.String, System.Object>();
+public var shotCounter: int;
 
 function Start () 
 {
@@ -62,8 +63,8 @@ function Update ()
 								touchTrav.x =  touchEnd.x - touchStart.x;
 								Mathf.Max(touchTrav.y, 0);
 
-								acuracy.x = -100 + acuracyLevel;
-								acuracy.y = 100 - acuracyLevel;
+								acuracy.x = -25 + acuracyLevel;
+								acuracy.y = 25 - acuracyLevel;
 								
 								touchTrav.x = touchTrav.x + Random.Range(acuracy.x, acuracy.y);
 
@@ -126,6 +127,7 @@ function Fire()
 		reloaded = false;
 		finishReload = reloadTime + Time.time;
 		once = false;
+		shotCounter++;
 	}
 }
 

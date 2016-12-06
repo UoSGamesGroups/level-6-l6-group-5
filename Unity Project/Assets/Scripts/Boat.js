@@ -21,8 +21,6 @@ public var leftOrRight: int;
 public var boatXPos: Vector2;
 public var health: int;
 public var dead: GameObject;
-
-
 public var reachedEnd: boolean;
 
 function Start()
