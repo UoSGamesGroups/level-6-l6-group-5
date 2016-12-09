@@ -29,9 +29,9 @@ public var shotCounter: int;
 function Start () 
 {
 	enemy = GameObject.FindGameObjectWithTag("Enemy");
-	transform.LookAt(enemy.transform, Vector3.forward);
-	transform.rotation.z = 0;
-	transform.rotation.x = 0;
+	//transform.LookAt(enemy.transform, Vector3.forward);
+	//transform.rotation.z = 0;
+	//transform.rotation.x = -270;
 	acuracyLevel = PlayerPrefs.GetInt("Cannon");
 	
 	reloadTime = 1 - (PlayerPrefs.GetInt("Reload") / 10);
@@ -70,17 +70,17 @@ function Update ()
 
 								if(touchTrav.y <= forceMinMax.y && touchTrav.y >= forceMinMax.x)
 								{
-									force = new Vector3 (touchTrav.x, 800, 650);
+									force = new Vector3 (touchTrav.x, 800,-650);
 									Analytic("Ok", touchTrav.y);
 								}
 								else if(touchTrav.y < forceMinMax.x)
 								{
-									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.x) * 800,650);
+									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.x) * 800,-650);
 									Analytic("Short", touchTrav.y);
 								}
 								else if(touchTrav.y > forceMinMax.y)
 								{
-									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.y) * 800,650);
+									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.y) * 800,-650);
 									Analytic("Too far", touchTrav.y);
 								}
 

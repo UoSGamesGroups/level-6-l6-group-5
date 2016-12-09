@@ -14,11 +14,15 @@ public var loot: GameObject;
 public var wood: int;
 public var cloth: int;
 public var metal: int;
+public var playerWood: int;
+public var playerCloth: int;
+public var playerMetal: int;
 public var woodText: Text;
 public var clothText: Text;
 public var metalText: Text;
 public var dead: boolean;
 public var cannon: GameObject;
+public var healthImage: Image;
 
 
 function Start () 
@@ -38,9 +42,10 @@ var currentLevel:int = PlayerPrefs.GetInt("currentLevel");
 function Update () 
 {
 
-	healthPercent = health/healthStart * 10.93461;
-	bar.transform.localScale.x = healthPercent;
-	
+	healthPercent = health/healthStart;
+	//bar.transform.localScale.x = healthPercent;
+	healthImage.fillAmount = healthPercent;
+
 	if(health <= 0 && !dead)
 	{
 		var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
@@ -82,14 +87,14 @@ function LootAmounts()
 	clothText.text = "+" + cloth;
 	metalText.text = "+" + metal;
 
-	PlayerPrefs.SetInt("Wood", PlayerPrefs.GetInt("Wood" + wood));
-	PlayerPrefs.SetInt("Cloth", PlayerPrefs.GetInt("Cloth" + cloth));
-	PlayerPrefs.SetInt("Metal", PlayerPrefs.GetInt("Metal" + metal));
-	
+	playerWood = PlayerPrefs.GetInt("Wood");
+	playerCloth = PlayerPrefs.GetInt("Cloth");
+	playerMetal = PlayerPrefs.GetInt("Metal");
 
+	PlayerPrefs.SetInt("Wood", wood + playerWood);
+	PlayerPrefs.SetInt("Cloth", cloth + playerCloth);
+	PlayerPrefs.SetInt("Metal", metal + playerMetal);
 
-	
-	
 	yield WaitForSeconds(2);
 	WaitAndLoad();
 }

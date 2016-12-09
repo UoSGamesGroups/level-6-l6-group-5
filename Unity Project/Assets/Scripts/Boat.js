@@ -19,7 +19,9 @@ public var backButton: GameObject;
 public var controller: GameObject;
 public var leftOrRight: int;
 public var boatXPos: Vector2;
-public var health: int;
+public var health: float;
+public var healthStart: float;
+public var healthImage: Image;
 public var dead: GameObject;
 public var reachedEnd: boolean;
 
@@ -29,11 +31,13 @@ function Start()
 	firePos = new Vector3(transform.position.x + 14, transform.position.y, transform.position.z - 7);
 	birdPos = new Vector3(transform.position.x + 45, transform.position.y + 13, transform.position.z - 6);
 	krakenPos = new Vector3(transform.position.x + 15, transform.position.y - 21, transform.position.z + 3);
+
 	if (PlayerPrefs.GetInt("Health") < 1)
 	{
 		PlayerPrefs.SetInt("Health", 1);
 	}
 	health = 100 * PlayerPrefs.GetInt("Health");
+	healthStart = health;
 }
 
 function Update () 
@@ -43,6 +47,8 @@ function Update ()
 	{
 		reachedEnd = true;
 	}
+
+	healthImage.fillAmount = health/healthStart;
 
 	//Calculate distance travelled
 	distanceTrav += boatSpeed * Time.deltaTime;
