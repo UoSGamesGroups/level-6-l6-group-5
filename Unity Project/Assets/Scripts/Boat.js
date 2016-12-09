@@ -29,7 +29,10 @@ function Start()
 	firePos = new Vector3(transform.position.x + 14, transform.position.y, transform.position.z - 7);
 	birdPos = new Vector3(transform.position.x + 45, transform.position.y + 13, transform.position.z - 6);
 	krakenPos = new Vector3(transform.position.x + 15, transform.position.y - 21, transform.position.z + 3);
-	
+	if (PlayerPrefs.GetInt("Health") < 1)
+	{
+		PlayerPrefs.SetInt("Health", 1);
+	}
 	health = 100 * PlayerPrefs.GetInt("Health");
 }
 

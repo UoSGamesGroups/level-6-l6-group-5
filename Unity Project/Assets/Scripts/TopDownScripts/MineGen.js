@@ -7,10 +7,13 @@ public var numberOfMines: int;
 
 function Start () 
 {
+var currentLevel:int = PlayerPrefs.GetInt("currentLevel");
+Debug.Log("current Level = " + currentLevel);
+
 	var bossPos: Vector3;
 	bossPos.x = Random.Range(0,14);
 	bossPos.y = 0.2;
-	bossPos.z = Random.Range(0,14);
+	bossPos.z = Random.Range(0,8);
 	Instantiate (boss,bossPos,transform.rotation);
 	
 

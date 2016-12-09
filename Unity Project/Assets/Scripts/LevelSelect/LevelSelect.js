@@ -5,7 +5,7 @@ public var touchStart: Vector2;
 public var touchEnd: Vector2;
 public var touchDistanceX: float;
 public var touchDistanceY: float;
-public var zoneUnlocked: int; //number of zones player has unlocked
+static var zoneUnlocked: int; //number of zones player has unlocked
 //holds number of zone
 public var zone1Number: int; 
 public var zone2Number: int;
@@ -31,6 +31,16 @@ public var hint2: GameObject;
 
 function Start () 
 {
+	zoneUnlocked = PlayerPrefs.GetInt ("zoneUnlocked");
+	Debug.Log("zones unlocked " + zoneUnlocked);
+	if (zoneUnlocked < 1)
+	{
+		zoneUnlocked = 1;
+		PlayerPrefs.SetInt("zoneUnlocked", zoneUnlocked);
+	}
+
+
+
 	UpdateText();
 }
 
@@ -149,6 +159,7 @@ function Explore(number:int)
 	case 1: if (!zone1Locked)
 			{
 				Application.LoadLevel ("Scene 1");
+				PlayerPrefs.SetInt("currentLevel", zone1Number);
 			}
 			else
 			{
@@ -158,6 +169,8 @@ function Explore(number:int)
 	case 2:	if (!zone2Locked)
 			{
 				Application.LoadLevel ("Scene 1");
+				PlayerPrefs.SetInt("currentLevel", zone2Number);
+				
 			}
 			else
 			{
@@ -167,6 +180,8 @@ function Explore(number:int)
 	case 3:	if (!zone3Locked)
 			{
 				Application.LoadLevel ("Scene 1");
+				PlayerPrefs.SetInt("currentLevel", zone3Number);
+				
 			}
 			else
 			{
@@ -176,6 +191,8 @@ function Explore(number:int)
 	case 4:	if (!zone4Locked)
 			{
 				Application.LoadLevel ("Scene 1");
+				PlayerPrefs.SetInt("currentLevel", zone4Number);
+				
 			}
 			else
 			{

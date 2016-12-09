@@ -9,6 +9,13 @@ function Start ()
 {
 	ballForce = GetComponentInParent(Cannon).force;
 	this.gameObject.GetComponent.<Rigidbody>().AddRelativeForce(ballForce);
+
+	if (PlayerPrefs.GetInt("CannonBall") < 1)
+	{
+		PlayerPrefs.SetInt("CannonBall", 1);
+	}
+
+
 	damage = 10 * PlayerPrefs.GetInt("CannonBall");
 }
 

@@ -23,7 +23,9 @@ public var cannon: GameObject;
 
 function Start () 
 {
-	healthStart = PlayerPrefs.GetInt("Level") * 100;
+var currentLevel:int = PlayerPrefs.GetInt("currentLevel");
+
+	healthStart = currentLevel * 100;
 	health = healthStart;
 	nextShot = Random.Range(nextShotTime.x, nextShotTime.y);
 	force.x = Random.Range(-100, 100);
@@ -47,6 +49,7 @@ function Update ()
 		Debug.Log(returnVal);
 
 		dead = true;
+		UnlockNextZone();
 		LootAmounts();
 	}
 	
@@ -83,8 +86,25 @@ function LootAmounts()
 	PlayerPrefs.SetInt("Cloth", PlayerPrefs.GetInt("Cloth" + cloth));
 	PlayerPrefs.SetInt("Metal", PlayerPrefs.GetInt("Metal" + metal));
 	
+
+
+	
+	
 	yield WaitForSeconds(2);
 	WaitAndLoad();
+}
+
+function UnlockNextZone()
+{	
+	var currentLevel:int = PlayerPrefs.GetInt("currentLevel");
+	var zonesUnlocked:int = PlayerPrefs.GetInt("zoneUnlocked");
+	if (currentLevel == zonesUnlocked)
+	{
+	currentLevel ++;
+	PlayerPrefs.SetInt("zoneUnlocked", currentLevel);
+	Debug.Log("New Zone Unlocked!");
+	}
+
 }
 
 function WaitAndLoad ()
