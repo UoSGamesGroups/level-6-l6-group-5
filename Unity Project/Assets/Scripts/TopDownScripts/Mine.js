@@ -19,7 +19,7 @@ function Update ()
 	dist = Vector3.Distance(player.transform.position, transform.position);
 
 
-	if (dist < 0.5)
+	if (dist < 0.75)
 	{
 		Instantiate (explosion,transform.position,transform.rotation);
 		player.GetComponent.<BoatControl>().health -= damage;

@@ -49,6 +49,7 @@ function Update ()
 //update Marker
 		travelTo.transform.position = pos;
 	}
+
 // if there is a marker travel to it
 	if (travelTo != null)
 	{
@@ -60,16 +61,9 @@ function Update ()
 //Old control method
 		transform.position += transform.forward * Time.deltaTime;//makes boat move forwards
 		//transform.position = Vector3.MoveTowards(transform.position, travelTo.transform.position, step); // moves boat towards marker
-
-
 	}
 
-
-
 	if (health <= 0)
-	Application.LoadLevel(Application.loadedLevel);
-
-
-
+		Application.LoadLevel(Application.loadedLevel);
 }
 

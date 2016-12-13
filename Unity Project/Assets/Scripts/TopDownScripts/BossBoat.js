@@ -14,7 +14,7 @@ function Start ()
 function Update () 
 {
 	dist = Vector3.Distance(player.transform.position, transform.position);
-	if (dist < 0.5)
+	if (dist < 1)
 	{
 		bossFoundUI.SetActive(true);
 	}

@@ -63,7 +63,13 @@ function Upgrade ()
 		PlayerPrefs.SetInt("Metal", metal);
 
 		PlayerPrefs.SetInt(upgradeName, upgradeLevel + 1);
-		
+
+		upgradeLevel += 1;
+
+		woodCost = woodMulti * upgradeLevel;
+		clothCost = clothMulti * upgradeLevel;
+		metalCost = metalMulti * upgradeLevel;
+
 		var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
 		params.Add("Upgrades", upgradeLevel);
 		var returnVal = Analytics.Analytics.CustomEvent(upgradeName, params);

@@ -91,13 +91,13 @@ function Update ()
 	
 	if(Input.GetKeyDown(KeyCode.P))
 	{
-		touchTrav.y = Random.Range(50, 400);
-		Analytic("Cheated", touchTrav.y);
+		force = new Vector3(Random.Range(-20, 20), Random.Range(700, 900), -650);
 		Fire();
 	}
 	
 	if(Input.GetKeyDown(KeyCode.C))
 	{
+		force = new Vector3(0, 800, -650);
 		Fire();
 	}
 	
