@@ -23,11 +23,12 @@ public var metalText: Text;
 public var dead: boolean;
 public var cannon: GameObject;
 public var healthImage: Image;
-
+public var currentChests: int;
+public var currentLevel: int; 
 
 function Start () 
 {
-var currentLevel:int = PlayerPrefs.GetInt("currentLevel");
+	currentLevel = PlayerPrefs.GetInt("currentLevel");
 
 	healthStart = currentLevel * 100;
 	health = healthStart;
@@ -95,7 +96,10 @@ function LootAmounts()
 	PlayerPrefs.SetInt("Cloth", cloth + playerCloth);
 	PlayerPrefs.SetInt("Metal", metal + playerMetal);
 
-	yield WaitForSeconds(2);
+	currentChests = PlayerPrefs.GetInt("Zone"+ currentLevel);
+	currentChests ++;
+	PlayerPrefs.SetInt("Zone"+ currentLevel, currentChests);
+
 	WaitAndLoad();
 }
 
@@ -114,6 +118,6 @@ function UnlockNextZone()
 
 function WaitAndLoad ()
 {
-	
+	yield WaitForSeconds(2);
 	Application.LoadLevel ("LevelSelect");
 }
