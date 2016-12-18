@@ -12,7 +12,10 @@ public var rareChance: int;
 public var uncommonChance: int;
 public var commonChance: int;
 public var randomRank: int;
-public var ranomItem: int;
+public var randomItem: int;
+public var totalChests: int;
+public var selectedItem: String;
+public var text: Text;
 
 function Start () 
 {
@@ -27,6 +30,11 @@ function Start ()
 			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString());
 		}
 	}
+}
+
+function Update()
+{
+	text.text = "Level " + chestLevel.ToString();
 }
 
 function AddToList(collectionName: String, rarity: String) 
@@ -50,18 +58,32 @@ function Clicked()
 
 	if(randomRank <= commonChance)
 	{
-		//Random from possible common items
+		randomItem = Random.Range(0, commonCollectables.Count);
+		selectedItem = commonCollectables.Item[randomItem];
 	}
-	else if(randomRank > commonChance && randomRank <= uncommonChance)
+	else if(randomRank > commonChance && randomRank <= uncommonChance + commonChance)
 	{
-		//Random from possible uncommon items
+		randomItem = Random.Range(0, uncommonCollectables.Count);
+		selectedItem = uncommonCollectables.Item[randomItem];
 	}
-	else if(randomRank > uncommonChance && randomRank <= rareChance)
+	else if(randomRank > uncommonChance + commonChance && randomRank <= rareChance + uncommonChance + commonChance)
 	{
-		//Random from possible rare items
+		randomItem = Random.Range(0, rareCollectables.Count);
+		selectedItem = rareCollectables.Item[randomItem];
 	}
-	else if(randomRank > rareChance && randomRank <= lengendaryChance)
+	else if(randomRank > rareChance + uncommonChance + commonChance && randomRank <= lengendaryChance + rareChance + uncommonChance + commonChance)
 	{
-		//Random from possible legendary items
+		randomItem = Random.Range(0, legendaryCollectables.Count);
+		selectedItem = legendaryCollectables.Item[randomItem];
 	}
+
+	/*
+	totalChests = PlayerPrefs.GetInt("Zone"+ chestLevel);
+	totalChests --;
+	PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
+
+	Destroy(this.gameObject);
+	*/
+
+	Debug.Log("Delete now");
 }
