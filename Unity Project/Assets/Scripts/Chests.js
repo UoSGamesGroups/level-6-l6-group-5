@@ -7,6 +7,7 @@ public class chest
 	public var type: types;
 	public var zoneSpecific: boolean;
 	public var zoneSpawn: int;
+	public var texture: Material;
 }
 
 enum rarityStauses {Common, Uncommon, Rare, Legendary};
@@ -40,5 +41,6 @@ function CreateChest (amount: int, level: int)
 		createdChest.transform.parent = panel.transform;
 		createdChest.GetComponent(Chest).chestLevel = level;
 		createdChest.GetComponent(Chest).parent = this.gameObject;
+		createdChest.GetComponent(Chest).ButtonStart();
 	}
 }
