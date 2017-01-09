@@ -8,6 +8,7 @@ public class chest
 	public var zoneSpecific: boolean;
 	public var zoneSpawn: int;
 	public var texture: Material;
+	public var image: Sprite;
 }
 
 enum rarityStauses {Common, Uncommon, Rare, Legendary};
@@ -35,7 +36,7 @@ function Start ()
 
 function CreateChest (amount: int, level: int) 
 {
-	for(var i: int; i <= amount; i++)
+	for(var i: int; i < amount; i++)
 	{
 		var createdChest = Instantiate(chestObj, transform.position, transform.rotation);
 		createdChest.transform.parent = panel.transform;

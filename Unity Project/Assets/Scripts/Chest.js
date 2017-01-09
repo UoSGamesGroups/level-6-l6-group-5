@@ -27,6 +27,7 @@ public var selectedItemMaterial: Material;
 public var text: Text;
 public var sailMesh: Mesh;
 public var randomlyChangeItem: int;
+public var clicked: boolean;
 
 
 function ButtonStart () 
@@ -105,10 +106,14 @@ function AddToList(collectionName: String, rarity: String, mat: Material)
 
 function Clicked()
 {
-	chestCreated = Instantiate(chest, new Vector3(0.67,10.64,-0.04), Quaternion.Euler(32.596, -74.22701, -62.331));
-	chestCreated.GetComponent(Chest).button = this.gameObject;
-	chestCreated.GetComponent(Chest).chestLevel = chestLevel;
-	chestCreated.GetComponent(Chest).ChestStart();
+	if(!clicked)
+	{
+		chestCreated = Instantiate(chest, new Vector3(0.67,10.64,-0.04), Quaternion.Euler(32.596, -74.22701, -62.331));
+		chestCreated.GetComponent(Chest).button = this.gameObject;
+		chestCreated.GetComponent(Chest).chestLevel = chestLevel;
+		chestCreated.GetComponent(Chest).ChestStart();
+		clicked = true;
+	}
 }
 
 function GetItem()
@@ -169,11 +174,13 @@ function Wait()
 
 function Destroy()
 {
-	/*
+	
 	totalChests = PlayerPrefs.GetInt("Zone"+ chestLevel);
 	totalChests --;
 	PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
-	*/
+
+	PlayerPrefs.SetInt(selectedItem, 1);
+
 	yield WaitForSeconds(5);
 	
 	Destroy(button.gameObject);

@@ -1,5 +1,6 @@
 ﻿#pragma strict
 import UnityEngine.UI;
+import System.Collections.Generic;
 
 public var touchStart: Vector2;
 public var touchEnd: Vector2;
@@ -28,6 +29,27 @@ public var zone3LockedImage: GameObject;
 public var zone4LockedImage: GameObject;
 //hint for locked zone
 public var hint2: GameObject;
+
+public var zone1Unlockables: GameObject;
+public var zone2Unlockables: GameObject;
+public var zone3Unlockables: GameObject;
+public var zone4Unlockables: GameObject;
+
+public var chest: GameObject;
+
+public var contentPanel1: GameObject;
+public var contentPanel2: GameObject;
+public var contentPanel3: GameObject;
+public var contentPanel4: GameObject;
+
+public var content1List:  List.<GameObject>;
+public var content2List:  List.<GameObject>;
+public var content3List:  List.<GameObject>;
+public var content4List:  List.<GameObject>;
+
+
+public var panel: GameObject;
+public var selected: int;
 
 function Start () 
 {
@@ -135,19 +157,44 @@ function UpdateText()
 }
 function SwipeLeft()
 {
-	zone1Number += 4;
-	zone2Number += 4;
-	zone3Number += 4;
-	zone4Number += 4;
-	UpdateText();
+		zone1Number += 4;
+		zone2Number += 4;
+		zone3Number += 4;
+		zone4Number += 4;
+
+		zone1Unlockables.SetActive(false);
+		zone2Unlockables.SetActive(false);
+		zone3Unlockables.SetActive(false);
+		zone4Unlockables.SetActive(false);
+
+		ClearScroll1();
+		ClearScroll2();
+		ClearScroll3();
+		ClearScroll4();
+
+		UpdateText();
 }
 function SwipeRight()
 {
-	zone1Number -= 4;
-	zone2Number -= 4;
-	zone3Number -= 4;
-	zone4Number -= 4;
-	UpdateText();
+	if(zone1Number > 1)
+	{
+		zone1Number -= 4;
+		zone2Number -= 4;
+		zone3Number -= 4;
+		zone4Number -= 4;
+
+		zone1Unlockables.SetActive(false);
+		zone2Unlockables.SetActive(false);
+		zone3Unlockables.SetActive(false);
+		zone4Unlockables.SetActive(false);
+
+		ClearScroll1();
+		ClearScroll2();
+		ClearScroll3();
+		ClearScroll4();
+
+		UpdateText();
+	}
 }
 
 function Explore(number:int)
@@ -156,50 +203,216 @@ function Explore(number:int)
 
 	switch (number)
 	{
-	case 1: if (!zone1Locked)
+	case 1: 
+			if(selected == number)
 			{
-				Application.LoadLevel ("Scene 1");
-				PlayerPrefs.SetInt("currentLevel", zone1Number);
+				if (!zone1Locked)
+				{
+					Application.LoadLevel ("Scene 1");
+					PlayerPrefs.SetInt("currentLevel", zone1Number);
+				}
+				else
+				{
+					hint2.SetActive (true);
+				}
 			}
 			else
 			{
-				hint2.SetActive (true);
+				if(!zone1Locked)
+					zone1Text.text = "Explore!";
+				selected = zone1Number;
+
+				for(var i: int; i < chest.GetComponent(Chests).chests.Length; i++)
+				{
+					if(!chest.GetComponent(Chests).chests[i].zoneSpecific || chest.GetComponent(Chests).chests[i].zoneSpawn == zone1Number && chest.GetComponent(Chests).chests[i].zoneSpecific)
+					{
+						var scrollContent1 = Instantiate(panel,transform.position, transform.rotation);
+						scrollContent1.transform.parent = contentPanel1.transform;
+						scrollContent1.GetComponent(LevelContent).objName = chest.GetComponent(Chests).chests[i].name;
+						scrollContent1.GetComponent(LevelContent).objType = chest.GetComponent(Chests).chests[i].type.ToString();
+						scrollContent1.GetComponent(LevelContent).image = chest.GetComponent(Chests).chests[i].image;
+						content1List.Add(scrollContent1);
+					}
+				}
+
+				ClearScroll2();
+				ClearScroll3();
+				ClearScroll4();
+
+				zone1Unlockables.SetActive(true);
+				zone2Unlockables.SetActive(false);
+				zone3Unlockables.SetActive(false);
+				zone4Unlockables.SetActive(false);
 			}
 	break;
-	case 2:	if (!zone2Locked)
+	case 2:	
+			if(selected == number) 
 			{
-				Application.LoadLevel ("Scene 1");
-				PlayerPrefs.SetInt("currentLevel", zone2Number);
-				
+				if (!zone2Locked)
+				{
+					Application.LoadLevel ("Scene 1");
+					PlayerPrefs.SetInt("currentLevel", zone2Number);
+					
+				}
+				else
+				{
+					hint2.SetActive (true);
+				}
 			}
 			else
 			{
-				hint2.SetActive (true);
+				if(!zone2Locked)
+					zone2Text.text = "Explore!";
+				selected = zone2Number;
+
+				for(var j: int; j < chest.GetComponent(Chests).chests.Length; j++)
+				{
+					if(!chest.GetComponent(Chests).chests[j].zoneSpecific || chest.GetComponent(Chests).chests[j].zoneSpawn == zone2Number && chest.GetComponent(Chests).chests[j].zoneSpecific)
+					{
+						var scrollContent2 = Instantiate(panel,transform.position, transform.rotation);
+						scrollContent2.transform.parent = contentPanel2.transform;
+						scrollContent2.GetComponent(LevelContent).objName = chest.GetComponent(Chests).chests[j].name;
+						scrollContent2.GetComponent(LevelContent).objType = chest.GetComponent(Chests).chests[j].type.ToString();
+						scrollContent2.GetComponent(LevelContent).image = chest.GetComponent(Chests).chests[j].image;
+						content2List.Add(scrollContent2);
+					}
+				}
+
+				ClearScroll1();
+				ClearScroll3();
+				ClearScroll4();
+
+				zone1Unlockables.SetActive(false);
+				zone2Unlockables.SetActive(true);
+				zone3Unlockables.SetActive(false);
+				zone4Unlockables.SetActive(false);
 			}
 	break;
-	case 3:	if (!zone3Locked)
+	case 3:	
+			if(selected == number) 
 			{
-				Application.LoadLevel ("Scene 1");
-				PlayerPrefs.SetInt("currentLevel", zone3Number);
-				
+				if (!zone3Locked)
+				{
+					Application.LoadLevel ("Scene 1");
+					PlayerPrefs.SetInt("currentLevel", zone3Number);
+					
+				}
+				else
+				{
+					hint2.SetActive (true);
+				}
 			}
 			else
 			{
-				hint2.SetActive (true);
+				if(!zone3Locked)
+					zone3Text.text = "Explore!";
+				selected = zone3Number;
+
+				for(var k: int; k < chest.GetComponent(Chests).chests.Length; k++)
+				{
+					if(!chest.GetComponent(Chests).chests[k].zoneSpecific || chest.GetComponent(Chests).chests[k].zoneSpawn == zone3Number && chest.GetComponent(Chests).chests[k].zoneSpecific)
+						{
+						var scrollContent3 = Instantiate(panel,transform.position, transform.rotation);
+						scrollContent3.transform.parent = contentPanel3.transform;
+						scrollContent3.GetComponent(LevelContent).objName = chest.GetComponent(Chests).chests[k].name;
+						scrollContent3.GetComponent(LevelContent).objType = chest.GetComponent(Chests).chests[k].type.ToString();
+						scrollContent3.GetComponent(LevelContent).image = chest.GetComponent(Chests).chests[k].image;
+						content3List.Add(scrollContent3);
+					}
+				}
+
+				ClearScroll1();
+				ClearScroll2();
+				ClearScroll4();
+
+				zone1Unlockables.SetActive(false);
+				zone2Unlockables.SetActive(false);
+				zone3Unlockables.SetActive(true);
+				zone4Unlockables.SetActive(false);
 			}
 	break;
-	case 4:	if (!zone4Locked)
+	case 4:
+			if(selected == number)
 			{
-				Application.LoadLevel ("Scene 1");
-				PlayerPrefs.SetInt("currentLevel", zone4Number);
-				
+				if (!zone4Locked)
+				{
+					Application.LoadLevel ("Scene 1");
+					PlayerPrefs.SetInt("currentLevel", zone4Number);
+					
+				}
+				else
+				{
+					hint2.SetActive (true);
+				}
 			}
 			else
 			{
-				hint2.SetActive (true);
+				if(!zone4Locked)
+					zone4Text.text = "Explore!";
+				selected = zone4Number;
+
+				for(var l: int; l < chest.GetComponent(Chests).chests.Length; l++)
+				{
+					if(!chest.GetComponent(Chests).chests[l].zoneSpecific || chest.GetComponent(Chests).chests[l].zoneSpawn == zone4Number && chest.GetComponent(Chests).chests[l].zoneSpecific)
+					{
+						var scrollContent4 = Instantiate(panel,transform.position, transform.rotation);
+						scrollContent4.transform.parent = contentPanel4.transform;
+						scrollContent4.GetComponent(LevelContent).objName = chest.GetComponent(Chests).chests[l].name;
+						scrollContent4.GetComponent(LevelContent).objType = chest.GetComponent(Chests).chests[l].type.ToString();
+						scrollContent4.GetComponent(LevelContent).image = chest.GetComponent(Chests).chests[l].image;
+						content4List.Add(scrollContent4);
+					}
+				}
+
+				ClearScroll1();
+				ClearScroll2();
+				ClearScroll3();
+
+				zone1Unlockables.SetActive(false);
+				zone2Unlockables.SetActive(false);
+				zone3Unlockables.SetActive(false);
+				zone4Unlockables.SetActive(true);
 			}
 	break;
 	}
-
 }
 
+function ClearScroll1()
+{
+	for(var cont: GameObject in content1List)
+	{
+		Destroy(cont);
+	}
+
+	content1List.Clear();
+}
+
+function ClearScroll2()
+{
+	for(var cont: GameObject in content2List)
+	{
+		Destroy(cont);
+	}
+
+	content2List.Clear();
+}
+
+function ClearScroll3()
+{
+	for(var cont: GameObject in content3List)
+	{
+		Destroy(cont);
+	}
+
+	content3List.Clear();
+}
+
+function ClearScroll4()
+{
+	for(var cont: GameObject in content4List)
+	{
+		Destroy(cont);
+	}
+
+	content4List.Clear();
+}
