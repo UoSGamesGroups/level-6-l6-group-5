@@ -17,5 +17,6 @@ function Update ()
 	if (dist < 1)
 	{
 		bossFoundUI.SetActive(true);
+		player.GetComponent.<BoatControl>().bossFound = true;
 	}
 }

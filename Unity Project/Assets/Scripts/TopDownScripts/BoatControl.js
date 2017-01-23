@@ -11,6 +11,8 @@ public var mousePos: Vector3;
 public var started: boolean;
 public var healthImage: Image;
 public var maxHealth: int;
+public var bossFound: boolean;
+
 
 
 function Start () {
@@ -51,7 +53,7 @@ function Update ()
 	}
 
 // if there is a marker travel to it
-	if (travelTo != null)
+	if (travelTo != null && !bossFound)
 	{
 		var damping: int = 2; //speed of turn
 		var lookPos = travelTo.transform.position - transform.position; //gets pos of rotation needed
