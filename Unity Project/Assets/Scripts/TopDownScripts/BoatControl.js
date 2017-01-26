@@ -3,7 +3,8 @@ import UnityEngine.UI;
 
 public var pos: Vector3;
 public var marker: GameObject;
-public var distance: float = 4.5;
+public var zoomedOutDistance: float;
+public var zoomedInDistance: float;
 public var speed: float = 4.5;
 public var travelTo: GameObject;
 public var health: float;
@@ -12,6 +13,7 @@ public var started: boolean;
 public var healthImage: Image;
 public var maxHealth: int;
 public var bossFound: boolean;
+public var cameraScript: topDownCameraScript;
 
 
 
@@ -31,7 +33,7 @@ function Update ()
 //get pos of mouse
 		mousePos.x = (Input.mousePosition.x);
 		mousePos.y = (Input.mousePosition.y);
-		mousePos.z = (distance);
+		mousePos.z = (cameraScript.chaseCameraHeight);
 //convert to world point
 		pos = Camera.main.ScreenToWorldPoint (mousePos);
 //make marker obj at this point
@@ -45,7 +47,7 @@ function Update ()
 //get pos of mouse
 		mousePos.x = (Input.mousePosition.x);
 		mousePos.y = (Input.mousePosition.y);
-		mousePos.z = (distance);
+		mousePos.z = (cameraScript.chaseCameraHeight);
 //convert to world point
 		pos = Camera.main.ScreenToWorldPoint (mousePos);
 //update Marker

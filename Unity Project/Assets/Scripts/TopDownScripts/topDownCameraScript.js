@@ -7,6 +7,8 @@ public var maxPosZ: float;
 public var minPosZ: float;
 public var player: GameObject;
 public var chaseCameraHeight: float;
+public var setLowestCameraHeight: float;
+
 
 
 function Start () 
@@ -48,9 +50,11 @@ function ChangeCameraMode()
 	if (!chaseCameraOn)
 	{
 		transform.position = staticPos;
+		chaseCameraHeight = staticPos.y;
 	}
 	else
 	{
+		chaseCameraHeight = setLowestCameraHeight;
 		transform.position.y = chaseCameraHeight;
 	}
 }
