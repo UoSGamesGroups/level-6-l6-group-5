@@ -15,6 +15,10 @@ public var legendaryCollectablesMaterials: List.<Material>;
 public var rareCollectablesMaterials: List.<Material>;
 public var uncommonCollectablesMaterials: List.<Material>;
 public var commonCollectablesMaterials: List.<Material>;
+public var legendaryCollectablesType: List.<String>;
+public var rareCollectablesType: List.<String>;
+public var uncommonCollectablesType: List.<String>;
+public var commonCollectablesType: List.<String>;
 public var lengendaryChance: int;
 public var rareChance: int;
 public var uncommonChance: int;
@@ -24,6 +28,7 @@ public var randomItem: int;
 public var totalChests: int;
 public var selectedItem: String;
 public var selectedItemMaterial: Material;
+public var selectedItemType: String;
 public var text: Text;
 public var sailMesh: Mesh;
 public var randomlyChangeItem: int;
@@ -36,11 +41,12 @@ function ButtonStart ()
 	{
 		if(!parent.GetComponent(Chests).chests[i].zoneSpecific)
 		{
-			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture);
+			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString());
+			Debug.Log(parent.GetComponent(Chests).chests[i].type.ToString());
 		}
 		else if(parent.GetComponent(Chests).chests[i].zoneSpawn == chestLevel && parent.GetComponent(Chests).chests[i].zoneSpecific)
 		{
-			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture);
+			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString());
 		}
 	}
 }
@@ -51,24 +57,30 @@ function ChestStart ()
 	{
 		legendaryCollectables.Add(button.GetComponent(Chest).legendaryCollectables[i]);
 		legendaryCollectablesMaterials.Add(button.GetComponent(Chest).legendaryCollectablesMaterials[i]);
+		legendaryCollectablesType.Add(button.GetComponent(Chest).legendaryCollectablesType[i]);
 	}
 
 	for(var j: int; j < button.GetComponent(Chest).rareCollectables.Count; j++)
 	{
 		rareCollectables.Add(button.GetComponent(Chest).rareCollectables[j]);
 		rareCollectablesMaterials.Add(button.GetComponent(Chest).rareCollectablesMaterials[j]);
+		rareCollectablesType.Add(button.GetComponent(Chest).rareCollectablesType[j]);
+		
 	}
 
 	for(var k: int; k < button.GetComponent(Chest).uncommonCollectables.Count; k++)
 	{
 		uncommonCollectables.Add(button.GetComponent(Chest).uncommonCollectables[k]);
 		uncommonCollectablesMaterials.Add(button.GetComponent(Chest).uncommonCollectablesMaterials[k]);
+		uncommonCollectablesType.Add(button.GetComponent(Chest).uncommonCollectablesType[k]);
+		
 	}
 
 	for(var l: int; l < button.GetComponent(Chest).commonCollectables.Count; l++)
 	{
 		commonCollectables.Add(button.GetComponent(Chest).commonCollectables[l]);
 		commonCollectablesMaterials.Add(button.GetComponent(Chest).commonCollectablesMaterials[l]);
+		commonCollectablesType.Add(button.GetComponent(Chest).commonCollectablesType[l]);
 	}
 	GetItem();
 }
@@ -85,21 +97,25 @@ function Update()
 	}
 }
 
-function AddToList(collectionName: String, rarity: String, mat: Material) 
+function AddToList(collectionName: String, rarity: String, mat: Material, type: String) 
 {
 	switch(rarity)
 	{
 		case "Legendary": legendaryCollectables.Add(collectionName);
 						  legendaryCollectablesMaterials.Add(mat);
+						  legendaryCollectablesType.Add(type);
 						  break;
 		case "Rare": rareCollectables.Add(collectionName);
 					 rareCollectablesMaterials.Add(mat);
+					 rareCollectablesType.Add(type);
 					 break;
 		case "Uncommon": uncommonCollectables.Add(collectionName);
 					     uncommonCollectablesMaterials.Add(mat);
+						 uncommonCollectablesType.Add(type);
 						 break;
 		case "Common": commonCollectables.Add(collectionName);
 					   commonCollectablesMaterials.Add(mat);
+					   commonCollectablesType.Add(type);
 					   break;
 	}
 }
@@ -125,6 +141,7 @@ function GetItem()
 		randomItem = Random.Range(0, commonCollectables.Count);
 		selectedItem = commonCollectables.Item[randomItem];
 		selectedItemMaterial = commonCollectablesMaterials.Item[randomItem];
+		selectedItemType = commonCollectablesType.Item[randomItem];
 		Debug.Log("1");
 	}
 	else if(randomRank > commonChance && randomRank <= uncommonChance + commonChance)
@@ -132,6 +149,7 @@ function GetItem()
 		randomItem = Random.Range(0, uncommonCollectables.Count);
 		selectedItem = uncommonCollectables.Item[randomItem];
 		selectedItemMaterial = uncommonCollectablesMaterials.Item[randomItem];
+		selectedItemType = uncommonCollectablesType.Item[randomItem];
 		Debug.Log("2");
 	}
 	else if(randomRank > uncommonChance + commonChance && randomRank <= rareChance + uncommonChance + commonChance)
@@ -139,6 +157,7 @@ function GetItem()
 		randomItem = Random.Range(0, rareCollectables.Count);
 		selectedItem = rareCollectables.Item[randomItem];
 		selectedItemMaterial = rareCollectablesMaterials.Item[randomItem];
+		selectedItemType = rareCollectablesType.Item[randomItem];
 		Debug.Log("3");
 	}
 	else if(randomRank > rareChance + uncommonChance + commonChance && randomRank <= lengendaryChance + rareChance + uncommonChance + commonChance)
@@ -146,6 +165,7 @@ function GetItem()
 		randomItem = Random.Range(0, legendaryCollectables.Count);
 		selectedItem = legendaryCollectables.Item[randomItem];
 		selectedItemMaterial = legendaryCollectablesMaterials.Item[randomItem];
+		selectedItemType = legendaryCollectablesType.Item[randomItem];
 		Debug.Log("4");
 	}
 
@@ -177,9 +197,9 @@ function Destroy()
 	
 	totalChests = PlayerPrefs.GetInt("Zone"+ chestLevel);
 	totalChests --;
-	PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
+	//PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
 
-	PlayerPrefs.SetInt(selectedItem, 1);
+	PlayerPrefs.SetInt(selectedItem + selectedItemType , 1);
 
 	yield WaitForSeconds(5);
 	
