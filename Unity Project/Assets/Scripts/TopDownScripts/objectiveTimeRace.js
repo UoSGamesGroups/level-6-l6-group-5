@@ -19,6 +19,6 @@ function Update ()
 	
 	if (timeLeft < 0)
 	{
-		//GameOver!!!!!!!!
+		Application.LoadLevel(Application.loadedLevel);
 	}
 }
