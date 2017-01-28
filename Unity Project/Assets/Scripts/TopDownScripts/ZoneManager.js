@@ -8,6 +8,7 @@ public var objectiveTypeText: Text;
 public var objectiveTypeDescriptionText: Text;
 public var canvas: GameObject;
 public var timerDisplayObj: GameObject;
+public var rescueDriftersObj: GameObject;
 public var zoneNumber: int;
 
 function Start () 
@@ -59,4 +60,5 @@ function RescueDrifters()
 {
 	objectiveTypeText.text = "Rescue The People";
 	objectiveTypeDescriptionText.text = "Explore the zone and search for the people left floating in the sea by the enemies doing, save them all before killing the boss.";
+	rescueDriftersObj.SetActive(true);
 }
