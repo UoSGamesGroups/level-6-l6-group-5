@@ -7,9 +7,11 @@ public var birdColour: Renderer;
 public var colour: Color;
 public var isColour: boolean;
 public var material: Material;
+public var text: Text;
 
 function Start()
 {
+	text.text = birdName;
 	Check();
 }
 
@@ -64,4 +66,9 @@ function Clicked()
 	 		birdColour.material = material;
 	 	}
 	 }
+}
+
+function OnEnable()
+{
+	Check();
 }

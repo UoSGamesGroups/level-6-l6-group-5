@@ -5,6 +5,9 @@ public var sail: GameObject;
 public var wood: GameObject;
 public var bird: GameObject;
 public var boat: GameObject;
+public var sailButton: GameObject;
+public var woodButton: GameObject;
+public var birdButton: GameObject;
 public var zoneText: GameObject;
 
 function Start () 
@@ -27,8 +30,11 @@ function Update ()
 
 function CloseAll()
 {
+	sailButton.GetComponent(SailButton).panelOpen = false;
 	sail.SetActive(false);
+	woodButton.GetComponent(WoodButton).panelOpen = false;
 	wood.SetActive(false);
+	birdButton.GetComponent(BirdButton).panelOpen = false;
 	bird.SetActive(false);
 	boat.SetActive(false);
 	zoneText.SetActive(true);

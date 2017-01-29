@@ -10,8 +10,16 @@ public var cosmeticsPanel: GameObject;
 
 function SailsButton ()
 {
-	cosmeticsPanel.GetComponent(IsPanelOpen).CloseAll();
-    panelOpen = !panelOpen;
+	if(panelOpen)
+	{
+		cosmeticsPanel.GetComponent(IsPanelOpen).CloseAll();
+		panelOpen = false;
+	}
+	else
+	{
+		cosmeticsPanel.GetComponent(IsPanelOpen).CloseAll();
+		panelOpen = true;
+	}
     sailsPanel.SetActive(panelOpen);
     boatToShowSails.SetActive(panelOpen);
     zoneText.SetActive(!panelOpen);

@@ -19,6 +19,10 @@ public var legendaryCollectablesType: List.<String>;
 public var rareCollectablesType: List.<String>;
 public var uncommonCollectablesType: List.<String>;
 public var commonCollectablesType: List.<String>;
+public var legendaryCollectablesMesh: List.<Mesh>;
+public var rareCollectablesMesh: List.<Mesh>;
+public var uncommonCollectablesMesh: List.<Mesh>;
+public var commonCollectablesMesh: List.<Mesh>;
 public var lengendaryChance: int;
 public var rareChance: int;
 public var uncommonChance: int;
@@ -29,10 +33,12 @@ public var totalChests: int;
 public var selectedItem: String;
 public var selectedItemMaterial: Material;
 public var selectedItemType: String;
+public var selectedItemMesh: Mesh;
 public var text: Text;
 public var sailMesh: Mesh;
 public var randomlyChangeItem: int;
 public var clicked: boolean;
+public var mesh: MeshFilter;
 
 
 function ButtonStart () 
@@ -41,12 +47,12 @@ function ButtonStart ()
 	{
 		if(!parent.GetComponent(Chests).chests[i].zoneSpecific)
 		{
-			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString());
+			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString(), parent.GetComponent(Chests).chests[i].mesh);
 			Debug.Log(parent.GetComponent(Chests).chests[i].type.ToString());
 		}
 		else if(parent.GetComponent(Chests).chests[i].zoneSpawn == chestLevel && parent.GetComponent(Chests).chests[i].zoneSpecific)
 		{
-			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString());
+			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString(), parent.GetComponent(Chests).chests[i].mesh);
 		}
 	}
 }
@@ -58,6 +64,7 @@ function ChestStart ()
 		legendaryCollectables.Add(button.GetComponent(Chest).legendaryCollectables[i]);
 		legendaryCollectablesMaterials.Add(button.GetComponent(Chest).legendaryCollectablesMaterials[i]);
 		legendaryCollectablesType.Add(button.GetComponent(Chest).legendaryCollectablesType[i]);
+		legendaryCollectablesMesh.Add(button.GetComponent(Chest).legendaryCollectablesMesh[i]);
 	}
 
 	for(var j: int; j < button.GetComponent(Chest).rareCollectables.Count; j++)
@@ -65,7 +72,7 @@ function ChestStart ()
 		rareCollectables.Add(button.GetComponent(Chest).rareCollectables[j]);
 		rareCollectablesMaterials.Add(button.GetComponent(Chest).rareCollectablesMaterials[j]);
 		rareCollectablesType.Add(button.GetComponent(Chest).rareCollectablesType[j]);
-		
+		rareCollectablesMesh.Add(button.GetComponent(Chest).rareCollectablesMesh[j]);
 	}
 
 	for(var k: int; k < button.GetComponent(Chest).uncommonCollectables.Count; k++)
@@ -73,7 +80,7 @@ function ChestStart ()
 		uncommonCollectables.Add(button.GetComponent(Chest).uncommonCollectables[k]);
 		uncommonCollectablesMaterials.Add(button.GetComponent(Chest).uncommonCollectablesMaterials[k]);
 		uncommonCollectablesType.Add(button.GetComponent(Chest).uncommonCollectablesType[k]);
-		
+		uncommonCollectablesMesh.Add(button.GetComponent(Chest).uncommonCollectablesMesh[k]);
 	}
 
 	for(var l: int; l < button.GetComponent(Chest).commonCollectables.Count; l++)
@@ -81,8 +88,11 @@ function ChestStart ()
 		commonCollectables.Add(button.GetComponent(Chest).commonCollectables[l]);
 		commonCollectablesMaterials.Add(button.GetComponent(Chest).commonCollectablesMaterials[l]);
 		commonCollectablesType.Add(button.GetComponent(Chest).commonCollectablesType[l]);
+		commonCollectablesMesh.Add(button.GetComponent(Chest).commonCollectablesMesh[l]);
 	}
+
 	GetItem();
+
 }
 
 function Update()
@@ -97,25 +107,29 @@ function Update()
 	}
 }
 
-function AddToList(collectionName: String, rarity: String, mat: Material, type: String) 
+function AddToList(collectionName: String, rarity: String, mat: Material, type: String, mesh: Mesh) 
 {
 	switch(rarity)
 	{
 		case "Legendary": legendaryCollectables.Add(collectionName);
 						  legendaryCollectablesMaterials.Add(mat);
 						  legendaryCollectablesType.Add(type);
+						  legendaryCollectablesMesh.Add(mesh);
 						  break;
 		case "Rare": rareCollectables.Add(collectionName);
 					 rareCollectablesMaterials.Add(mat);
 					 rareCollectablesType.Add(type);
+					 rareCollectablesMesh.Add(mesh);
 					 break;
 		case "Uncommon": uncommonCollectables.Add(collectionName);
 					     uncommonCollectablesMaterials.Add(mat);
 						 uncommonCollectablesType.Add(type);
+						 uncommonCollectablesMesh.Add(mesh);
 						 break;
 		case "Common": commonCollectables.Add(collectionName);
 					   commonCollectablesMaterials.Add(mat);
 					   commonCollectablesType.Add(type);
+					   commonCollectablesMesh.Add(mesh);
 					   break;
 	}
 }
@@ -142,6 +156,7 @@ function GetItem()
 		selectedItem = commonCollectables.Item[randomItem];
 		selectedItemMaterial = commonCollectablesMaterials.Item[randomItem];
 		selectedItemType = commonCollectablesType.Item[randomItem];
+		selectedItemMesh = commonCollectablesMesh.Item[randomItem];
 		Debug.Log("1");
 	}
 	else if(randomRank > commonChance && randomRank <= uncommonChance + commonChance)
@@ -150,6 +165,7 @@ function GetItem()
 		selectedItem = uncommonCollectables.Item[randomItem];
 		selectedItemMaterial = uncommonCollectablesMaterials.Item[randomItem];
 		selectedItemType = uncommonCollectablesType.Item[randomItem];
+		selectedItemMesh = uncommonCollectablesMesh.Item[randomItem];
 		Debug.Log("2");
 	}
 	else if(randomRank > uncommonChance + commonChance && randomRank <= rareChance + uncommonChance + commonChance)
@@ -158,6 +174,7 @@ function GetItem()
 		selectedItem = rareCollectables.Item[randomItem];
 		selectedItemMaterial = rareCollectablesMaterials.Item[randomItem];
 		selectedItemType = rareCollectablesType.Item[randomItem];
+		selectedItemMesh = rareCollectablesMesh.Item[randomItem];
 		Debug.Log("3");
 	}
 	else if(randomRank > rareChance + uncommonChance + commonChance && randomRank <= lengendaryChance + rareChance + uncommonChance + commonChance)
@@ -166,10 +183,11 @@ function GetItem()
 		selectedItem = legendaryCollectables.Item[randomItem];
 		selectedItemMaterial = legendaryCollectablesMaterials.Item[randomItem];
 		selectedItemType = legendaryCollectablesType.Item[randomItem];
+		selectedItemMesh = legendaryCollectablesMesh.Item[randomItem];
 		Debug.Log("4");
 	}
 
-
+	mesh.mesh = selectedItemMesh;
 	randomlyChangeItem ++;
 
 	object.GetComponent(Renderer).material = selectedItemMaterial;

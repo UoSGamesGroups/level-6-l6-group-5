@@ -8,6 +8,7 @@ public class chest
 	public var zoneSpecific: boolean;
 	public var zoneSpawn: int;
 	public var texture: Material;
+	public var mesh: Mesh;
 	public var image: Sprite;
 }
 

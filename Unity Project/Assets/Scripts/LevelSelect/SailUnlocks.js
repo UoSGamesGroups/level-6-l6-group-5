@@ -7,9 +7,11 @@ public var sailColour: Renderer;
 public var colour: Color;
 public var isColour: boolean;
 public var material: Material;
+public var text: Text;
 
 function Start()
 {
+	text.text = sailName;
 	Check();
 }
 
@@ -47,7 +49,6 @@ function Check()
 
 function Clicked()
 {
-
  	if(unlocked)
 	 {
 	 	PlayerPrefs.SetString("SelectedSail", sailName);
@@ -61,4 +62,9 @@ function Clicked()
 	 		sailColour.material = material;
 	 	}
 	 }
+}
+
+function OnEnable()
+{
+	Check();
 }

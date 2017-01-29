@@ -7,15 +7,17 @@ public var woodColour: Renderer;
 public var colour: Color;
 public var isColour: boolean;
 public var material: Material;
+public var text: Text;
 
 function Start()
 {
+	text.text = woodName;
 	Check();
 }
 
 function Check()
 {
-	if(PlayerPrefs.GetInt(woodName + "Sail") == 0 && woodName != "Wood") 
+	if(PlayerPrefs.GetInt(woodName + "Wood") == 0 && woodName != "Wood") 
 	{
 		unlocked = false;
 	}
@@ -47,7 +49,6 @@ function Check()
 
 function Clicked()
 {
-
  	if(unlocked)
 	 {
 	 	PlayerPrefs.SetString("SelectedWood", woodName);
@@ -61,4 +62,9 @@ function Clicked()
 	 		woodColour.material = material;
 	 	}
 	 }
+}
+
+function OnEnable()
+{
+	Check();
 }

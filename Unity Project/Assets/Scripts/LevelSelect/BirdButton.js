@@ -10,8 +10,16 @@ public var cosmeticsPanel: GameObject;
 
 function BirdButton ()
 {
-	cosmeticsPanel.GetComponent(IsPanelOpen).CloseAll();
-    panelOpen = !panelOpen;
+	if(panelOpen)
+	{
+		cosmeticsPanel.GetComponent(IsPanelOpen).CloseAll();
+		panelOpen = false;
+	}
+	else
+	{
+		cosmeticsPanel.GetComponent(IsPanelOpen).CloseAll();
+		panelOpen = true;
+	}
     birdPanel.SetActive(panelOpen);
     boatToShowBird.SetActive(panelOpen);
     zoneText.SetActive(!panelOpen);
