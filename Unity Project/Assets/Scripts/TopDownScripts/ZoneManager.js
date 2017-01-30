@@ -9,6 +9,7 @@ public var objectiveTypeDescriptionText: Text;
 public var canvas: GameObject;
 public var timerDisplayObj: GameObject;
 public var rescueDriftersObj: GameObject;
+public var stormMaker: GameObject;
 public var zoneNumber: int;
 
 function Start () 
@@ -30,6 +31,10 @@ function Start ()
 		
 		case 3:
 		RescueDrifters();
+		break;
+		
+		case 4:
+		StormZone();
 		break;
 	}
 	
@@ -61,4 +66,10 @@ function RescueDrifters()
 	objectiveTypeText.text = "Rescue The People";
 	objectiveTypeDescriptionText.text = "Explore the zone and search for the people left floating in the sea by the enemies doing, save them all before killing the boss.";
 	rescueDriftersObj.SetActive(true);
+}
+function StormZone()
+{
+	objectiveTypeText.text = "Weather The Storm!";
+	objectiveTypeDescriptionText.text = "Be careful of the strong winds from the storm, find and defeat the enemy ship.";
+	stormMaker.SetActive(true);
 }
