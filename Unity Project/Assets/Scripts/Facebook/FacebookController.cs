@@ -14,6 +14,7 @@ public class FacebookController : MonoBehaviour {
 	void Awake()
 	{
 		FB.Init (SetInit, OnHideUnity);
+		DealWithFBMenus (FB.IsLoggedIn);
 	}
 
 	void SetInit()
@@ -43,15 +44,33 @@ public class FacebookController : MonoBehaviour {
 	public void FBlogin()
 	{
 
-		List<string> permissions = new List<string> ();
-		permissions.Add ("public_profile");
+		//List<string> permissions = new List<string> ();
+		//permissions.Add ("public_profile");
 
-		FB.LogInWithReadPermissions (permissions, AuthCallBack);
+		//FB.LogInWithReadPermissions (permissions, AuthCallBack);
+		var perms = new List<string>(){"public_profile", "email", "user_friends"};
+		FB.LogInWithReadPermissions(perms, AuthCallBack);
+
 	}
 
 	void AuthCallBack(IResult result)
 	{
+		
+		
+			if (FB.IsLoggedIn) {
+				// AccessToken class will have session details
+				var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+				// Print current access token's User ID
+				Debug.Log(aToken.UserId);
+				// Print current access token's granted permissions
+				foreach (string perm in aToken.Permissions) {
+					Debug.Log(perm);
+				}
+			} else {
+				Debug.Log("User cancelled login");
+			}
 
+		/*
 		if (result.Error != null) {
 			Debug.Log (result.Error);
 		} else {
@@ -61,9 +80,9 @@ public class FacebookController : MonoBehaviour {
 				Debug.Log ("FB is not logged in");
 			}
 
-			DealWithFBMenus (FB.IsLoggedIn);
+			//DealWithFBMenus (FB.IsLoggedIn);
 		}
-
+*/
 	}
 
 	void DealWithFBMenus(bool isLoggedIn)
