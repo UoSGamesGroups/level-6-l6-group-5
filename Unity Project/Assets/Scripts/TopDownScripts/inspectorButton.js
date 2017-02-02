@@ -1,5 +1,5 @@
 ﻿#pragma strict
-
+/*
 @CustomEditor (topDownCameraScript)
 public class RunMethod extends Editor
 {
@@ -14,3 +14,4 @@ public class RunMethod extends Editor
         }
     }
 }
+*/
