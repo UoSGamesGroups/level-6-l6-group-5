@@ -4,20 +4,20 @@ using System.Collections;
 using System.Collections.Generic;
 using Facebook.Unity;
 
-public class FacebookController : MonoBehaviour {
+public class FacebookController : MonoBehaviour
+{
 
 	//public GameObject DialogLoggedIn;
 	//public GameObject DialogLoggedOut;
 	public GameObject DialogUsername;
 	public GameObject DialogProfilePic;
 
-	void Awake()
+	void Awake ()
 	{
 		FB.Init (SetInit, OnHideUnity);
-		DealWithFBMenus (FB.IsLoggedIn);
 	}
 
-	void SetInit()
+	void SetInit ()
 	{
 
 		if (FB.IsLoggedIn) {
@@ -30,7 +30,7 @@ public class FacebookController : MonoBehaviour {
 
 	}
 
-	void OnHideUnity(bool isGameShown)
+	void OnHideUnity (bool isGameShown)
 	{
 
 		if (!isGameShown) {
@@ -41,51 +41,34 @@ public class FacebookController : MonoBehaviour {
 
 	}
 
-	public void FBlogin()
+	public void FBlogin ()
 	{
-
-		//List<string> permissions = new List<string> ();
-		//permissions.Add ("public_profile");
-
-		//FB.LogInWithReadPermissions (permissions, AuthCallBack);
-		var perms = new List<string>(){"public_profile", "email", "user_friends"};
-		FB.LogInWithReadPermissions(perms, AuthCallBack);
-
+		var perms = new List<string> (){ "public_profile", "email", "user_friends" };
+		FB.LogInWithReadPermissions (perms, AuthCallBack);
 	}
 
-	void AuthCallBack(IResult result)
+	void AuthCallBack (IResult result)
 	{
 		
 		
-			if (FB.IsLoggedIn) {
-				// AccessToken class will have session details
-				var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
-				// Print current access token's User ID
-				Debug.Log(aToken.UserId);
-				// Print current access token's granted permissions
-				foreach (string perm in aToken.Permissions) {
-					Debug.Log(perm);
-				}
-			} else {
-				Debug.Log("User cancelled login");
+		if (FB.IsLoggedIn) {
+			// AccessToken class will have session details
+			var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+			// Print current access token's User ID
+			Debug.Log (aToken.UserId);
+			// Print current access token's granted permissions
+			foreach (string perm in aToken.Permissions) {
+				Debug.Log (perm);
 			}
-
-		/*
-		if (result.Error != null) {
-			Debug.Log (result.Error);
 		} else {
-			if (FB.IsLoggedIn) {
-				Debug.Log ("FB is logged in");
-			} else {
-				Debug.Log ("FB is not logged in");
-			}
-
-			//DealWithFBMenus (FB.IsLoggedIn);
+			Debug.Log ("User cancelled login");
 		}
-*/
+
+		DealWithFBMenus (FB.IsLoggedIn);
 	}
 
-	void DealWithFBMenus(bool isLoggedIn)
+
+	void DealWithFBMenus (bool isLoggedIn)
 	{
 
 		if (isLoggedIn) {
@@ -102,9 +85,9 @@ public class FacebookController : MonoBehaviour {
 
 	}
 
-	void DisplayUsername(IResult result)
+	void DisplayUsername (IResult result)
 	{
-
+		DialogUsername.SetActive (true);
 		Text UserName = DialogUsername.GetComponent<Text> ();
 
 		if (result.Error == null) {
@@ -117,9 +100,9 @@ public class FacebookController : MonoBehaviour {
 
 	}
 
-	void DisplayProfilePic(IGraphResult result)
+	void DisplayProfilePic (IGraphResult result)
 	{
-
+		DialogProfilePic.SetActive (true);
 		if (result.Texture != null) {
 
 			Image ProfilePic = DialogProfilePic.GetComponent<Image> ();
@@ -130,9 +113,9 @@ public class FacebookController : MonoBehaviour {
 
 	}
 
-	public void InviteFriends()
+	public void InviteFriends ()
 	{
-		FB.AppRequest(
+		FB.AppRequest (
 			message: "This game is awesome, join me. now.",
 			title: "Invite your friends to join you"
 		);
