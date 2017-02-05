@@ -11,18 +11,18 @@ function Start()
 	cameras = GameObject.FindGameObjectsWithTag("BoatCamera");
 	boats = GameObject.FindGameObjectsWithTag("Boat");
 	
-
+	/*
 	for(var i = 0; i < cameras.Length; i++)
 	{
 		cameras[i].SetActive(false);
 	}
 	
-	button.SetActive(false);
+	button.SetActive(false);*/
 }
 
 function clicked () 
 {
-	mainCamera.SetActive(true);
+	/*mainCamera.SetActive(true);
 
 	for(var i = 0; i < cameras.Length; i++)
 	{
@@ -35,5 +35,5 @@ function clicked ()
 	}
 	button.SetActive(false);
 	controller.GetComponent(Controller).selectedBoat = false;
-	
+	*/
 }

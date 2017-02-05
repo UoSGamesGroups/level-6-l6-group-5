@@ -107,6 +107,7 @@ function CreateKraken ()
 
 function OnMouseDown()
 {
+/*
 	if(!controller.GetComponent(Controller).selectedBoat)
 	{
 		Debug.Log("Boat Clicked");
@@ -116,5 +117,5 @@ function OnMouseDown()
 		controller.GetComponent(Controller).selectedBoat = true;
 		GetComponent(BoxCollider).enabled = false;
 		
-	}
+	}*/
 }

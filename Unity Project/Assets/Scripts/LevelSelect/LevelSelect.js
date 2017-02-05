@@ -47,7 +47,11 @@ public var content2List:  List.<GameObject>;
 public var content3List:  List.<GameObject>;
 public var content4List:  List.<GameObject>;
 
-
+public var upgradeUI: GameObject;
+public var chestUI: GameObject;
+public var sailUI: GameObject;
+public var woodUI: GameObject;
+public var birdUI: GameObject;
 public var panel: GameObject;
 public var selected: int;
 
@@ -155,8 +159,11 @@ function UpdateText()
 		zone4LockedImage.SetActive (zone4Locked);
 	}
 }
+
 function SwipeLeft()
 {
+	if(!upgradeUI.active && !chestUI.active && !sailUI.active && !woodUI.active && !birdUI.active)
+	{
 		zone1Number += 4;
 		zone2Number += 4;
 		zone3Number += 4;
@@ -173,27 +180,32 @@ function SwipeLeft()
 		ClearScroll4();
 
 		UpdateText();
+	}
 }
+
 function SwipeRight()
 {
-	if(zone1Number > 1)
+	if(!upgradeUI.active && !chestUI.active && !sailUI.active && !woodUI.active && !birdUI.active)
 	{
-		zone1Number -= 4;
-		zone2Number -= 4;
-		zone3Number -= 4;
-		zone4Number -= 4;
+		if(zone1Number > 1)
+		{
+			zone1Number -= 4;
+			zone2Number -= 4;
+			zone3Number -= 4;
+			zone4Number -= 4;
 
-		zone1Unlockables.SetActive(false);
-		zone2Unlockables.SetActive(false);
-		zone3Unlockables.SetActive(false);
-		zone4Unlockables.SetActive(false);
+			zone1Unlockables.SetActive(false);
+			zone2Unlockables.SetActive(false);
+			zone3Unlockables.SetActive(false);
+			zone4Unlockables.SetActive(false);
 
-		ClearScroll1();
-		ClearScroll2();
-		ClearScroll3();
-		ClearScroll4();
+			ClearScroll1();
+			ClearScroll2();
+			ClearScroll3();
+			ClearScroll4();
 
-		UpdateText();
+			UpdateText();
+		}
 	}
 }
 

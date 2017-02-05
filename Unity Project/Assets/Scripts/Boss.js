@@ -78,9 +78,9 @@ function Shoot()
 
 function LootAmounts()
 {
-	wood = Random.Range(0, 6);
-	cloth = Random.Range(0, 6);	
-	metal = Random.Range(0, 6);	
+	wood = Random.Range(3, 8);
+	cloth = Random.Range(3, 8);	
+	metal = Random.Range(3, 8);	
 
 	loot.SetActive(true);
 			
@@ -109,9 +109,9 @@ function UnlockNextZone()
 	var zonesUnlocked:int = PlayerPrefs.GetInt("zoneUnlocked");
 	if (currentLevel == zonesUnlocked)
 	{
-	currentLevel ++;
-	PlayerPrefs.SetInt("zoneUnlocked", currentLevel);
-	Debug.Log("New Zone Unlocked!");
+		currentLevel ++;
+		PlayerPrefs.SetInt("zoneUnlocked", currentLevel);
+		Debug.Log("New Zone Unlocked!");
 	}
 
 }
