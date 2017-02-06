@@ -25,6 +25,9 @@ public var cannon: GameObject;
 public var healthImage: Image;
 public var currentChests: int;
 public var currentLevel: int; 
+public var forceXMinMax: Vector2;
+public var forceYMinMax: Vector2;
+public var forceZMinMax: Vector2;
 
 function Start () 
 {
@@ -32,10 +35,20 @@ function Start ()
 
 	healthStart = currentLevel * 100;
 	health = healthStart;
+
+	forceXMinMax.x += currentLevel;
+	forceXMinMax.y -= currentLevel;
+	
+	forceYMinMax.x += currentLevel;
+	forceYMinMax.y -= currentLevel;
+
+	forceZMinMax.x += currentLevel;
+	forceZMinMax.y -= currentLevel;
+
 	nextShot = Random.Range(nextShotTime.x, nextShotTime.y);
-	force.x = Random.Range(-100, 100);
-	force.y = Random.Range(600, 1000);
-	force.z = Random.Range(-800, -500);	
+	force.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
 
 	cannon = GameObject.FindGameObjectWithTag("Cannon");
 }
@@ -68,9 +81,9 @@ function Update ()
 
 function Shoot()
 {
-	force.x = Random.Range(0, -150);
-	force.y = Random.Range(600, 1000);
-	force.z = Random.Range(-800, -500);	
+	force.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
 
 	var childBall = Instantiate(ball, ballPos, transform.rotation);
 	childBall.transform.parent = boss.transform;
@@ -78,9 +91,9 @@ function Shoot()
 
 function LootAmounts()
 {
-	wood = Random.Range(3, 8);
-	cloth = Random.Range(3, 8);	
-	metal = Random.Range(3, 8);	
+	wood = Random.Range(2, 7);
+	cloth = Random.Range(2, 7);	
+	metal = Random.Range(2, 7);	
 
 	loot.SetActive(true);
 			

@@ -34,7 +34,7 @@ function Start ()
 	//transform.rotation.x = -270;
 	acuracyLevel = PlayerPrefs.GetInt("Cannon");
 	
-	reloadTime = 1 - (PlayerPrefs.GetInt("Reload") / 10);
+	reloadTime = 1.25 - (PlayerPrefs.GetInt("Reload") / 10);
 }
 
 function Update () 
@@ -63,8 +63,8 @@ function Update ()
 								touchTrav.x =  touchEnd.x - touchStart.x;
 								Mathf.Max(touchTrav.y, 0);
 
-								acuracy.x = -25 + acuracyLevel;
-								acuracy.y = 25 - acuracyLevel;
+								acuracy.x = -50 + acuracyLevel;
+								acuracy.y = 50 - acuracyLevel;
 								
 								touchTrav.x = touchTrav.x + Random.Range(acuracy.x, acuracy.y);
 
