@@ -120,7 +120,7 @@ function Fire()
 {
 	if(once && reloaded)
 	{
-		clicked = false;
+		//clicked = false;
 		var childBall = Instantiate(ball, ballPos, transform.rotation);
 		childBall.transform.parent = cannon.transform;
 		reloadImage.SetActive(true);
@@ -133,12 +133,12 @@ function Fire()
 
 function OnMouseDown () 
 {
-	clicked = true;
+	//clicked = true;
 }
 
 function OnMouseUp () 
 {
-	clicked = false;
+	//clicked = false;
 }
 
 function Analytic(name: String, num: float)
