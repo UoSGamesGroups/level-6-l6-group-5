@@ -82,8 +82,8 @@ function Update ()
 function Shoot()
 {
 	force.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
-	force.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
-	force.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
+	force.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
 	var childBall = Instantiate(ball, ballPos, transform.rotation);
 	childBall.transform.parent = boss.transform;

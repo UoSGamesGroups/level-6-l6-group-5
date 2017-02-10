@@ -3,7 +3,7 @@
 public var ballForce: Vector3;
 public var damage: int;
 public var canDamage: boolean;
-
+public var explosion: GameObject;
 
 function Start () 
 {
@@ -14,7 +14,6 @@ function Start ()
 	{
 		PlayerPrefs.SetInt("CannonBall", 1);
 	}
-
 
 	damage = 10 * PlayerPrefs.GetInt("CannonBall");
 }
@@ -33,7 +32,7 @@ function OnCollisionEnter(other: Collision)
 	{
 		other.gameObject.GetComponentInParent(Boss).health -= damage;
 		canDamage = false;
-		yield WaitForSeconds(1);
+		Instantiate(explosion, transform.position, transform.rotation);
 		Destroy(this.gameObject);
 	}
 

@@ -191,7 +191,16 @@ function GetItem()
 	randomlyChangeItem ++;
 
 	object.GetComponent(Renderer).material = selectedItemMaterial;
-
+	if(selectedItemType == "Sail") 
+	{
+		object.transform.localRotation = Quaternion.Euler(-90, 180, 2.25);
+		object.transform.localScale = new Vector3(0.3616386,0.3616386,0.3616386);
+	}
+	else
+	{
+		object.transform.localRotation = Quaternion.Euler(-179.555, 177.254, 85.771);
+		object.transform.localScale = new Vector3(0.008863475,0.008863475,0.008863475);
+	}
 	if(randomlyChangeItem < 20)
 	{
 		Wait();
@@ -203,7 +212,6 @@ function GetItem()
 		Destroy();
 	}
 }
-
 function Wait()
 {
 	yield WaitForSeconds(0.2);

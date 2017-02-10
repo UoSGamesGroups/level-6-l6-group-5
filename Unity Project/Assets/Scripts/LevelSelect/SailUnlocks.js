@@ -8,11 +8,17 @@ public var colour: Color;
 public var isColour: boolean;
 public var material: Material;
 public var text: Text;
+public var sailImage: Sprite;
+public var image: Image;
+public var unlockNum: int;
+public var prompt: GameObject;
 
 function Start()
 {
 	text.text = sailName;
 	Check();
+
+	image.sprite = sailImage;
 }
 
 function Check()
@@ -25,7 +31,6 @@ function Check()
 	{
 		unlocked = true;
 	}
-
 
 	lockedImage.SetActive (!unlocked);
 
@@ -61,6 +66,12 @@ function Clicked()
 	 	{
 	 		sailColour.material = material;
 	 	}
+	 }
+	 else
+	 {
+	 	prompt.GetComponent(Prompt).num = unlockNum;
+	 	prompt.SetActive(true);
+	 	prompt.GetComponent(Prompt).Clicked();
 	 }
 }
 

@@ -4,7 +4,7 @@ public var ballForce: Vector3;
 public var damage: int;
 public var canDamage: boolean;
 public var baseDamage: int;
-
+public var explosion: GameObject;
 
 function Start () 
 {
@@ -28,7 +28,7 @@ function OnCollisionEnter(other: Collision)
 	{
 		other.gameObject.GetComponentInParent(Boat).health -= damage;
 		canDamage = false;
-		yield WaitForSeconds(1);
+		Instantiate(explosion, transform.position, transform.rotation);
 		Destroy(this.gameObject);
 	}
 

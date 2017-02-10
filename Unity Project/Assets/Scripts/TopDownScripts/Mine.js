@@ -8,10 +8,8 @@ public var baseDamage: float;
 
 function Start () 
 {
-	
 	player = gameObject.FindGameObjectWithTag ("player");
 	damage = (Application.loadedLevel + 1) * baseDamage;
-
 }
 
 function Update () 

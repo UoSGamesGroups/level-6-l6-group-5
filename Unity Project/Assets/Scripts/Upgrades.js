@@ -1,15 +1,10 @@
 ﻿#pragma strict
 
-public var visible: boolean;
+public var visibility: boolean;
 public var panel: GameObject;
 public var wood: Text;
 public var cloth: Text;
 public var metal: Text;
-
-function Start () 
-{
-
-}
 
 function Update () 
 {
@@ -20,6 +15,6 @@ function Update ()
 
 function Clicked () 
 {
-	visible = !visible;
-	panel.SetActive(visible);
+	visibility = !visibility;
+	panel.SetActive(visibility);
 }

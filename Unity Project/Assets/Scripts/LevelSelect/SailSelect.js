@@ -13,10 +13,6 @@ function Start()
 blueSailLockedImage.SetActive (blueSailLocked);
 }
 
-
-
-
-
 //Add in new sails here
 function normalSail()
 {	
@@ -32,19 +28,12 @@ function blueSail()
 		}
 }
 
-
-
-
-
 //Unselects all sails to stop multiple being selected
 function UnselectSails()
 {
 	normalSailSelected = false;
 	blueSailSelected = false;
 }
-
-
-
 
 //testing purposes, U key unlocks blue sail.
 function Update()

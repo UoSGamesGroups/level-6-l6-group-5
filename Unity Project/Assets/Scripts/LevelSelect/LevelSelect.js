@@ -250,11 +250,11 @@ function Explore(number:int)
 				ClearScroll2();
 				ClearScroll3();
 				ClearScroll4();
-
+				/*
 				zone1Unlockables.SetActive(true);
 				zone2Unlockables.SetActive(false);
 				zone3Unlockables.SetActive(false);
-				zone4Unlockables.SetActive(false);
+				zone4Unlockables.SetActive(false);*/
 			}
 	break;
 	case 2:	
@@ -293,11 +293,11 @@ function Explore(number:int)
 				ClearScroll1();
 				ClearScroll3();
 				ClearScroll4();
-
+				/*
 				zone1Unlockables.SetActive(false);
 				zone2Unlockables.SetActive(true);
 				zone3Unlockables.SetActive(false);
-				zone4Unlockables.SetActive(false);
+				zone4Unlockables.SetActive(false);*/
 			}
 	break;
 	case 3:	
@@ -336,11 +336,11 @@ function Explore(number:int)
 				ClearScroll1();
 				ClearScroll2();
 				ClearScroll4();
-
+				/*
 				zone1Unlockables.SetActive(false);
 				zone2Unlockables.SetActive(false);
 				zone3Unlockables.SetActive(true);
-				zone4Unlockables.SetActive(false);
+				zone4Unlockables.SetActive(false);*/
 			}
 	break;
 	case 4:
@@ -379,11 +379,11 @@ function Explore(number:int)
 				ClearScroll1();
 				ClearScroll2();
 				ClearScroll3();
-
+				/*
 				zone1Unlockables.SetActive(false);
 				zone2Unlockables.SetActive(false);
 				zone3Unlockables.SetActive(false);
-				zone4Unlockables.SetActive(true);
+				zone4Unlockables.SetActive(true);*/
 			}
 	break;
 	}
