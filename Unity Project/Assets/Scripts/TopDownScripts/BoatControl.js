@@ -25,7 +25,7 @@ function Update ()
 {
 	healthImage.fillAmount = health/100;
 
-	var step = speed * Time.deltaTime;
+	//var step = speed * Time.deltaTime;
 
 //if click and there is no current marker
 	if (Input.GetKeyDown(KeyCode.Mouse0) && travelTo == null )
@@ -62,12 +62,13 @@ function Update ()
 		lookPos.y = 0;
 		var rotation = Quaternion.LookRotation(lookPos); //calculates rotation
 		transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping); // rotates boat to face marker
-//Old control method
-		transform.position += transform.forward * Time.deltaTime;//makes boat move forwards
+
+		transform.position += (transform.forward * speed) * Time.deltaTime;//makes boat move forwards
 		//transform.position = Vector3.MoveTowards(transform.position, travelTo.transform.position, step); // moves boat towards marker
 	}
 
 	if (health <= 0)
 		Application.LoadLevel(Application.loadedLevel);
 }
+
 

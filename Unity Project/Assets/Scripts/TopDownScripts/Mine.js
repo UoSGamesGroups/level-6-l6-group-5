@@ -12,16 +12,12 @@ function Start ()
 	damage = (Application.loadedLevel + 1) * baseDamage;
 }
 
-function Update () 
-{ 
-	dist = Vector3.Distance(player.transform.position, transform.position);
-
-
-	if (dist < 0.75)
+function OnCollisionEnter(other:Collision)
+{
+	if(other.gameObject.tag == ("player"))
 	{
 		Instantiate (explosion,transform.position,transform.rotation);
 		player.GetComponent.<BoatControl>().health -= damage;
 		Destroy (gameObject);
 	}
-
 }
