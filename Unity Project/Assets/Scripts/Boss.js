@@ -6,10 +6,17 @@ public var healthPercent: float;
 public var bar: GameObject;
 public var nextShot: float;
 public var force: Vector3;
+public var force2: Vector3;
+public var force3: Vector3;
 public var nextShotTime: Vector2;
 public var boss: GameObject;
 public var ball: GameObject;
 public var ballPos: Vector3;
+public var ballPos2: Vector3;
+public var ballPos3: Vector3;
+public var ballPosObj: GameObject;
+public var ballPos2Obj: GameObject;
+public var ballPos3Obj: GameObject;
 public var loot: GameObject;
 public var wood: int;
 public var cloth: int;
@@ -24,10 +31,13 @@ public var dead: boolean;
 public var cannon: GameObject;
 public var healthImage: Image;
 public var currentChests: int;
-public var currentLevel: int; 
+public var currentLevel: float; 
 public var forceXMinMax: Vector2;
 public var forceYMinMax: Vector2;
 public var forceZMinMax: Vector2;
+public var moveMinMax: Vector2;
+public var moveSpeed: float;
+public var right: boolean;
 
 function Start () 
 {
@@ -35,6 +45,13 @@ function Start ()
 
 	healthStart = currentLevel * 100;
 	health = healthStart;
+
+	moveSpeed = currentLevel;
+
+	if(moveSpeed > 20)
+	{
+		moveSpeed = 20;
+	}
 
 	forceXMinMax.x += currentLevel;
 	forceXMinMax.y -= currentLevel;
@@ -50,14 +67,39 @@ function Start ()
 	force.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
 	force.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
 
+	force2.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force2.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force2.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+
+	force3.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force3.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force3.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+
 	cannon = GameObject.FindGameObjectWithTag("Cannon");
+
+	nextShotTime.x = 1.5 - (currentLevel / 10);
+	nextShotTime.y = 2.5 - (currentLevel / 10);
+
+	if(nextShotTime.x < 0.5)
+	{
+		nextShotTime.x = 0.5;
+	}
+
+	if(nextShotTime.y < 0.5)
+	{
+		nextShotTime.y = 0.5;
+	}
 }
 
 function Update () 
 {
 
+	ballPos = ballPosObj.transform.position;
+	ballPos2 = ballPos2Obj.transform.position;
+	ballPos3 = ballPos3Obj.transform.position;
+	
+
 	healthPercent = health/healthStart;
-	//bar.transform.localScale.x = healthPercent;
 	healthImage.fillAmount = healthPercent;
 
 	if(health <= 0 && !dead)
@@ -77,6 +119,24 @@ function Update ()
 		Shoot();
 		nextShot = Time.time + Random.Range(nextShotTime.x, nextShotTime.y);
 	}
+
+	if(transform.position.x < moveMinMax.x)
+	{
+		right = true;
+	}
+	else if(transform.position.x > moveMinMax.y)
+	{
+		right = false;
+	}
+
+	if(right)
+	{
+		transform.position.x += moveSpeed * Time.deltaTime;
+	}
+	else
+	{
+		transform.position.x -= moveSpeed  * Time.deltaTime;
+	}
 }
 
 function Shoot()
@@ -86,7 +146,30 @@ function Shoot()
 	force.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
 	var childBall = Instantiate(ball, ballPos, transform.rotation);
+	childBall.GetComponent(EnemyBall).ballNum = 1;
 	childBall.transform.parent = boss.transform;
+
+	if(currentLevel >= 10)
+	{
+		force2.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
+		force2.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
+		force2.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+
+		childBall = Instantiate(ball, ballPos2, transform.rotation);
+		childBall.GetComponent(EnemyBall).ballNum = 2;
+		childBall.transform.parent = boss.transform;
+	}
+
+	if(currentLevel >= 20)
+	{
+		force3.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
+		force3.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
+		force3.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+
+		childBall = Instantiate(ball, ballPos3, transform.rotation);
+		childBall.GetComponent(EnemyBall).ballNum = 3;
+		childBall.transform.parent = boss.transform;
+	}
 }
 
 function LootAmounts()

@@ -5,13 +5,28 @@ public var damage: int;
 public var canDamage: boolean;
 public var baseDamage: int;
 public var explosion: GameObject;
+public var ballNum: int;
 
 function Start () 
 {
-var currentLevel:int = PlayerPrefs.GetInt("currentLevel");
+	var currentLevel:int = PlayerPrefs.GetInt("currentLevel");
 	damage = currentLevel * baseDamage; 
-	ballForce = GetComponentInParent(Boss).force;
+
+	switch(ballNum)
+	{
+		case 1: ballForce = GetComponentInParent(Boss).force;
+				break;
+		case 2: ballForce = GetComponentInParent(Boss).force;
+				break;
+		case 3: ballForce = GetComponentInParent(Boss).force;
+				break;
+	}
+
 	this.gameObject.GetComponent.<Rigidbody>().AddRelativeForce(ballForce);
+
+	transform.parent = null;
+
+	Kill();
 }
 
 function Update () 
@@ -31,5 +46,10 @@ function OnCollisionEnter(other: Collision)
 		Instantiate(explosion, transform.position, transform.rotation);
 		Destroy(this.gameObject);
 	}
+}
 
+function Kill()
+{
+	yield WaitForSeconds(5);
+	Destroy(this.gameObject);
 }
