@@ -14,6 +14,8 @@ public var healthImage: Image;
 public var maxHealth: int;
 public var bossFound: boolean;
 public var cameraScript: topDownCameraScript;
+public var distanceTraveled: float;
+public var distanceToCompleteZone: float;
 
 
 
@@ -23,6 +25,12 @@ function Start () {
 
 function Update () 
 {
+	distanceTraveled = transform.position.x;
+	if(distanceTraveled > distanceToCompleteZone)
+	{
+		Application.LoadLevel("Boss");
+	}
+
 	healthImage.fillAmount = health/100;
 
 	//var step = speed * Time.deltaTime;

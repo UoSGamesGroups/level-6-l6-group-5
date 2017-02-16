@@ -223,7 +223,7 @@ function Explore(number:int)
 	
 			if (!zone1Locked)
 			{
-				Application.LoadLevel ("Scene 1");
+				Application.LoadLevel ("runner");
 				PlayerPrefs.SetInt("currentLevel", zone1Number);
 			}
 			else
@@ -234,7 +234,7 @@ function Explore(number:int)
 	case 2:	
 			if (!zone2Locked)
 			{
-				Application.LoadLevel ("Scene 1");
+				Application.LoadLevel ("runner");
 				PlayerPrefs.SetInt("currentLevel", zone2Number);
 				
 			}
@@ -246,7 +246,7 @@ function Explore(number:int)
 	case 3:	
 			if (!zone3Locked)
 			{
-				Application.LoadLevel ("Scene 1");
+				Application.LoadLevel ("runner");
 				PlayerPrefs.SetInt("currentLevel", zone3Number);
 				
 			}
@@ -259,7 +259,7 @@ function Explore(number:int)
 	case 4:
 			if (!zone4Locked)
 			{
-				Application.LoadLevel ("Scene 1");
+				Application.LoadLevel ("runner");
 				PlayerPrefs.SetInt("currentLevel", zone4Number);
 				
 			}
