@@ -3,8 +3,11 @@ private var swipeStartPos: Vector2;
 private var swipeEndPos: Vector2;
 private var swipeVector: Vector2;
 public var speed: float;
+public var yAngle: float;
+public var turnSpeed: float;
 
 function Update () {
+yAngle = transform.localEulerAngles.y;
 //moveBoat forwards
 transform.position += (transform.forward * speed) * Time.deltaTime;
 //if mouse down or touch set start pos
@@ -28,18 +31,22 @@ transform.position += (transform.forward * speed) * Time.deltaTime;
 	TurnShipUp();
 	}
 	}
+	if(yAngle < 90)
+	{
+	transform.Rotate(0,Time.deltaTime * turnSpeed,0);
+	} else if(yAngle > 90){
+	transform.Rotate(0,-Time.deltaTime * turnSpeed,0);
+	}
 }
 
 function TurnShipUp()
 {
-	var yAngle = transform.localEulerAngles.y;
 	if(yAngle > 45)
 	transform.Rotate(0,-10,0);
 }
 
 function TurnShipDown()
 {
-	var yAngle = transform.localEulerAngles.y;
 	if(yAngle < 130)
 	transform.Rotate(0,10,0);
 }
