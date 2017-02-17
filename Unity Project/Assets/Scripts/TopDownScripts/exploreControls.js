@@ -1,12 +1,24 @@
 ﻿#pragma strict
+import UnityEngine.UI;
+
 private var swipeStartPos: Vector2;
 private var swipeEndPos: Vector2;
 private var swipeVector: Vector2;
 public var speed: float;
 public var yAngle: float;
 public var turnSpeed: float;
+public var health: float;
+public var healthUI: Image;
 
 function Update () {
+//show health
+healthUI.fillAmount = health/100;
+
+if(health <= 0)
+{
+Application.LoadLevel("runner");
+}
+
 yAngle = transform.localEulerAngles.y;
 //moveBoat forwards
 transform.position += (transform.forward * speed) * Time.deltaTime;
