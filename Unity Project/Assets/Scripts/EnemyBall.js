@@ -16,9 +16,9 @@ function Start ()
 	{
 		case 1: ballForce = GetComponentInParent(Boss).force;
 				break;
-		case 2: ballForce = GetComponentInParent(Boss).force;
+		case 2: ballForce = GetComponentInParent(Boss).force2;
 				break;
-		case 3: ballForce = GetComponentInParent(Boss).force;
+		case 3: ballForce = GetComponentInParent(Boss).force3;
 				break;
 	}
 

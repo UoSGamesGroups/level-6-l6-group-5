@@ -64,16 +64,16 @@ function Start ()
 
 	nextShot = Random.Range(nextShotTime.x, nextShotTime.y);
 	force.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
-	force.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
-	force.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
+	force.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
 	force2.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
-	force2.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
-	force2.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force2.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
+	force2.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
 	force3.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
-	force3.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
-	force3.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+	force3.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
+	force3.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
 	cannon = GameObject.FindGameObjectWithTag("Cannon");
 
@@ -98,7 +98,6 @@ function Update ()
 	ballPos2 = ballPos2Obj.transform.position;
 	ballPos3 = ballPos3Obj.transform.position;
 	
-
 	healthPercent = health/healthStart;
 	healthImage.fillAmount = healthPercent;
 
@@ -152,8 +151,8 @@ function Shoot()
 	if(currentLevel >= 10)
 	{
 		force2.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
-		force2.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
-		force2.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+		force2.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
+		force2.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
 		childBall = Instantiate(ball, ballPos2, transform.rotation);
 		childBall.GetComponent(EnemyBall).ballNum = 2;
@@ -163,8 +162,8 @@ function Shoot()
 	if(currentLevel >= 20)
 	{
 		force3.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
-		force3.y = Random.Range(forceXMinMax.x, forceXMinMax.y);
-		force3.z = Random.Range(forceXMinMax.x, forceXMinMax.y);
+		force3.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
+		force3.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
 		childBall = Instantiate(ball, ballPos3, transform.rotation);
 		childBall.GetComponent(EnemyBall).ballNum = 3;
