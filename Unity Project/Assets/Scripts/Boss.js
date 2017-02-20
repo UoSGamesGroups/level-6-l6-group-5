@@ -48,9 +48,9 @@ function Start ()
 
 	moveSpeed = currentLevel;
 
-	if(moveSpeed > 20)
+	if(moveSpeed > 15)
 	{
-		moveSpeed = 20;
+		moveSpeed = 15;
 	}
 
 	forceXMinMax.x += currentLevel;
@@ -148,7 +148,7 @@ function Shoot()
 	childBall.GetComponent(EnemyBall).ballNum = 1;
 	childBall.transform.parent = boss.transform;
 
-	if(currentLevel >= 10)
+	if(currentLevel >= 15)
 	{
 		force2.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
 		force2.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
@@ -159,7 +159,7 @@ function Shoot()
 		childBall.transform.parent = boss.transform;
 	}
 
-	if(currentLevel >= 20)
+	if(currentLevel >= 25)
 	{
 		force3.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
 		force3.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
