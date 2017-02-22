@@ -24,6 +24,7 @@ public var healthStart: float;
 public var healthImage: Image;
 public var dead: GameObject;
 public var reachedEnd: boolean;
+public var currentLevel: int;
 
 function Start()
 {
@@ -32,12 +33,16 @@ function Start()
 	birdPos = new Vector3(transform.position.x + 45, transform.position.y + 13, transform.position.z - 6);
 	krakenPos = new Vector3(transform.position.x + 15, transform.position.y - 21, transform.position.z + 3);
 
+	currentLevel = PlayerPrefs.GetInt("currentLevel");
+	
 	if (PlayerPrefs.GetInt("Health") < 1)
 	{
 		PlayerPrefs.SetInt("Health", 1);
 	}
 	health = 100 * PlayerPrefs.GetInt("Health");
 	healthStart = health;
+
+	Analytic("Level " + currentLevel.ToString() + " Boss", true, "Loaded");
 }
 
 function Update () 
@@ -58,9 +63,13 @@ function Update ()
 
 	if(health <= 0)
 	{
+		Analytic("Shooting", Cannon.shotsMissed, "Missed Shots " + currentLevel.ToString());
+		Analytic("Shooting", Cannon.shotsHit, "Shots Hit " + currentLevel.ToString());
+		Analytic("Shooting", Cannon.shotCounter, "Total Shots " + currentLevel.ToString());
+		Analytic("Level " + currentLevel.ToString() + " Boss", true, "Lost");
+		
 		dead.SetActive(true);
 	}
-
 
 	if(Input.GetKeyDown(KeyCode.T))
 	{
@@ -118,4 +127,13 @@ function OnMouseDown()
 		GetComponent(BoxCollider).enabled = false;
 		
 	}*/
+}
+
+function Analytic(name: String, num: Object, eventName: String)
+{
+	//Test for analytics. Might change. 
+	var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
+	params.Add(eventName, num);
+	var returnVal = Analytics.Analytics.CustomEvent(name, params);
+	Debug.Log(returnVal);
 }

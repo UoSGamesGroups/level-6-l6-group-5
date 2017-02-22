@@ -24,10 +24,16 @@ public var timeLeft: float;
 public var acuracyLevel: int;
 public var acuracy: Vector2;
 public var params = new System.Collections.Generic.Dictionary.<System.String, System.Object>();
-public var shotCounter: int;
+static var shotCounter: int;
+static var shotsHit: int;
+static var shotsMissed: int;
 
 function Start () 
 {
+	shotCounter = 0;
+	shotsHit = 0;
+	shotsMissed = 0;
+
 	enemy = GameObject.FindGameObjectWithTag("Enemy");
 	//transform.LookAt(enemy.transform, Vector3.forward);
 	//transform.rotation.z = 0;

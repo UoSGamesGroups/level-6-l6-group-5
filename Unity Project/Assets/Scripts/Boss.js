@@ -103,11 +103,16 @@ function Update ()
 
 	if(health <= 0 && !dead)
 	{
-		var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
+		/*var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
 		params.Add("Shooting", cannon.GetComponent(Cannon).shotCounter);
 		var returnVal = Analytics.Analytics.CustomEvent("Amount", params);
-		Debug.Log(returnVal);
+		Debug.Log(returnVal);*/
 
+		Analytic("Shooting", Cannon.shotsMissed, "Missed Shots " + currentLevel.ToString());
+		Analytic("Shooting", Cannon.shotsHit, "Shots Hit " + currentLevel.ToString());
+		Analytic("Shooting", cannon.GetComponent(Cannon).shotCounter, "Total Shots " + currentLevel.ToString());
+		Analytic("Level " + currentLevel.ToString() + " Boss", true, "Won");
+		
 		dead = true;
 		UnlockNextZone();
 		LootAmounts();
@@ -208,11 +213,19 @@ function UnlockNextZone()
 		PlayerPrefs.SetInt("zoneUnlocked", currentLevel);
 		Debug.Log("New Zone Unlocked!");
 	}
-
 }
 
 function WaitAndLoad ()
 {
 	yield WaitForSeconds(2);
 	Application.LoadLevel ("LevelSelect");
+}
+
+function Analytic(name: String, num: Object, eventName: String)
+{
+	//Test for analytics. Might change. 
+	var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
+	params.Add(eventName, num);
+	var returnVal = Analytics.Analytics.CustomEvent(name, params);
+	Debug.Log(returnVal);
 }

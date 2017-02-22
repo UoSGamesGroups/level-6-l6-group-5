@@ -22,6 +22,7 @@ function Update ()
 {
 	if(transform.position.y <= 70)
 	{
+		Cannon.shotsMissed ++;
 		Destroy(this.gameObject);
 	}
 }
@@ -33,6 +34,7 @@ function OnCollisionEnter(other: Collision)
 		other.gameObject.GetComponentInParent(Boss).health -= damage;
 		canDamage = false;
 		Instantiate(explosion, transform.position, transform.rotation);
+		Cannon.shotsHit ++;
 		Destroy(this.gameObject);
 	}
 
