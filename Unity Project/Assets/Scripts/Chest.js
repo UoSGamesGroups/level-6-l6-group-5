@@ -223,13 +223,24 @@ function Destroy()
 	
 	totalChests = PlayerPrefs.GetInt("Zone"+ chestLevel);
 	totalChests --;
-	//PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
+	PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
 
 	PlayerPrefs.SetInt(selectedItem + selectedItemType , 1);
+
+	Analytic("Chest", true, "Chest Open");
 
 	yield WaitForSeconds(5);
 	
 	Destroy(button.gameObject);
 	Destroy(this.gameObject);
 
+}
+
+function Analytic(name: String, num: Object, eventName: String)
+{
+	//Test for analytics. Might change. 
+	var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
+	params.Add(eventName, num);
+	var returnVal = Analytics.Analytics.CustomEvent(name, params);
+	Debug.Log(returnVal);
 }

@@ -43,10 +43,10 @@ function Start ()
 {
 	currentLevel = PlayerPrefs.GetInt("currentLevel");
 
-	healthStart = currentLevel * 100;
+	healthStart = currentLevel * 70;
 	health = healthStart;
 
-	moveSpeed = currentLevel;
+	moveSpeed = currentLevel * 0.5;
 
 	if(moveSpeed > 15)
 	{
@@ -63,6 +63,7 @@ function Start ()
 	forceZMinMax.y -= currentLevel;
 
 	nextShot = Random.Range(nextShotTime.x, nextShotTime.y);
+
 	force.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
 	force.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
 	force.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
@@ -77,8 +78,8 @@ function Start ()
 
 	cannon = GameObject.FindGameObjectWithTag("Cannon");
 
-	nextShotTime.x = 1.5 - (currentLevel / 10);
-	nextShotTime.y = 2.5 - (currentLevel / 10);
+	nextShotTime.x = 2 - (currentLevel / 10);
+	nextShotTime.y = 3 - (currentLevel / 10);
 
 	if(nextShotTime.x < 0.5)
 	{
