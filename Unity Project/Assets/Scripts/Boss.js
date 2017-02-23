@@ -179,9 +179,9 @@ function Shoot()
 
 function LootAmounts()
 {
-	wood = Random.Range(2, 7);
-	cloth = Random.Range(2, 7);	
-	metal = Random.Range(2, 7);	
+	wood = Random.Range(3, 7);
+	cloth = Random.Range(3, 7);	
+	metal = Random.Range(3, 7);	
 
 	loot.SetActive(true);
 			
