@@ -10,6 +10,8 @@ public var turnSpeed: float;
 public var health: float;
 public var healthUI: Image;
 public var currentLevel: int;
+public var endDistance: float;
+public var curentDistance: float;
 
 function Start()
 {
@@ -27,6 +29,14 @@ function Update ()
 	{
 		Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Died");
 		Application.LoadLevel("runner");
+	}
+
+	curentDistance = speed * Time.time;
+
+	if(curentDistance >= endDistance)
+	{
+		Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Won");
+		Application.LoadLevel("Boss");
 	}
 
 	yAngle = transform.localEulerAngles.y;
@@ -79,7 +89,6 @@ function TurnShipDown()
 	if(yAngle < 130)
 		transform.Rotate(0,10,0);
 }
-
 
 function Analytic(name: String, num: Object, eventName: String)
 {
