@@ -2,16 +2,20 @@
 
 public var width: float;
 public var depth: float;
-
+public var vertices: Vector3[];
+public var mesh: Mesh;
+public var waveSpeed: float;
+public var lowestHeight: float;
 function Start() {	
 	var mf: MeshFilter = GetComponent(MeshFilter);
-	var mesh = new Mesh();
+	mesh = new Mesh();
 	mf.mesh = mesh;
 	var widthDepth: int = width*depth;
+	vertices = new Vector3[widthDepth];
 
 
 	//Make Vert points
-	var vertices: Vector3[] = new Vector3[widthDepth];
+
 	var vert:int;
 	for(var d: int = 0; d < (depth); d++)
 	{
@@ -148,15 +152,15 @@ function Start() {
 
 
 	/* Wave Height
+
+	*/
 	for(var vertPoint: Vector3 in vertices)
 	{
 		var waveHeight: float = Random.Range(-1f,1f); 
-		vertPoint.y += waveHeight;
+		vertPoint.y = waveHeight;
 	Debug.Log("vert changed");
 	}
 	mesh.vertices = vertices;
-	*/
-
 
 
 	var normals: Vector3[] = new Vector3[widthDepth];
@@ -165,4 +169,18 @@ function Start() {
 	normals[n] = -Vector3.down;
 	}
 	mesh.normals = normals;
+}
+function  Update()
+{
+	for(var vertPoint: Vector3 in vertices)
+	{
+		if(vertPoint.y < lowestHeight)
+		{
+		vertPoint.y += waveSpeed;
+		} else {
+		vertPoint.y -= waveSpeed;
+	}
+	Debug.Log("vert changed");
+	}
+	mesh.vertices = vertices;
 }
