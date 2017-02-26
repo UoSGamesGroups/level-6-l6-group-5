@@ -1,9 +1,12 @@
 ﻿#pragma strict
-public var obj: GameObject;
+public var obj: GameObject[];
 public var player: GameObject;
-public var spawnPos: Vector3;
+private var spawnPos: Vector3;
 public var spawnTime: float;
 public var timeUntilSpawn: float;
+public var spawnDistance: float;
+public var minZ: float;
+public var maxZ: float;
 
 function Update () 
 {
@@ -17,12 +20,14 @@ function Update ()
 }
 
 function SpawnObj(){
-	Instantiate(obj,spawnPos,transform.rotation);
+	Instantiate(obj[Random.Range(0,obj.Length)],spawnPos,transform.rotation);
+	if(timeUntilSpawn > 0.5)
+	timeUntilSpawn -= 0.1;
 }
 
 function GetNextSpawnPos(){
-var newX: float = player.transform.position.x + 10;
-var newZ: float = player.transform.position.z;
+var newX: float = player.transform.position.x + spawnDistance;
+var newZ: float = Random.Range(minZ,maxZ);
 	spawnPos.x = newX;
 	spawnPos.z = newZ;
 }

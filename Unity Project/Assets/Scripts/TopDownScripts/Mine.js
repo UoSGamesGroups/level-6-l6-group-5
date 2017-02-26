@@ -19,7 +19,7 @@ function OnCollisionEnter(other:Collision)
 	{
 		Instantiate (explosion,transform.position,transform.rotation);
 		//player.GetComponent.<BoatControl>().health -= damage; old system here if we need
-		player.GetComponent.<exploreControls>().health -= damage;
+		player.GetComponent.<ExploreControls>().health -= damage;
 		Destroy (gameObject);
 	}
 }

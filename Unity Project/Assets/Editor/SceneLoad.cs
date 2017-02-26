@@ -19,7 +19,7 @@ public class NewEditorTest {
 	[MenuItem("Open Scene/Exploration")]
 	public static void OpenExploration() {
 
-		OpenScene("scene 1");
+		OpenScene("runner");
 	}
 	public static void OpenScene(string name)
 	{

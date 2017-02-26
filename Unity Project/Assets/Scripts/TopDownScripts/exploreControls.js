@@ -12,6 +12,8 @@ public var healthUI: Image;
 public var currentLevel: int;
 public var endDistance: float;
 public var curentDistance: float;
+public var maxZ: float;
+public var minZ: float;
 
 function Start()
 {
@@ -76,18 +78,36 @@ function Update ()
 	{
 		transform.Rotate(0,-Time.deltaTime * turnSpeed,0);
 	}
+
+
+	if(transform.position.z < minZ)
+		transform.position.z = minZ;
+
+	if(transform.position.z > maxZ)
+		transform.position.z = maxZ;
+	
+
+
 }
 
 function TurnShipUp()
 {
-	if(yAngle > 45)
+	if(transform.position.z < maxZ)
+	{
+		if(yAngle > 45)
 		transform.Rotate(0,-10,0);
+	}
 }
+
+
 
 function TurnShipDown()
 {
-	if(yAngle < 130)
+	if(transform.position.z > minZ)
+	{
+		if(yAngle < 130)
 		transform.Rotate(0,10,0);
+	}
 }
 
 function Analytic(name: String, num: Object, eventName: String)
