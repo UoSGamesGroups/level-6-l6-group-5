@@ -10,7 +10,7 @@ public var ballNum: int;
 function Start () 
 {
 	var currentLevel:int = PlayerPrefs.GetInt("currentLevel");
-	damage = currentLevel * baseDamage; 
+	//damage = currentLevel * baseDamage; 
 
 	switch(ballNum)
 	{

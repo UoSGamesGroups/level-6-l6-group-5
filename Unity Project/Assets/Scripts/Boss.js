@@ -38,20 +38,15 @@ public var forceZMinMax: Vector2;
 public var moveMinMax: Vector2;
 public var moveSpeed: float;
 public var right: boolean;
+public var baseDamage: int;
 
 function Start () 
 {
 	currentLevel = PlayerPrefs.GetInt("currentLevel");
+	cannon = GameObject.FindGameObjectWithTag("Cannon");
 
-	healthStart = currentLevel * 70;
+	//healthStart = currentLevel * 70;
 	health = healthStart;
-
-	moveSpeed = currentLevel * 0.5;
-
-	if(moveSpeed > 15)
-	{
-		moveSpeed = 15;
-	}
 
 	forceXMinMax.x += currentLevel;
 	forceXMinMax.y -= currentLevel;
@@ -76,7 +71,6 @@ function Start ()
 	force3.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
 	force3.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
-	cannon = GameObject.FindGameObjectWithTag("Cannon");
 
 	nextShotTime.x = 2 - (currentLevel / 10);
 	nextShotTime.y = 3 - (currentLevel / 10);
@@ -98,17 +92,9 @@ function Update ()
 	ballPos = ballPosObj.transform.position;
 	ballPos2 = ballPos2Obj.transform.position;
 	ballPos3 = ballPos3Obj.transform.position;
-	
-	healthPercent = health/healthStart;
-	healthImage.fillAmount = healthPercent;
 
 	if(health <= 0 && !dead)
 	{
-		/*var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
-		params.Add("Shooting", cannon.GetComponent(Cannon).shotCounter);
-		var returnVal = Analytics.Analytics.CustomEvent("Amount", params);
-		Debug.Log(returnVal);*/
-
 		Analytic("Shooting", Cannon.shotsMissed, "Missed Shots " + currentLevel.ToString());
 		Analytic("Shooting", Cannon.shotsHit, "Shots Hit " + currentLevel.ToString());
 		Analytic("Shooting", cannon.GetComponent(Cannon).shotCounter, "Total Shots " + currentLevel.ToString());
@@ -116,7 +102,7 @@ function Update ()
 		
 		dead = true;
 		UnlockNextZone();
-		LootAmounts();
+		//LootAmounts();
 	}
 	
 	if(nextShot <= Time.time)
@@ -153,7 +139,9 @@ function Shoot()
 	var childBall = Instantiate(ball, ballPos, transform.rotation);
 	childBall.GetComponent(EnemyBall).ballNum = 1;
 	childBall.transform.parent = boss.transform;
-
+		childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
+	
+	
 	if(currentLevel >= 15)
 	{
 		force2.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
@@ -163,6 +151,7 @@ function Shoot()
 		childBall = Instantiate(ball, ballPos2, transform.rotation);
 		childBall.GetComponent(EnemyBall).ballNum = 2;
 		childBall.transform.parent = boss.transform;
+		childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
 	}
 
 	if(currentLevel >= 25)
@@ -174,9 +163,11 @@ function Shoot()
 		childBall = Instantiate(ball, ballPos3, transform.rotation);
 		childBall.GetComponent(EnemyBall).ballNum = 3;
 		childBall.transform.parent = boss.transform;
+		childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
 	}
 }
 
+/*
 function LootAmounts()
 {
 	wood = Random.Range(3, 7);
@@ -202,7 +193,7 @@ function LootAmounts()
 	PlayerPrefs.SetInt("Zone"+ currentLevel, currentChests);
 
 	WaitAndLoad();
-}
+}*/
 
 function UnlockNextZone()
 {	

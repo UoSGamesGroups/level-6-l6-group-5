@@ -4,6 +4,8 @@ public var ballForce: Vector3;
 public var damage: int;
 public var canDamage: boolean;
 public var explosion: GameObject;
+public var line: LineRenderer;
+public var nextLine: float;
 
 function Start () 
 {
@@ -16,6 +18,9 @@ function Start ()
 	}
 
 	damage = 10 * PlayerPrefs.GetInt("CannonBall");
+
+	line.SetPosition(0, transform.position);
+	nextLine = Time.time + 0.05;
 }
 
 function Update () 
@@ -24,6 +29,13 @@ function Update ()
 	{
 		Cannon.shotsMissed ++;
 		Destroy(this.gameObject);
+	}
+
+	if(nextLine < Time.time)
+	{
+		line.numPositions = line.numPositions + 1;
+		line.SetPosition(line.numPositions - 1, transform.position);
+		nextLine = Time.time + 0.05;
 	}
 }
 
