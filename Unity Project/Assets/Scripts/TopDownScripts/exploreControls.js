@@ -11,19 +11,44 @@ public var health: float;
 public var healthUI: Image;
 public var currentLevel: int;
 public var endDistance: float;
-public var curentDistance: float;
+public var currentDistance: float;
 public var maxZ: float;
 public var minZ: float;
+public var distanceMultiplier: float;
+public var speedMultiplier: float;
+private var percentageCompleted: float;
+public var healthObj: GameObject;
+public var bossUIObj: GameObject;
+public var boss: GameObject;
+private var bossUIObjPos: Vector3;
+private var startPosHealthUI: Vector3;
+private var distanceUI: float;
 
 function Start()
 {
+	//GEt UI start pos for % of progress
+	startPosHealthUI = healthObj.transform.position;
+	bossUIObjPos = bossUIObj.transform.position;
+	distanceUI = startPosHealthUI.x - bossUIObjPos.x;
+	//scale speed
+	speed = speed + (speedMultiplier * PlayerPrefs.GetInt("currentLevel"));
+	//scale end distance
+	endDistance = 140 + (distanceMultiplier * PlayerPrefs.GetInt("currentLevel"));
+	
 	currentLevel = PlayerPrefs.GetInt("currentLevel");
 
 	Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Loaded");
+	//create boss for the end
+	var bossPos: Vector3;
+	bossPos.x = endDistance + 5;
+	Instantiate(boss,bossPos,transform.rotation);
 }
 
 function Update () 
 {
+	//Move UI to show progress
+	percentageCompleted = (currentDistance / endDistance);
+	healthObj.transform.position.x = startPosHealthUI.x - (distanceUI * percentageCompleted);
 	//show health
 	healthUI.fillAmount = health/100;
 
@@ -33,11 +58,12 @@ function Update ()
 		Application.LoadLevel("runner");
 	}
 
-	curentDistance = speed * Time.time;
+	currentDistance = transform.position.x;
 
-	if(curentDistance >= endDistance)
+	if(currentDistance >= endDistance)
 	{
 		Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Won");
+		Debug.Log("explore finished with - health: " + health + " endDistance: " + endDistance);
 		Application.LoadLevel("Boss");
 	}
 

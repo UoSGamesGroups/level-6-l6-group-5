@@ -8,6 +8,7 @@ public var spawnDistance: float;
 public var minZ: float;
 public var maxZ: float;
 
+
 function Update () 
 {
 	spawnTime += 1 * Time.deltaTime;
