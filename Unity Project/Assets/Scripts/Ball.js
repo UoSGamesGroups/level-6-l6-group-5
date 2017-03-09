@@ -6,6 +6,7 @@ public var canDamage: boolean;
 public var explosion: GameObject;
 public var line: LineRenderer;
 public var nextLine: float;
+public var parentType: String;
 
 function Start () 
 {
@@ -18,6 +19,13 @@ function Start ()
 	}
 
 	damage = 10 * PlayerPrefs.GetInt("CannonBall");
+
+	parentType = GetComponentInParent(Cannon).type.ToString();
+
+	if(parentType == "Heavy")
+	{
+		damage = damage * 2;
+	}
 
 	line.SetPosition(0, transform.position);
 	nextLine = Time.time + 0.05;
@@ -47,6 +55,19 @@ function OnCollisionEnter(other: Collision)
 		canDamage = false;
 		Instantiate(explosion, transform.position, transform.rotation);
 		Cannon.shotsHit ++;
+
+		if(parentType == "Slow")
+		{
+			other.gameObject.GetComponentInParent(Boss).moveSpeed = other.gameObject.GetComponentInParent(Boss).moveSpeed * 0.5;
+		}
+
+		if(parentType == "Fire")
+		{
+			other.gameObject.GetComponentInParent(Boss).burnAmount = 0;
+			other.gameObject.GetComponentInParent(Boss).Burn(damage);
+		}
+
+
 		Destroy(this.gameObject);
 	}
 

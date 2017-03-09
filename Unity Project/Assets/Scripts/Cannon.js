@@ -27,6 +27,12 @@ public var params = new System.Collections.Generic.Dictionary.<System.String, Sy
 static var shotCounter: int;
 static var shotsHit: int;
 static var shotsMissed: int;
+public var selected: boolean;
+public var outline: Material;
+public var cannonController: GameObject;
+public var type: Type;
+
+enum Type {Normal, Fire, Heavy, Slow}
 
 function Start () 
 {
@@ -34,10 +40,9 @@ function Start ()
 	shotsHit = 0;
 	shotsMissed = 0;
 
+	ballPos = new Vector3(transform.position.x  + 0.65, transform.position.y + 1.44, transform.position.z + 2.29);
+
 	enemy = GameObject.FindGameObjectWithTag("Enemy");
-	//transform.LookAt(enemy.transform, Vector3.forward);
-	//transform.rotation.z = 0;
-	//transform.rotation.x = -270;
 	acuracyLevel = PlayerPrefs.GetInt("Cannon");
 	
 	reloadTime = 1.25 - (PlayerPrefs.GetInt("Reload") / 10);
@@ -45,6 +50,15 @@ function Start ()
 
 function Update () 
 {
+	if(!selected)
+	{
+		outline.SetFloat("_Outline", 0);
+	}
+	else
+	{
+		outline.SetFloat("_Outline", 0.2);
+	}
+
 	if (Input.touchCount > 0)
 	var touch: Touch = Input.GetTouch(0);
 	
@@ -124,7 +138,7 @@ function Update ()
 
 function Fire()
 {
-	if(once && reloaded)
+	if(once && reloaded && selected)
 	{
 		//clicked = false;
 		var childBall = Instantiate(ball, ballPos, transform.rotation);
@@ -139,7 +153,8 @@ function Fire()
 
 function OnMouseDown () 
 {
-	//clicked = true;
+	cannonController.GetComponent(CannonController).Selected();
+	selected = true;
 }
 
 function OnMouseUp () 

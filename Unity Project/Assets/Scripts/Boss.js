@@ -39,13 +39,14 @@ public var moveMinMax: Vector2;
 public var moveSpeed: float;
 public var right: boolean;
 public var baseDamage: int;
+public var burnAmount: int;
+
 
 function Start () 
 {
 	currentLevel = PlayerPrefs.GetInt("currentLevel");
 	cannon = GameObject.FindGameObjectWithTag("Cannon");
 
-	//healthStart = currentLevel * 70;
 	health = healthStart;
 
 	forceXMinMax.x += currentLevel;
@@ -70,7 +71,6 @@ function Start ()
 	force3.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
 	force3.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
 	force3.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
-
 
 	nextShotTime.x = 2 - (currentLevel / 10);
 	nextShotTime.y = 3 - (currentLevel / 10);
@@ -102,7 +102,6 @@ function Update ()
 		
 		dead = true;
 		UnlockNextZone();
-		//LootAmounts();
 	}
 	
 	if(nextShot <= Time.time)
@@ -167,38 +166,32 @@ function Shoot()
 	}
 }
 
-/*
-function LootAmounts()
+function Burn(damage: float)
 {
-	wood = Random.Range(3, 7);
-	cloth = Random.Range(3, 7);	
-	metal = Random.Range(3, 7);	
+	var burnDamage = damage * 0.2;
 
-	loot.SetActive(true);
-			
-	woodText.text = "+" + wood;
-	clothText.text = "+" + cloth;
-	metalText.text = "+" + metal;
+	Debug.Log("Burn");
 
-	playerWood = PlayerPrefs.GetInt("Wood");
-	playerCloth = PlayerPrefs.GetInt("Cloth");
-	playerMetal = PlayerPrefs.GetInt("Metal");
+	health -= damage;
+	burnAmount ++;
 
-	PlayerPrefs.SetInt("Wood", wood + playerWood);
-	PlayerPrefs.SetInt("Cloth", cloth + playerCloth);
-	PlayerPrefs.SetInt("Metal", metal + playerMetal);
+	if(burnAmount < 5)
+		WaitAndDamage(damage);
 
-	currentChests = PlayerPrefs.GetInt("Zone"+ currentLevel);
-	currentChests ++;
-	PlayerPrefs.SetInt("Zone"+ currentLevel, currentChests);
+}
 
-	WaitAndLoad();
-}*/
+function WaitAndDamage(dam: float)
+{
+
+	yield WaitForSeconds(0.5);
+	Burn(dam);
+}
 
 function UnlockNextZone()
 {	
-	var currentLevel:int = PlayerPrefs.GetInt("currentLevel");
-	var zonesUnlocked:int = PlayerPrefs.GetInt("zoneUnlocked");
+	var currentLevel: int = PlayerPrefs.GetInt("currentLevel");
+	var zonesUnlocked: int = PlayerPrefs.GetInt("zoneUnlocked");
+
 	if (currentLevel == zonesUnlocked)
 	{
 		currentLevel ++;
@@ -215,7 +208,6 @@ function WaitAndLoad ()
 
 function Analytic(name: String, num: Object, eventName: String)
 {
-	//Test for analytics. Might change. 
 	var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
 	params.Add(eventName, num);
 	var returnVal = Analytics.Analytics.CustomEvent(name, params);
