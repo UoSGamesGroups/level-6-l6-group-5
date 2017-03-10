@@ -40,6 +40,7 @@ public var moveSpeed: float;
 public var right: boolean;
 public var baseDamage: int;
 public var burnAmount: int;
+public var explosion: GameObject;
 
 
 function Start () 
@@ -99,7 +100,11 @@ function Update ()
 		Analytic("Shooting", Cannon.shotsHit, "Shots Hit " + currentLevel.ToString());
 		Analytic("Shooting", cannon.GetComponent(Cannon).shotCounter, "Total Shots " + currentLevel.ToString());
 		Analytic("Level " + currentLevel.ToString() + " Boss", true, "Won");
-		
+
+		Instantiate(explosion,transform.position, transform.rotation);
+
+		Sink();
+
 		dead = true;
 		UnlockNextZone();
 	}
@@ -212,4 +217,22 @@ function Analytic(name: String, num: Object, eventName: String)
 	params.Add(eventName, num);
 	var returnVal = Analytics.Analytics.CustomEvent(name, params);
 	Debug.Log(returnVal);
+}
+
+
+function Sink()
+{
+	transform.position.y -= 0.2;
+
+	if(transform.position.y > 138)
+	{
+		Sink2();
+	}
+
+}
+
+function Sink2()
+{
+	yield WaitForSeconds (0.01);
+	Sink();
 }

@@ -7,6 +7,7 @@ public var explosion: GameObject;
 public var line: LineRenderer;
 public var nextLine: float;
 public var parentType: String;
+public var explosion2: GameObject;
 
 function Start () 
 {
@@ -53,7 +54,8 @@ function OnCollisionEnter(other: Collision)
 	{
 		other.gameObject.GetComponentInParent(Boss).health -= damage;
 		canDamage = false;
-		Instantiate(explosion, transform.position, transform.rotation);
+		//Instantiate(explosion, transform.position, transform.rotation);
+		Instantiate(explosion2, transform.position, transform.rotation);
 		Cannon.shotsHit ++;
 
 		if(parentType == "Slow")

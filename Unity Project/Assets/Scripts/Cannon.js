@@ -30,6 +30,7 @@ static var shotsMissed: int;
 public var selected: boolean;
 public var outline: Material;
 public var cannonController: GameObject;
+public var explosionParticles: GameObject;
 public var type: Type;
 
 enum Type {Normal, Fire, Heavy, Slow}
@@ -140,9 +141,9 @@ function Fire()
 {
 	if(once && reloaded && selected)
 	{
-		//clicked = false;
 		var childBall = Instantiate(ball, ballPos, transform.rotation);
 		childBall.transform.parent = cannon.transform;
+		Instantiate(explosionParticles, ballPos, transform.rotation);
 		reloadImage.SetActive(true);
 		reloaded = false;
 		finishReload = reloadTime + Time.time;
@@ -155,11 +156,6 @@ function OnMouseDown ()
 {
 	cannonController.GetComponent(CannonController).Selected();
 	selected = true;
-}
-
-function OnMouseUp () 
-{
-	//clicked = false;
 }
 
 function Analytic(name: String, num: float)

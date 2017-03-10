@@ -24,7 +24,7 @@ function Start()
 
 function Update()
 {
-	if( Time.time > 1 && boss[0].GetComponent(Boss).dead && !runOnce) 
+	if(Time.time > 1 && boss[0].GetComponent(Boss).dead && !runOnce) 
 	{
 		runOnce = true;
 		LootAmounts();
@@ -33,6 +33,8 @@ function Update()
 
 function LootAmounts()
 {
+	yield WaitForSeconds(2);
+
 	wood = Random.Range(3, 7);
 	cloth = Random.Range(3, 7);	
 	metal = Random.Range(3, 7);	
@@ -47,6 +49,11 @@ function LootAmounts()
 	playerCloth = PlayerPrefs.GetInt("Cloth");
 	playerMetal = PlayerPrefs.GetInt("Metal");
 
+	currentLevel = PlayerPrefs.GetInt("currentLevel");
+	currentBoss = PlayerPrefs.GetInt("CurrentBoss");
+	
+	Debug.Log("Current Level is " + currentLevel);
+
 	PlayerPrefs.SetInt("Wood", wood + playerWood);
 	PlayerPrefs.SetInt("Cloth", cloth + playerCloth);
 	PlayerPrefs.SetInt("Metal", metal + playerMetal);
@@ -55,7 +62,6 @@ function LootAmounts()
 	currentChests ++;
 	PlayerPrefs.SetInt("Zone"+ currentLevel, currentChests);
 
-	currentBoss = PlayerPrefs.GetInt("CurrentBoss");
 
 	currentBoss ++;
 
