@@ -5,6 +5,7 @@ public var damage: int;
 public var canDamage: boolean;
 public var baseDamage: int;
 public var explosion: GameObject;
+public var wood: GameObject;
 public var ballNum: int;
 
 function Start () 
@@ -44,6 +45,7 @@ function OnCollisionEnter(other: Collision)
 		other.gameObject.GetComponentInParent(Boat).health -= damage;
 		canDamage = false;
 		Instantiate(explosion, transform.position, transform.rotation);
+		Instantiate(wood, transform.position, Quaternion.Euler(new Vector3(-51, -224, 40)));
 		Destroy(this.gameObject);
 	}
 }
