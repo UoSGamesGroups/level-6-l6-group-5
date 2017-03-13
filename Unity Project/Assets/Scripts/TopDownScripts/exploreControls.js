@@ -23,6 +23,8 @@ public var boss: GameObject;
 private var bossUIObjPos: Vector3;
 private var startPosHealthUI: Vector3;
 private var distanceUI: float;
+public var rotateUpSpeed: float;
+public var rotateDownSpeed: float;
 
 function Start()
 {
@@ -67,9 +69,27 @@ function Update ()
 		Application.LoadLevel("Boss");
 	}
 
+	if(Input.GetKey(KeyCode.Mouse0))
+	{
+		if(transform.position.z < maxZ)
+		{
+			if(yAngle > 45)
+			transform.Rotate(0, (-Time.deltaTime*rotateUpSpeed),0);
+		}
+	} else {
+		if(transform.position.z > minZ)
+		{
+			if(yAngle < 130)
+			transform.Rotate(0,(Time.deltaTime*rotateDownSpeed),0);
+		}
+	}
+
 	yAngle = transform.localEulerAngles.y;
 	//moveBoat forwards
 	transform.position += (transform.forward * speed) * Time.deltaTime;
+
+
+/*  ///////////OLD SWIPE TO MOVE CONTROLS///////////////////
 	//if mouse down or touch set start pos
 	if(Input.GetKeyDown (KeyCode.Mouse0))
 	{
@@ -105,7 +125,7 @@ function Update ()
 		transform.Rotate(0,-Time.deltaTime * turnSpeed,0);
 	}
 
-
+	*/
 	if(transform.position.z < minZ)
 		transform.position.z = minZ;
 
@@ -115,7 +135,7 @@ function Update ()
 
 
 }
-
+/*  ///////////OLD SWIPE TO MOVE CONTROLS///////////////////
 function TurnShipUp()
 {
 	if(transform.position.z < maxZ)
@@ -135,7 +155,7 @@ function TurnShipDown()
 		transform.Rotate(0,10,0);
 	}
 }
-
+*/
 function Analytic(name: String, num: Object, eventName: String)
 {
 	//Test for analytics. Might change. 
