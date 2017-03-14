@@ -11,10 +11,22 @@ public var slowShots: int;
 
 function Start () 
 {
-	//fireShots = PlayerPrefs.GetInt("FireShots");
-	//heavyShots = PlayerPrefs.GetInt("HeavyShots");
-	//slowShots = PlayerPrefs.GetInt("SlowShots");
+	fireShots = PlayerPrefs.GetInt("PowerUp1");
+	heavyShots = PlayerPrefs.GetInt("PowerUp2");
+	slowShots = PlayerPrefs.GetInt("PowerUp3");
 	
+	UpdateAmmo();
+}
+
+function Selected () 
+{
+	normalCannon.GetComponent(Cannon).selected = false;
+	fireCannon.GetComponent(Cannon).selected = false;
+	heavyCannon.GetComponent(Cannon).selected = false;
+	slowCannon.GetComponent(Cannon).selected = false;
+}
+function UpdateAmmo()
+{
 
 	if(fireShots > 0)
 	{
@@ -42,12 +54,4 @@ function Start ()
 	{
 		slowCannon.SetActive(false);
 	}
-}
-
-function Selected () 
-{
-	normalCannon.GetComponent(Cannon).selected = false;
-	fireCannon.GetComponent(Cannon).selected = false;
-	heavyCannon.GetComponent(Cannon).selected = false;
-	slowCannon.GetComponent(Cannon).selected = false;
 }

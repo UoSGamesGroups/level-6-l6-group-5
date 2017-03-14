@@ -149,7 +149,26 @@ function Fire()
 		finishReload = reloadTime + Time.time;
 		once = false;
 		shotCounter++;
+
+		//take one away from type and then update the ammo in cannonController
+		switch (type.ToString())
+		{
+
+			case "Normal": 
+			break;
+
+			case "Slow": cannonController.GetComponent(CannonController).slowShots --;
+			break;
+
+			case "Heavy": cannonController.GetComponent(CannonController).heavyShots --;		  
+			break;
+
+			case "Burn": cannonController.GetComponent(CannonController).fireShots --;
+			break;
+		}
+		cannonController.GetComponent(CannonController).UpdateAmmo();
 	}
+
 }
 
 function OnMouseDown () 
