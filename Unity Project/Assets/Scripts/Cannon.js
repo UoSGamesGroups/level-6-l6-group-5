@@ -32,6 +32,7 @@ public var outline: Material;
 public var cannonController: GameObject;
 public var explosionParticles: GameObject;
 public var type: Type;
+public var material: Material;
 
 enum Type {Normal, Fire, Heavy, Slow}
 
@@ -53,11 +54,11 @@ function Update ()
 {
 	if(!selected)
 	{
-		outline.SetFloat("_Outline", 0);
+		material.color = Color(1,1,1,0);
 	}
 	else
 	{
-		outline.SetFloat("_Outline", 0.2);
+		material.color = Color(0.25,0.25,0.25,0.25);
 	}
 
 	if (Input.touchCount > 0)

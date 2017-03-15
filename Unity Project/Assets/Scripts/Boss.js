@@ -30,6 +30,7 @@ public var metalText: Text;
 public var dead: boolean;
 public var cannon: GameObject;
 public var healthImage: Image;
+public var healthObj: GameObject;
 public var currentChests: int;
 public var currentLevel: float; 
 public var forceXMinMax: Vector2;
@@ -47,6 +48,9 @@ function Start ()
 {
 	currentLevel = PlayerPrefs.GetInt("currentLevel");
 	cannon = GameObject.FindGameObjectWithTag("Cannon");
+
+	healthObj = GameObject.FindGameObjectWithTag("HealthImg");
+	healthImage = healthObj.GetComponent(Image);
 
 	health = healthStart;
 
@@ -93,6 +97,9 @@ function Update ()
 	ballPos = ballPosObj.transform.position;
 	ballPos2 = ballPos2Obj.transform.position;
 	ballPos3 = ballPos3Obj.transform.position;
+
+	healthPercent = health/healthStart;
+ 	healthImage.fillAmount = healthPercent;
 
 	if(health <= 0 && !dead)
 	{
