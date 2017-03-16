@@ -75,6 +75,6 @@ function LootAmounts()
 
 function WaitAndLoad ()
 {
-	yield WaitForSeconds(2);
+	yield WaitForSeconds(5);
 	Application.LoadLevel ("LevelSelect");
 }

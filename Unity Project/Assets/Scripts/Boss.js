@@ -42,7 +42,7 @@ public var right: boolean;
 public var baseDamage: int;
 public var burnAmount: int;
 public var explosion: GameObject;
-
+public var brokenBoat: GameObject;
 
 function Start () 
 {
@@ -109,8 +109,7 @@ function Update ()
 		Analytic("Level " + currentLevel.ToString() + " Boss", true, "Won");
 
 		Instantiate(explosion,transform.position, transform.rotation);
-
-		Sink();
+		Instantiate(brokenBoat,transform.position, Quaternion.Euler(0,-90,0));
 
 		dead = true;
 		UnlockNextZone();
@@ -150,7 +149,7 @@ function Shoot()
 	var childBall = Instantiate(ball, ballPos, transform.rotation);
 	childBall.GetComponent(EnemyBall).ballNum = 1;
 	childBall.transform.parent = boss.transform;
-		childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
+	childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
 	
 	
 	if(currentLevel >= 15)
@@ -194,7 +193,6 @@ function Burn(damage: float)
 
 function WaitAndDamage(dam: float)
 {
-
 	yield WaitForSeconds(0.5);
 	Burn(dam);
 }
@@ -210,6 +208,8 @@ function UnlockNextZone()
 		PlayerPrefs.SetInt("zoneUnlocked", currentLevel);
 		Debug.Log("New Zone Unlocked!");
 	}
+
+	gameObject.SetActive(false);
 }
 
 function WaitAndLoad ()
@@ -224,22 +224,4 @@ function Analytic(name: String, num: Object, eventName: String)
 	params.Add(eventName, num);
 	var returnVal = Analytics.Analytics.CustomEvent(name, params);
 	Debug.Log(returnVal);
-}
-
-
-function Sink()
-{
-	transform.position.y -= 0.2;
-
-	if(transform.position.y > 138)
-	{
-		Sink2();
-	}
-
-}
-
-function Sink2()
-{
-	yield WaitForSeconds (0.01);
-	Sink();
 }
