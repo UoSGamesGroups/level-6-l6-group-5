@@ -39,6 +39,7 @@ public var sailMesh: Mesh;
 public var randomlyChangeItem: int;
 public var clicked: boolean;
 public var mesh: MeshFilter;
+public var objectMat: Renderer;
 
 
 function ButtonStart () 
@@ -93,6 +94,8 @@ function ChestStart ()
 
 	GetItem();
 
+	objectMat = object.GetComponent(Renderer);
+
 }
 
 function Update()
@@ -138,7 +141,8 @@ function Clicked()
 {
 	if(!clicked)
 	{
-		chestCreated = Instantiate(chest, new Vector3(0.67,10.64,-0.04), Quaternion.Euler(32.596, -74.22701, -62.331));
+		chestCreated = Instantiate(chest, new Vector3(0.123,12.482,-0.25), Quaternion.Euler(32.596, -74.22701, -62.331));
+		//chestCreated = Instantiate(chest, new Vector3(0.67,10.64,-0.04), Quaternion.Euler(32.596, -74.22701, -62.331));
 		chestCreated.GetComponent(Chest).button = this.gameObject;
 		chestCreated.GetComponent(Chest).chestLevel = chestLevel;
 		chestCreated.GetComponent(Chest).ChestStart();
@@ -190,16 +194,19 @@ function GetItem()
 	mesh.mesh = selectedItemMesh;
 	randomlyChangeItem ++;
 
-	object.GetComponent(Renderer).material = selectedItemMaterial;
+	//objectMat.material = selectedItemMaterial;
+
+	mesh.GetComponent(Renderer).material = selectedItemMaterial;
+
 	if(selectedItemType == "Sail") 
 	{
 		object.transform.localRotation = Quaternion.Euler(-90, 180, 2.25);
-		object.transform.localScale = new Vector3(0.3616386,0.3616386,0.3616386);
+		//object.transform.localScale = new Vector3(0.3616386,0.3616386,0.3616386);
 	}
 	else
 	{
 		object.transform.localRotation = Quaternion.Euler(-179.555, 177.254, 85.771);
-		object.transform.localScale = new Vector3(0.008863475,0.008863475,0.008863475);
+		object.transform.localScale = new Vector3(0.005475328,0.005475328,0.005475328);
 	}
 	if(randomlyChangeItem < 20)
 	{
