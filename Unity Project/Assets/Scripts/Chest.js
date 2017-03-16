@@ -230,7 +230,7 @@ function Destroy()
 	
 	totalChests = PlayerPrefs.GetInt("Zone"+ chestLevel);
 	totalChests --;
-	PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
+	//PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
 
 	PlayerPrefs.SetInt(selectedItem + selectedItemType , 1);
 
