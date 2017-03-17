@@ -15,7 +15,6 @@ public var padding: float;
 
 function Start ()
 {
-	SpawnTile();
 	GetNextSpawnPos();
 }
 

@@ -25,6 +25,7 @@ private var startPosHealthUI: Vector3;
 private var distanceUI: float;
 public var rotateUpSpeed: float;
 public var rotateDownSpeed: float;
+public var tapToStartImage: GameObject;
 
 function Start()
 {
@@ -44,10 +45,17 @@ function Start()
 	var bossPos: Vector3;
 	bossPos.x = endDistance + 5;
 	Instantiate(boss,bossPos,transform.rotation);
+	Time.timeScale = 0;
 }
 
 function Update () 
 {
+	//TAP TO START
+	if(Input.GetKey(KeyCode.Mouse0))
+	{
+	Time.timeScale = 1;
+	tapToStartImage.SetActive(false);
+	}
 	//Move UI to show progress
 	percentageCompleted = (currentDistance / endDistance);
 	healthObj.transform.position.x = startPosHealthUI.x - (distanceUI * percentageCompleted);
