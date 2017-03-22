@@ -19,11 +19,6 @@ function Start ()
 	heavyShots = PlayerPrefs.GetInt("PowerUp2");
 	slowShots = PlayerPrefs.GetInt("PowerUp3");
 
-	fireShots = 100;
-	heavyShots = 100;
-	slowShots = 100;
-	
-
 	UpdateAmmo();
 }
 

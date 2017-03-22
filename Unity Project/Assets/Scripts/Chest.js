@@ -40,7 +40,13 @@ public var randomlyChangeItem: int;
 public var clicked: boolean;
 public var mesh: MeshFilter;
 public var objectMat: Renderer;
+public var parentButtonObject: GameObject;
+public var opened: boolean;
 
+function Start ()
+{
+	Debug.Log("Start");
+}
 
 function ButtonStart () 
 {
@@ -94,9 +100,18 @@ function ChestStart ()
 
 	GetItem();
 
-	objectMat = object.GetComponent(Renderer);
+	ChestOpen(true);
 
+	objectMat = object.GetComponent(Renderer);
 }
+
+function ChestOpen(opening: boolean)
+{
+	var parentObj: GameObject;
+	parentObj = parentButtonObject.GetComponent(Chest).parent;
+	parentObj.GetComponent(Chests).chestOpening = opening;
+}
+
 
 function Update()
 {
@@ -108,6 +123,15 @@ function Update()
 	{
 			text.text = "Level " + chestLevel.ToString();
 	}
+
+	if(opened && Input.GetMouseButtonDown(0))
+	{
+			ChestOpen(false);
+
+			Destroy(button.gameObject);
+			Destroy(this.gameObject);
+	}
+
 }
 
 function AddToList(collectionName: String, rarity: String, mat: Material, type: String, mesh: Mesh) 
@@ -139,12 +163,13 @@ function AddToList(collectionName: String, rarity: String, mat: Material, type: 
 
 function Clicked()
 {
-	if(!clicked)
+	if(!clicked && !parent.GetComponent(Chests).chestOpening)
 	{
 		chestCreated = Instantiate(chest, new Vector3(0.123,12.482,-0.25), Quaternion.Euler(32.596, -74.22701, -62.331));
 		//chestCreated = Instantiate(chest, new Vector3(0.67,10.64,-0.04), Quaternion.Euler(32.596, -74.22701, -62.331));
 		chestCreated.GetComponent(Chest).button = this.gameObject;
 		chestCreated.GetComponent(Chest).chestLevel = chestLevel;
+		chestCreated.GetComponent(Chest).parentButtonObject = this.gameObject;
 		chestCreated.GetComponent(Chest).ChestStart();
 		clicked = true;
 	}
@@ -227,20 +252,23 @@ function Wait()
 
 function Destroy()
 {
-	
 	totalChests = PlayerPrefs.GetInt("Zone"+ chestLevel);
 	totalChests --;
-	//PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
+	PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
 
 	PlayerPrefs.SetInt(selectedItem + selectedItemType , 1);
 
 	Analytic("Chest", true, "Chest Open");
 
-	yield WaitForSeconds(5);
-	
+	//yield WaitForSeconds(5);
+
+	opened = true;
+	/*
+	ChestOpen(false);
+
 	Destroy(button.gameObject);
 	Destroy(this.gameObject);
-
+	*/
 }
 
 function Analytic(name: String, num: Object, eventName: String)

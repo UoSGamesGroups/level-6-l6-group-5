@@ -43,6 +43,7 @@ public var baseDamage: int;
 public var burnAmount: int;
 public var explosion: GameObject;
 public var brokenBoat: GameObject;
+public var player: GameObject;
 
 function Start () 
 {
@@ -51,6 +52,8 @@ function Start ()
 
 	healthObj = GameObject.FindGameObjectWithTag("HealthImg");
 	healthImage = healthObj.GetComponent(Image);
+
+	player = GameObject.FindGameObjectWithTag("Boat");
 
 	health = healthStart;
 
@@ -142,38 +145,41 @@ function Update ()
 
 function Shoot()
 {
-	force.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
-	force.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
-	force.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
-
-	var childBall = Instantiate(ball, ballPos, transform.rotation);
-	childBall.GetComponent(EnemyBall).ballNum = 1;
-	childBall.transform.parent = boss.transform;
-	childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
-	
-	
-	if(currentLevel >= 15)
+	if(player.GetComponent(Boat).health > 0)
 	{
-		force2.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
-		force2.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
-		force2.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
+		force.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
+		force.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
+		force.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
-		childBall = Instantiate(ball, ballPos2, transform.rotation);
-		childBall.GetComponent(EnemyBall).ballNum = 2;
+		var childBall = Instantiate(ball, ballPos, transform.rotation);
+		childBall.GetComponent(EnemyBall).ballNum = 1;
 		childBall.transform.parent = boss.transform;
 		childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
-	}
+		
+		
+		if(currentLevel >= 15)
+		{
+			force2.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
+			force2.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
+			force2.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
 
-	if(currentLevel >= 25)
-	{
-		force3.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
-		force3.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
-		force3.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
+			childBall = Instantiate(ball, ballPos2, transform.rotation);
+			childBall.GetComponent(EnemyBall).ballNum = 2;
+			childBall.transform.parent = boss.transform;
+			childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
+		}
 
-		childBall = Instantiate(ball, ballPos3, transform.rotation);
-		childBall.GetComponent(EnemyBall).ballNum = 3;
-		childBall.transform.parent = boss.transform;
-		childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
+		if(currentLevel >= 25)
+		{
+			force3.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
+			force3.y = Random.Range(forceYMinMax.x, forceYMinMax.y);
+			force3.z = Random.Range(forceZMinMax.x, forceZMinMax.y);
+
+			childBall = Instantiate(ball, ballPos3, transform.rotation);
+			childBall.GetComponent(EnemyBall).ballNum = 3;
+			childBall.transform.parent = boss.transform;
+			childBall.GetComponent(EnemyBall).baseDamage = currentLevel * baseDamage;
+		}
 	}
 }
 

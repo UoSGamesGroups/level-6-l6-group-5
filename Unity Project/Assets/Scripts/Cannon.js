@@ -92,17 +92,17 @@ function Update ()
 
 								if(touchTrav.y <= forceMinMax.y && touchTrav.y >= forceMinMax.x)
 								{
-									force = new Vector3 (touchTrav.x, 800,-650);
+									force = new Vector3 (touchTrav.x, 700,-450);
 									Analytic("Ok", touchTrav.y);
 								}
 								else if(touchTrav.y < forceMinMax.x)
 								{
-									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.x) * 800,-650);
+									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.x) * 700,-450);
 									Analytic("Short", touchTrav.y);
 								}
 								else if(touchTrav.y > forceMinMax.y)
 								{
-									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.y) * 800,-650);
+									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.y) * 700,-450);
 									Analytic("Too far", touchTrav.y);
 								}
 
@@ -113,13 +113,13 @@ function Update ()
 	
 	if(Input.GetKeyDown(KeyCode.P))
 	{
-		force = new Vector3(Random.Range(-20, 20), Random.Range(700, 900), -650);
+		force = new Vector3(Random.Range(-20, 20), Random.Range(600, 800), -450);
 		Fire();
 	}
 	
 	if(Input.GetKeyDown(KeyCode.C))
 	{
-		force = new Vector3(0, 800, -650);
+		force = new Vector3(0, 700, -450);
 		Fire();
 	}
 	

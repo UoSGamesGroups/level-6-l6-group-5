@@ -19,6 +19,8 @@ public var chests: chest[];
 public var highestLevel: int; 
 public var chestObj: GameObject; 
 public var panel: GameObject; 
+public var button: GameObject; 
+public var chestOpening: boolean; 
 
 function Start () 
 {
@@ -35,6 +37,14 @@ function Start ()
 	}
 }
 
+function Update()
+{
+	if(chestOpening)
+	{
+		button.GetComponent(ShowPanel).ChestOpened();
+	}
+}
+
 function CreateChest (amount: int, level: int) 
 {
 	for(var i: int; i < amount; i++)
@@ -42,6 +52,7 @@ function CreateChest (amount: int, level: int)
 		var createdChest = Instantiate(chestObj, transform.position, transform.rotation);
 		createdChest.transform.parent = panel.transform;
 		createdChest.GetComponent(Chest).chestLevel = level;
+		createdChest.GetComponent(Chest).parent = this.gameObject;
 		createdChest.GetComponent(Chest).parent = this.gameObject;
 		createdChest.GetComponent(Chest).ButtonStart();
 	}
