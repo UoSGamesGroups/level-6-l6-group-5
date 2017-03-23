@@ -15,6 +15,7 @@ public var currentLevel: float;
 public var boss: GameObject[]; 
 public var runOnce: boolean; 
 public var currentBoss: int;
+public var click: boolean; 
 
 function Start()
 {
@@ -28,6 +29,14 @@ function Update()
 	{
 		runOnce = true;
 		LootAmounts();
+	}
+
+	if(click)
+	{
+		if(Input.GetMouseButtonUp(0))
+		{
+			Application.LoadLevel ("LevelSelect");
+		}
 	}
 }
 
@@ -75,6 +84,6 @@ function LootAmounts()
 
 function WaitAndLoad ()
 {
-	yield WaitForSeconds(5);
-	Application.LoadLevel ("LevelSelect");
+	yield WaitForSeconds(1);
+	click = true;
 }

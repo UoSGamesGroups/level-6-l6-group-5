@@ -16,6 +16,7 @@ public var metalMulti: int;
 
 public var titleText: Text;
 public var descText: Text;
+public var levelText: Text;
 public var woodText: Text;
 public var clothText: Text;
 public var metalText: Text;
@@ -40,7 +41,8 @@ function Update ()
 {
 	titleText.text = upgradeName;
 	descText.text = upgradeDesc;
-
+	levelText.text = "Current Level: " + upgradeLevel.ToString();
+	
 	woodText.text = woodCost.ToString();
 	clothText.text = clothCost.ToString();
 	metalText.text = metalCost.ToString();
