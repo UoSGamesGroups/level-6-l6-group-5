@@ -6,9 +6,11 @@ public var canDamage: boolean;
 public var explosion: GameObject;
 public var line: LineRenderer;
 public var nextLine: float;
+public var amount: float;
 public var parentType: String;
 public var explosion2: GameObject;
 public var wood: GameObject;
+public var lineMaterial: Material;
 
 function Start () 
 {
@@ -31,6 +33,8 @@ function Start ()
 
 	line.SetPosition(0, transform.position);
 	nextLine = Time.time + 0.05;
+
+	line.material.color = Color(1,0,0,1);
 }
 
 function Update () 
@@ -41,12 +45,16 @@ function Update ()
 		Destroy(this.gameObject);
 	}
 
-	if(nextLine < Time.time)
+	if(nextLine < Time.time && canDamage)
 	{
 		line.numPositions = line.numPositions + 1;
 		line.SetPosition(line.numPositions - 1, transform.position);
 		nextLine = Time.time + 0.05;
 	}
+	amount -= 0.4 * Time.deltaTime;
+
+	line.material.color = Color(1,0,0,amount);
+	
 }
 
 function OnCollisionEnter(other: Collision)
@@ -71,7 +79,7 @@ function OnCollisionEnter(other: Collision)
 			other.gameObject.GetComponentInParent(Boss).Burn(damage);
 		}
 
-
+		yield WaitForSeconds(1);
 		Destroy(this.gameObject);
 	}
 

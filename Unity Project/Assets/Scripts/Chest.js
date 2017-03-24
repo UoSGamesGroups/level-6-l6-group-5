@@ -42,6 +42,10 @@ public var mesh: MeshFilter;
 public var objectMat: Renderer;
 public var parentButtonObject: GameObject;
 public var opened: boolean;
+public var opening: boolean;
+public var chestAnim: Animator;
+public var item: Animator;
+
 
 function Start ()
 {
@@ -121,17 +125,25 @@ function Update()
 	}
 	else 
 	{
-			text.text = "Level " + chestLevel.ToString();
+		text.text = "Level " + chestLevel.ToString();
 	}
 
-	if(opened && Input.GetMouseButtonDown(0))
+	if(Input.GetMouseButtonDown(0))
 	{
+		if(opened)
+		{
 			ChestOpen(false);
 
 			Destroy(button.gameObject);
 			Destroy(this.gameObject);
+		}
+		else if(!opened)
+		{
+			opening = true;
+			item.SetBool("Open", true);
+			chestAnim.SetBool("Open", true);
+		}
 	}
-
 }
 
 function AddToList(collectionName: String, rarity: String, mat: Material, type: String, mesh: Mesh) 
@@ -166,7 +178,6 @@ function Clicked()
 	if(!clicked && !parent.GetComponent(Chests).chestOpening)
 	{
 		chestCreated = Instantiate(chest, new Vector3(0.123,12.482,-0.25), Quaternion.Euler(32.596, -74.22701, -62.331));
-		//chestCreated = Instantiate(chest, new Vector3(0.67,10.64,-0.04), Quaternion.Euler(32.596, -74.22701, -62.331));
 		chestCreated.GetComponent(Chest).button = this.gameObject;
 		chestCreated.GetComponent(Chest).chestLevel = chestLevel;
 		chestCreated.GetComponent(Chest).parentButtonObject = this.gameObject;
@@ -216,17 +227,17 @@ function GetItem()
 		Debug.Log("4");
 	}
 
-	mesh.mesh = selectedItemMesh;
-	randomlyChangeItem ++;
+	if(opening)
+	{
+		mesh.mesh = selectedItemMesh;
+		mesh.GetComponent(Renderer).material = selectedItemMaterial;
+		randomlyChangeItem ++;
+	}
 
-	//objectMat.material = selectedItemMaterial;
-
-	mesh.GetComponent(Renderer).material = selectedItemMaterial;
 
 	if(selectedItemType == "Sail") 
 	{
 		object.transform.localRotation = Quaternion.Euler(-90, 180, 2.25);
-		//object.transform.localScale = new Vector3(0.3616386,0.3616386,0.3616386);
 	}
 	else
 	{
@@ -254,7 +265,7 @@ function Destroy()
 {
 	totalChests = PlayerPrefs.GetInt("Zone"+ chestLevel);
 	totalChests --;
-	PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
+	//PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
 
 	PlayerPrefs.SetInt(selectedItem + selectedItemType , 1);
 
