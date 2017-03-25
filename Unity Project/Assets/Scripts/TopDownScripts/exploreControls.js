@@ -96,6 +96,22 @@ function Update ()
 	//moveBoat forwards
 	transform.position += (transform.forward * speed) * Time.deltaTime;
 
+	// if boat at bottom of screen
+	if(transform.position.z < minZ){
+		if(yAngle > 45)
+		transform.Rotate(0, (-Time.deltaTime*rotateUpSpeed),0);
+
+		transform.position.z = minZ;
+		}
+	//if boat at top of screen
+	if(transform.position.z > maxZ){
+		if(yAngle < 130)
+		transform.Rotate(0,(Time.deltaTime*rotateDownSpeed),0);
+
+		transform.position.z = maxZ;
+		}
+	
+
 
 /*  ///////////OLD SWIPE TO MOVE CONTROLS///////////////////
 	//if mouse down or touch set start pos
@@ -134,12 +150,6 @@ function Update ()
 	}
 
 	*/
-	if(transform.position.z < minZ)
-		transform.position.z = minZ;
-
-	if(transform.position.z > maxZ)
-		transform.position.z = maxZ;
-	
 
 
 }
