@@ -145,7 +145,7 @@ function Update ()
 
 function Shoot()
 {
-	if(player.GetComponent(Boat).health > 0)
+	if(player.GetComponent(Boat).health > 0 && SwipeToStart.clicked)
 	{
 		force.x = Random.Range(forceXMinMax.x, forceXMinMax.y);
 		force.y = Random.Range(forceYMinMax.x, forceYMinMax.y);

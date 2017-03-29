@@ -10,6 +10,7 @@ public class chest
 	public var texture: Material;
 	public var mesh: Mesh;
 	public var image: Sprite;
+	public var owned: boolean;
 }
 
 enum rarityStauses {Common, Uncommon, Rare, Legendary};
@@ -35,6 +36,34 @@ function Start ()
 			CreateChest(levelTotalChests, i);
 		}
 	}
+
+	SetUnlocked();
+}
+
+function SetUnlocked()
+{
+	for(var i: int; i < chests.Length; i++)
+	{
+		var open: int;
+
+		if(chests[i].type.ToString() == "Sail")
+		{
+			open = PlayerPrefs.GetInt(chests[i].name + "Sail");
+		}
+		else if(chests[i].type.ToString() == "Wood")
+		{
+			open = PlayerPrefs.GetInt(chests[i].name + "Wood");
+		}
+		else if(chests[i].type.ToString() == "Pet")
+		{
+			open = PlayerPrefs.GetInt(chests[i].name + "Bird");
+		}
+
+		if(open == 1)
+		{
+			chests[i].owned = true;
+		}
+	}
 }
 
 function Update()
@@ -47,6 +76,8 @@ function Update()
 
 function CreateChest (amount: int, level: int) 
 {
+	//yield WaitForSeconds (0.1);
+
 	for(var i: int; i < amount; i++)
 	{
 		var createdChest = Instantiate(chestObj, transform.position, transform.rotation);

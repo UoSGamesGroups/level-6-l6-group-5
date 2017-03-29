@@ -47,24 +47,22 @@ public var chestAnim: Animator;
 public var item: Animator;
 
 
-function Start ()
-{
-	Debug.Log("Start");
-}
-
 function ButtonStart () 
 {
 	for(var i: int; i < parent.GetComponent(Chests).chests.Length; i++)
 	{
-		if(!parent.GetComponent(Chests).chests[i].zoneSpecific)
-		{
-			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString(), parent.GetComponent(Chests).chests[i].mesh);
-			Debug.Log(parent.GetComponent(Chests).chests[i].type.ToString());
-		}
-		else if(parent.GetComponent(Chests).chests[i].zoneSpawn == chestLevel && parent.GetComponent(Chests).chests[i].zoneSpecific)
-		{
-			AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString(), parent.GetComponent(Chests).chests[i].mesh);
-		}
+		//if(!parent.GetComponent(Chests).chests[i].owned)
+		//{
+			if(!parent.GetComponent(Chests).chests[i].zoneSpecific)
+			{
+				AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString(), parent.GetComponent(Chests).chests[i].mesh);
+			}
+			else if(parent.GetComponent(Chests).chests[i].zoneSpawn <= chestLevel && parent.GetComponent(Chests).chests[i].zoneSpecific)
+			{
+				AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString(), parent.GetComponent(Chests).chests[i].mesh);
+			}
+		//}
+		Debug.Log(parent.GetComponent(Chests).chests[i].owned);
 	}
 }
 
@@ -130,19 +128,24 @@ function Update()
 
 	if(Input.GetMouseButtonDown(0))
 	{
-		if(opened)
-		{
-			ChestOpen(false);
+		
+	}
+}
 
-			Destroy(button.gameObject);
-			Destroy(this.gameObject);
-		}
-		else if(!opened)
-		{
-			opening = true;
-			item.SetBool("Open", true);
-			chestAnim.SetBool("Open", true);
-		}
+function OnMouseDown()
+{
+	if(opened)
+	{
+		ChestOpen(false);
+
+		Destroy(button.gameObject);
+		Destroy(this.gameObject);
+	}
+	else if(!opened)
+	{
+		opening = true;
+		item.SetBool("Open", true);
+		chestAnim.SetBool("Open", true);
 	}
 }
 
@@ -197,7 +200,6 @@ function GetItem()
 		selectedItemMaterial = commonCollectablesMaterials.Item[randomItem];
 		selectedItemType = commonCollectablesType.Item[randomItem];
 		selectedItemMesh = commonCollectablesMesh.Item[randomItem];
-		Debug.Log("1");
 	}
 	else if(randomRank > commonChance && randomRank <= uncommonChance + commonChance)
 	{
@@ -206,7 +208,6 @@ function GetItem()
 		selectedItemMaterial = uncommonCollectablesMaterials.Item[randomItem];
 		selectedItemType = uncommonCollectablesType.Item[randomItem];
 		selectedItemMesh = uncommonCollectablesMesh.Item[randomItem];
-		Debug.Log("2");
 	}
 	else if(randomRank > uncommonChance + commonChance && randomRank <= rareChance + uncommonChance + commonChance)
 	{
@@ -215,7 +216,6 @@ function GetItem()
 		selectedItemMaterial = rareCollectablesMaterials.Item[randomItem];
 		selectedItemType = rareCollectablesType.Item[randomItem];
 		selectedItemMesh = rareCollectablesMesh.Item[randomItem];
-		Debug.Log("3");
 	}
 	else if(randomRank > rareChance + uncommonChance + commonChance && randomRank <= lengendaryChance + rareChance + uncommonChance + commonChance)
 	{
@@ -224,7 +224,6 @@ function GetItem()
 		selectedItemMaterial = legendaryCollectablesMaterials.Item[randomItem];
 		selectedItemType = legendaryCollectablesType.Item[randomItem];
 		selectedItemMesh = legendaryCollectablesMesh.Item[randomItem];
-		Debug.Log("4");
 	}
 
 	if(opening)
@@ -265,21 +264,13 @@ function Destroy()
 {
 	totalChests = PlayerPrefs.GetInt("Zone"+ chestLevel);
 	totalChests --;
-	//PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
+	PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
 
 	PlayerPrefs.SetInt(selectedItem + selectedItemType , 1);
 
 	Analytic("Chest", true, "Chest Open");
 
-	//yield WaitForSeconds(5);
-
 	opened = true;
-	/*
-	ChestOpen(false);
-
-	Destroy(button.gameObject);
-	Destroy(this.gameObject);
-	*/
 }
 
 function Analytic(name: String, num: Object, eventName: String)
