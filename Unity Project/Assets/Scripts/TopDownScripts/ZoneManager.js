@@ -48,7 +48,7 @@ function SetSail()
 //Objectives
 function FindBoss()
 {
-			Debug.Log("find boss");
+	Debug.Log("find boss");
 
 	objectiveTypeText.text = "Find The Boss";
 	objectiveTypeDescriptionText.text = "Explore the zone and search for the enemy boss ship, watch out for deadly mines along the way!";

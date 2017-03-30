@@ -8,7 +8,7 @@ public var swipeVector: Vector2;
 
 function Start () 
 {
-	
+	button.SetActive(false);
 }
 
 function Update () 

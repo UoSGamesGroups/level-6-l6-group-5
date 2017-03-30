@@ -55,24 +55,7 @@ function GetNextSpawnPos()
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 /* old system function SpawnObj(){
 	Instantiate(obj[Random.Range(0,obj.Length)],spawnPos,transform.rotation);
 	if(timeUntilSpawn > 0.5)

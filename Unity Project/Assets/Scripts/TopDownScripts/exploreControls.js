@@ -26,6 +26,9 @@ private var distanceUI: float;
 public var rotateUpSpeed: float;
 public var rotateDownSpeed: float;
 public var tapToStartImage: GameObject;
+public var anim: Animator;
+public var endTime: float;
+public var end: boolean;
 
 function Start()
 {
@@ -44,7 +47,8 @@ function Start()
 	//create boss for the end
 	var bossPos: Vector3;
 	bossPos.x = endDistance + 5;
-	Instantiate(boss,bossPos,transform.rotation);
+	var boss: GameObject = Instantiate(boss,bossPos,Quaternion.Euler(0,0,0));
+	boss.GetComponent(MoveBoss).player = this.gameObject;
 	Time.timeScale = 0;
 }
 
@@ -72,9 +76,20 @@ function Update ()
 
 	if(currentDistance >= endDistance)
 	{
-		Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Won");
+		Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Won"); 
 		Debug.Log("explore finished with - health: " + health + " endDistance: " + endDistance);
-		Application.LoadLevel("Boss");
+		anim.SetBool("End", true);
+		anim.applyRootMotion = false;
+
+		if(!end)
+			endTime = Time.time + 1.5;
+
+		end = true;
+		
+		if(endTime <= Time.time)
+		{
+			Application.LoadLevel("Boss");
+		}
 	}
 
 	if(Input.GetKey(KeyCode.Mouse0))
@@ -94,7 +109,8 @@ function Update ()
 
 	yAngle = transform.localEulerAngles.y;
 	//moveBoat forwards
-	transform.position += (transform.forward * speed) * Time.deltaTime;
+	if(!end)
+		transform.position += (transform.forward * speed) * Time.deltaTime;
 
 	// if boat at bottom of screen
 	if(transform.position.z < minZ){
