@@ -45,7 +45,7 @@ function OnCollisionEnter(other: Collision)
 		other.gameObject.GetComponentInParent(Boat).health -= damage;
 		canDamage = false;
 		Instantiate(explosion, transform.position, transform.rotation);
-		Instantiate(wood, transform.position, Quaternion.Euler(new Vector3(-51, -224, 40)));
+		//Instantiate(wood, transform.position, Quaternion.Euler(new Vector3(-51, -224, 40)));
 		Destroy(this.gameObject);
 	}
 }

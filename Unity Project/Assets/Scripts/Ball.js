@@ -65,7 +65,7 @@ function OnCollisionEnter(other: Collision)
 		canDamage = false;
 		//Instantiate(explosion, transform.position, transform.rotation);
 		Instantiate(explosion2, transform.position, transform.rotation);
-		Instantiate(wood, transform.position, Quaternion.Euler(new Vector3(-51, -224, 40)));
+		//Instantiate(wood, transform.position, Quaternion.Euler(new Vector3(-51, -224, 40)));
 		Cannon.shotsHit ++;
 
 		if(parentType == "Slow")

@@ -45,14 +45,17 @@ public var opened: boolean;
 public var opening: boolean;
 public var chestAnim: Animator;
 public var item: Animator;
+public var update: boolean;
 
 
 function ButtonStart () 
 {
+
+
 	for(var i: int; i < parent.GetComponent(Chests).chests.Length; i++)
 	{
-		//if(!parent.GetComponent(Chests).chests[i].owned)
-		//{
+		if(!parent.GetComponent(Chests).chests[i].owned)
+		{
 			if(!parent.GetComponent(Chests).chests[i].zoneSpecific)
 			{
 				AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString(), parent.GetComponent(Chests).chests[i].mesh);
@@ -61,9 +64,36 @@ function ButtonStart ()
 			{
 				AddToList(parent.GetComponent(Chests).chests[i].name, parent.GetComponent(Chests).chests[i].rarity.ToString(), parent.GetComponent(Chests).chests[i].texture, parent.GetComponent(Chests).chests[i].type.ToString(), parent.GetComponent(Chests).chests[i].mesh);
 			}
-		//}
+		}
 		Debug.Log(parent.GetComponent(Chests).chests[i].owned);
 	}
+}
+
+function ChestOpened()
+{
+	legendaryCollectables.Clear();
+	legendaryCollectablesMaterials.Clear();
+	legendaryCollectablesType.Clear();
+	legendaryCollectablesMesh.Clear();
+
+	rareCollectables.Clear();
+	rareCollectablesMaterials.Clear();
+	rareCollectablesType.Clear();
+	rareCollectablesMesh.Clear();
+
+	uncommonCollectables.Clear();
+	uncommonCollectablesMaterials.Clear();
+	uncommonCollectablesType.Clear();
+	uncommonCollectablesMesh.Clear();
+
+	commonCollectables.Clear();
+	commonCollectablesMaterials.Clear();
+	commonCollectablesType.Clear();
+	commonCollectablesMesh.Clear();
+
+	Debug.Log("Asdasd");
+
+	ButtonStart();
 }
 
 function ChestStart () 
@@ -114,9 +144,10 @@ function ChestOpen(opening: boolean)
 	parentObj.GetComponent(Chests).chestOpening = opening;
 }
 
-
 function Update()
 {
+
+
 	if(parent == null)
 	{
 
@@ -129,6 +160,12 @@ function Update()
 	if(Input.GetMouseButtonDown(0))
 	{
 		
+	}
+
+	if(update)
+	{
+		update = false;
+		ChestOpened();
 	}
 }
 
@@ -192,45 +229,55 @@ function Clicked()
 function GetItem()
 {
 	randomRank = Random.Range(0,100);
-
-	if(randomRank <= commonChance)
+	if(commonCollectables.Count + uncommonCollectables.Count + rareCollectables.Count + legendaryCollectables.Count > 0)
 	{
-		randomItem = Random.Range(0, commonCollectables.Count);
-		selectedItem = commonCollectables.Item[randomItem];
-		selectedItemMaterial = commonCollectablesMaterials.Item[randomItem];
-		selectedItemType = commonCollectablesType.Item[randomItem];
-		selectedItemMesh = commonCollectablesMesh.Item[randomItem];
+		if(commonCollectables.Count > 0 && randomRank <= commonChance || commonCollectables.Count > 0 && uncommonCollectables.Count == 0 && rareCollectables.Count == 0 && legendaryCollectables.Count == 0)
+		{
+			randomItem = Random.Range(0, commonCollectables.Count);
+			selectedItem = commonCollectables.Item[randomItem];
+			selectedItemMaterial = commonCollectablesMaterials.Item[randomItem];
+			selectedItemType = commonCollectablesType.Item[randomItem];
+			selectedItemMesh = commonCollectablesMesh.Item[randomItem];
+			randomlyChangeItem ++;
+		}
+		else if(uncommonCollectables.Count > 0 && randomRank > commonChance && randomRank <= uncommonChance + commonChance  || commonCollectables.Count == 0 && uncommonCollectables.Count > 0 && rareCollectables.Count == 0 && legendaryCollectables.Count == 0)
+		{
+			randomItem = Random.Range(0, uncommonCollectables.Count);
+			selectedItem = uncommonCollectables.Item[randomItem];
+			selectedItemMaterial = uncommonCollectablesMaterials.Item[randomItem];
+			selectedItemType = uncommonCollectablesType.Item[randomItem];
+			selectedItemMesh = uncommonCollectablesMesh.Item[randomItem];
+			randomlyChangeItem ++;
+		}
+		else if(rareCollectables.Count > 0 && randomRank > uncommonChance + commonChance && randomRank <= rareChance + uncommonChance + commonChance || commonCollectables.Count == 0 && uncommonCollectables.Count == 0 && rareCollectables.Count > 0 && legendaryCollectables.Count == 0)
+		{
+			randomItem = Random.Range(0, rareCollectables.Count);
+			selectedItem = rareCollectables.Item[randomItem];
+			selectedItemMaterial = rareCollectablesMaterials.Item[randomItem];
+			selectedItemType = rareCollectablesType.Item[randomItem];
+			selectedItemMesh = rareCollectablesMesh.Item[randomItem];
+			randomlyChangeItem ++;
+		}
+		else if(legendaryCollectables.Count > 0 && randomRank > rareChance + uncommonChance + commonChance && randomRank <= lengendaryChance + rareChance + uncommonChance + commonChance || commonCollectables.Count == 0 && uncommonCollectables.Count == 0 && rareCollectables.Count == 0 && legendaryCollectables.Count > 0)
+		{
+			randomItem = Random.Range(0, legendaryCollectables.Count);
+			selectedItem = legendaryCollectables.Item[randomItem];
+			selectedItemMaterial = legendaryCollectablesMaterials.Item[randomItem];
+			selectedItemType = legendaryCollectablesType.Item[randomItem];
+			selectedItemMesh = legendaryCollectablesMesh.Item[randomItem];
+			randomlyChangeItem ++;
+		}
 	}
-	else if(randomRank > commonChance && randomRank <= uncommonChance + commonChance)
+	else
 	{
-		randomItem = Random.Range(0, uncommonCollectables.Count);
-		selectedItem = uncommonCollectables.Item[randomItem];
-		selectedItemMaterial = uncommonCollectablesMaterials.Item[randomItem];
-		selectedItemType = uncommonCollectablesType.Item[randomItem];
-		selectedItemMesh = uncommonCollectablesMesh.Item[randomItem];
-	}
-	else if(randomRank > uncommonChance + commonChance && randomRank <= rareChance + uncommonChance + commonChance)
-	{
-		randomItem = Random.Range(0, rareCollectables.Count);
-		selectedItem = rareCollectables.Item[randomItem];
-		selectedItemMaterial = rareCollectablesMaterials.Item[randomItem];
-		selectedItemType = rareCollectablesType.Item[randomItem];
-		selectedItemMesh = rareCollectablesMesh.Item[randomItem];
-	}
-	else if(randomRank > rareChance + uncommonChance + commonChance && randomRank <= lengendaryChance + rareChance + uncommonChance + commonChance)
-	{
-		randomItem = Random.Range(0, legendaryCollectables.Count);
-		selectedItem = legendaryCollectables.Item[randomItem];
-		selectedItemMaterial = legendaryCollectablesMaterials.Item[randomItem];
-		selectedItemType = legendaryCollectablesType.Item[randomItem];
-		selectedItemMesh = legendaryCollectablesMesh.Item[randomItem];
+		Debug.Log("No items left to get");
+		randomlyChangeItem = 20;
 	}
 
 	if(opening)
 	{
 		mesh.mesh = selectedItemMesh;
 		mesh.GetComponent(Renderer).material = selectedItemMaterial;
-		randomlyChangeItem ++;
 	}
 
 
@@ -269,6 +316,10 @@ function Destroy()
 	PlayerPrefs.SetInt(selectedItem + selectedItemType , 1);
 
 	Analytic("Chest", true, "Chest Open");
+
+	var buttonParent: GameObject = button.GetComponent(Chest).parent;
+	buttonParent.GetComponent(Chests).chestsList.Remove(button);
+	buttonParent.GetComponent(Chests).Refresh();
 
 	opened = true;
 }

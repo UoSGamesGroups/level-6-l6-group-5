@@ -13,7 +13,7 @@ function Update()
 
 	for(var i: int = 1; i <= highestLevel; i++)
 	{
-		totalChests += PlayerPrefs.GetInt("Zone"+i);
+		totalChests += PlayerPrefs.GetInt("Zone" + i);
 	}
 
 	if(totalChests > 0)
@@ -26,5 +26,4 @@ function Update()
 	}
 
 	text.text = totalChests.ToString();
-
 }

@@ -17,7 +17,7 @@ function Start()
 
 function Check()
 {
-	if(PlayerPrefs.GetInt(birdName + "Bird") == 0 && birdName != "Plain") 
+	if(PlayerPrefs.GetInt(birdName + "Pet") == 0 && birdName != "Plain") 
 	{
 		unlocked = false;
 	}

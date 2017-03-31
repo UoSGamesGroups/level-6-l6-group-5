@@ -22,22 +22,33 @@ public var chestObj: GameObject;
 public var panel: GameObject; 
 public var button: GameObject; 
 public var chestOpening: boolean; 
+public var chestsList: List.<GameObject>; 
 
 function Start () 
 {
 	highestLevel = PlayerPrefs.GetInt("zoneUnlocked");
-
+	
+	SetUnlocked();
+	
 	for(var i: int = 1; i <= highestLevel; i++)
 	{
 		var levelTotalChests: int;
-		levelTotalChests = PlayerPrefs.GetInt("Zone"+i);
+		levelTotalChests = PlayerPrefs.GetInt("Zone" + i);
 		if(levelTotalChests > 0)
 		{
 			CreateChest(levelTotalChests, i);
 		}
 	}
+}
 
+function Refresh()
+{
 	SetUnlocked();
+
+	for(var i: int; i < chestsList.Count; i++)
+	{
+		chestsList.Item[i].GetComponent(Chest).update = true;
+	}
 }
 
 function SetUnlocked()
@@ -56,7 +67,7 @@ function SetUnlocked()
 		}
 		else if(chests[i].type.ToString() == "Pet")
 		{
-			open = PlayerPrefs.GetInt(chests[i].name + "Bird");
+			open = PlayerPrefs.GetInt(chests[i].name + "Pet");
 		}
 
 		if(open == 1)
@@ -76,7 +87,6 @@ function Update()
 
 function CreateChest (amount: int, level: int) 
 {
-	//yield WaitForSeconds (0.1);
 
 	for(var i: int; i < amount; i++)
 	{
@@ -86,5 +96,6 @@ function CreateChest (amount: int, level: int)
 		createdChest.GetComponent(Chest).parent = this.gameObject;
 		createdChest.GetComponent(Chest).parent = this.gameObject;
 		createdChest.GetComponent(Chest).ButtonStart();
+		chestsList.Add(createdChest);
 	}
 }
