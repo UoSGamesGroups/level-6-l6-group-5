@@ -50,8 +50,6 @@ public var update: boolean;
 
 function ButtonStart () 
 {
-
-
 	for(var i: int; i < parent.GetComponent(Chests).chests.Length; i++)
 	{
 		if(!parent.GetComponent(Chests).chests[i].owned)

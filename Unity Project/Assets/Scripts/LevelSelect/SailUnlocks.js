@@ -12,6 +12,7 @@ public var sailImage: Sprite;
 public var image: Image;
 public var unlockNum: int;
 public var prompt: GameObject;
+public var defaultItem: boolean;
 
 function Start()
 {
@@ -19,6 +20,14 @@ function Start()
 	Check();
 
 	image.sprite = sailImage;
+
+	if(defaultItem)
+	{
+		if(PlayerPrefs.GetString("SelectedSail") == String.Empty)
+		{
+			Clicked();
+		}
+	}
 }
 
 function Check()

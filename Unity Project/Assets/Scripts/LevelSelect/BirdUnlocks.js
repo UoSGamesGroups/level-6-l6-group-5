@@ -8,27 +8,38 @@ public var colour: Color;
 public var isColour: boolean;
 public var material: Material;
 public var text: Text;
+public var birdImage: Sprite;
+public var image: Image;
+public var unlockNum: int;
+public var prompt: GameObject;
+public var defaultItem: boolean;
+
 
 function Start()
 {
 	text.text = birdName;
 	Check();
+
+	//image.sprite = birdImage;
+
+	if(defaultItem)
+	{
+		if(PlayerPrefs.GetString("SelectedBird") == String.Empty)
+		{
+			Clicked();
+		}
+	}
 }
 
 function Check()
 {
-	if(PlayerPrefs.GetInt(birdName + "Pet") == 0 && birdName != "Plain") 
+	if(PlayerPrefs.GetInt(birdName + "Pet") == 0 && birdName != "Green") 
 	{
 		unlocked = false;
 	}
 	else
 	{
 		unlocked = true;
-	}
-
-	if(PlayerPrefs.GetInt("SelectedBird") == 0)
-	{
-		birdColour.material = material;
 	}
 
 	lockedImage.SetActive (!unlocked);
@@ -65,6 +76,12 @@ function Clicked()
 	 	{
 	 		birdColour.material = material;
 	 	}
+	 }
+	 else
+	 {
+	 	prompt.GetComponent(Prompt).num = unlockNum;
+	 	prompt.SetActive(true);
+	 	prompt.GetComponent(Prompt).Clicked();
 	 }
 }
 
