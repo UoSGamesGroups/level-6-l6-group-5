@@ -14,13 +14,12 @@ public var unlockNum: int;
 public var prompt: GameObject;
 public var defaultItem: boolean;
 
-
 function Start()
 {
 	text.text = birdName;
 	Check();
 
-	//image.sprite = birdImage;
+	image.sprite = birdImage;
 
 	if(defaultItem)
 	{

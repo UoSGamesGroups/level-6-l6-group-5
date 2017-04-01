@@ -8,16 +8,31 @@ public var colour: Color;
 public var isColour: boolean;
 public var material: Material;
 public var text: Text;
+public var woodImage: Sprite;
+public var image: Image;
+public var unlockNum: int;
+public var prompt: GameObject;
+public var defaultItem: boolean;
 
 function Start()
 {
 	text.text = woodName;
 	Check();
+
+	image.sprite = woodImage;
+
+	if(defaultItem)
+	{
+		if(PlayerPrefs.GetString("SelectedBird") == String.Empty)
+		{
+			Clicked();
+		}
+	}
 }
 
 function Check()
 {
-	if(PlayerPrefs.GetInt(woodName + "Wood") == 0 && woodName != "Wood") 
+	if(PlayerPrefs.GetInt(woodName + "Wood") == 0 && woodName != "Normal") 
 	{
 		unlocked = false;
 	}
@@ -25,7 +40,6 @@ function Check()
 	{
 		unlocked = true;
 	}
-
 
 	lockedImage.SetActive (!unlocked);
 
