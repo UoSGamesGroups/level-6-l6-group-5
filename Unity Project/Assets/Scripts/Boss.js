@@ -30,7 +30,9 @@ public var metalText: Text;
 public var dead: boolean;
 public var cannon: GameObject;
 public var healthImage: Image;
+public var healthImageOuter: Image;
 public var healthObj: GameObject;
+public var healthObjOuter: GameObject;
 public var currentChests: int;
 public var currentLevel: float; 
 public var forceXMinMax: Vector2;
@@ -44,6 +46,9 @@ public var burnAmount: int;
 public var explosion: GameObject;
 public var brokenBoat: GameObject;
 public var player: GameObject;
+public var inner: Animator;
+public var outter: Animator;
+
 
 function Start () 
 {
@@ -52,7 +57,12 @@ function Start ()
 
 	healthObj = GameObject.FindGameObjectWithTag("HealthImg");
 	healthImage = healthObj.GetComponent(Image);
+	inner = healthObj.GetComponent(Animator);
 
+	healthObjOuter = GameObject.FindGameObjectWithTag("HealthImgOutter");
+	healthImageOuter = healthObjOuter.GetComponent(Image);
+	outter = healthObjOuter.GetComponent(Animator);
+	
 	player = GameObject.FindGameObjectWithTag("Boat");
 
 	health = healthStart;
@@ -201,6 +211,12 @@ function WaitAndDamage(dam: float)
 {
 	yield WaitForSeconds(0.5);
 	Burn(dam);
+}
+
+function UIShake()
+{
+	inner.SetTrigger("Hit");
+	outter.SetTrigger("Hit");
 }
 
 function UnlockNextZone()

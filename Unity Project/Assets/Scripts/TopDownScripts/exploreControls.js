@@ -57,8 +57,8 @@ function Update ()
 	//TAP TO START
 	if(Input.GetKey(KeyCode.Mouse0))
 	{
-	Time.timeScale = 1;
-	tapToStartImage.SetActive(false);
+		Time.timeScale = 1;
+		tapToStartImage.SetActive(false);
 	}
 	//Move UI to show progress
 	percentageCompleted = (currentDistance / endDistance);
@@ -69,7 +69,7 @@ function Update ()
 	if(health <= 0)
 	{
 		Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Died");
-		Application.LoadLevel("runner");
+		Application.LoadLevel("LevelSelect");
 	}
 
 	currentDistance = transform.position.x;

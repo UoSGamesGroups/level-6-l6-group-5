@@ -62,6 +62,7 @@ function OnCollisionEnter(other: Collision)
 	if(other.gameObject.tag == "Enemy" && canDamage)
 	{
 		other.gameObject.GetComponentInParent(Boss).health -= damage;
+		other.gameObject.GetComponentInParent(Boss).UIShake();
 		canDamage = false;
 		//Instantiate(explosion, transform.position, transform.rotation);
 		Instantiate(explosion2, transform.position, transform.rotation);

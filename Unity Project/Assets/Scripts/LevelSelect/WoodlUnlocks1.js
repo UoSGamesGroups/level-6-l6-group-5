@@ -76,6 +76,12 @@ function Clicked()
 	 		woodColour.material = material;
 	 	}
 	 }
+	 else
+	 {
+	 	prompt.GetComponent(Prompt).num = unlockNum;
+	 	prompt.SetActive(true);
+	 	prompt.GetComponent(Prompt).Clicked();
+	 }
 }
 
 function OnEnable()

@@ -1,6 +1,7 @@
 ﻿#pragma strict
 
 public var button: GameObject;
+public var cam: GameObject;
 static var clicked: boolean;
 public var swipeStartPos: Vector2;
 public var swipeEndPos: Vector2;
@@ -38,6 +39,7 @@ function Update ()
 		if (swipeVector.y < -50)
 		{
 			clicked = true;
+			//cam.transform.parent = null;
 		} 
 	}
 }
