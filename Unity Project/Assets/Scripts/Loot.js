@@ -84,6 +84,6 @@ function LootAmounts()
 
 function WaitAndLoad ()
 {
-	yield WaitForSeconds(1);
+	//yield WaitForSeconds(1);
 	click = true;
 }

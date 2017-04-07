@@ -33,6 +33,8 @@ public var cannonController: GameObject;
 public var explosionParticles: GameObject;
 public var type: Type;
 public var material: Material;
+public var anim: Animator;
+public var hasAmmo: boolean;
 
 enum Type {Normal, Fire, Heavy, Slow}
 
@@ -42,7 +44,7 @@ function Start ()
 	shotsHit = 0;
 	shotsMissed = 0;
 
-	ballPos = new Vector3(transform.position.x  + 0.65, transform.position.y + 1.44, transform.position.z + 2.29);
+	//ballPos = new Vector3(transform.position.x  + 0.65, transform.position.y + 1.44, transform.position.z + 2.29);
 
 	enemy = GameObject.FindGameObjectWithTag("Enemy");
 	acuracyLevel = PlayerPrefs.GetInt("Cannon");
@@ -54,11 +56,13 @@ function Update ()
 {
 	if(!selected)
 	{
-		material.color = Color(1,1,1,0);
+		//material.color = Color(1,1,1,0);
+		anim.SetBool("Selected", false);
 	}
 	else
 	{
-		material.color = Color(0.25,0.25,0.25,0.25);
+		anim.SetBool("Selected", true);
+		//material.color = Color(0.25,0.25,0.25,0.25);
 	}
 
 	if (Input.touchCount > 0)
@@ -92,17 +96,17 @@ function Update ()
 
 								if(touchTrav.y <= forceMinMax.y && touchTrav.y >= forceMinMax.x)
 								{
-									force = new Vector3 (touchTrav.x, 700,-450);
+									force = new Vector3 (touchTrav.x, 700, 450);
 									Analytic("Ok", touchTrav.y);
 								}
 								else if(touchTrav.y < forceMinMax.x)
 								{
-									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.x) * 700,-450);
+									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.x) * 700, 450);
 									Analytic("Short", touchTrav.y);
 								}
 								else if(touchTrav.y > forceMinMax.y)
 								{
-									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.y) * 700,-450);
+									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.y) * 700, 450);
 									Analytic("Too far", touchTrav.y);
 								}
 
@@ -113,13 +117,13 @@ function Update ()
 	
 	if(Input.GetKeyDown(KeyCode.P))
 	{
-		force = new Vector3(Random.Range(-20, 20), Random.Range(600, 800), -450);
+		force = new Vector3(Random.Range(-20, 20), Random.Range(600, 800), 450);
 		Fire();
 	}
 	
 	if(Input.GetKeyDown(KeyCode.C))
 	{
-		force = new Vector3(0, 700, -450);
+		force = new Vector3(0, 700, 450);
 		Fire();
 	}
 	
@@ -140,7 +144,7 @@ function Update ()
 
 function Fire()
 {
-	if(once && reloaded && selected)
+	if(once && reloaded && selected && hasAmmo)
 	{
 		var childBall = Instantiate(ball, ballPos, transform.rotation);
 		childBall.transform.parent = cannon.transform;
@@ -174,8 +178,11 @@ function Fire()
 
 function OnMouseDown () 
 {
-	cannonController.GetComponent(CannonController).Selected();
-	selected = true;
+	if(hasAmmo)
+	{
+		cannonController.GetComponent(CannonController).Selected();
+		selected = true;
+	}
 }
 
 function Analytic(name: String, num: float)
