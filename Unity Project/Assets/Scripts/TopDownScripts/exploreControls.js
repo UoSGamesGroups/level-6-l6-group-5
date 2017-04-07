@@ -29,6 +29,9 @@ public var tapToStartImage: GameObject;
 public var anim: Animator;
 public var endTime: float;
 public var end: boolean;
+public var waterBreakEffectLeft: ParticleSystem;
+public var waterBreakEffectRight: ParticleSystem;
+public var waterBreakEffectBack: ParticleSystem;
 
 function Start()
 {
@@ -45,10 +48,10 @@ function Start()
 
 	Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Loaded");
 	//create boss for the end
-	var bossPos: Vector3;
-	bossPos.x = endDistance + 5;
-	var boss: GameObject = Instantiate(boss,bossPos,Quaternion.Euler(0,0,0));
-	boss.GetComponent(MoveBoss).player = this.gameObject;
+//	var bossPos: Vector3;
+//	bossPos.x = endDistance + 5;
+//	var boss: GameObject = Instantiate(boss,bossPos,Quaternion.Euler(0,0,0));
+//	boss.GetComponent(MoveBoss).player = this.gameObject;
 	Time.timeScale = 0;
 }
 
@@ -76,8 +79,12 @@ function Update ()
 
 	if(currentDistance >= endDistance)
 	{
+	waterBreakEffectLeft.Stop();
+	waterBreakEffectRight.Stop();
+	waterBreakEffectBack.Stop();
 		Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Won"); 
 		Debug.Log("explore finished with - health: " + health + " endDistance: " + endDistance);
+		anim.enabled = true;
 		anim.SetBool("End", true);
 		anim.applyRootMotion = false;
 
@@ -88,6 +95,7 @@ function Update ()
 		
 		if(endTime <= Time.time)
 		{
+			PlayerPrefs.SetFloat("healthAtEndOfExplore", health);
 			Application.LoadLevel("Boss");
 		}
 	}
@@ -126,70 +134,7 @@ function Update ()
 
 		transform.position.z = maxZ;
 		}
-	
-
-
-/*  ///////////OLD SWIPE TO MOVE CONTROLS///////////////////
-	//if mouse down or touch set start pos
-	if(Input.GetKeyDown (KeyCode.Mouse0))
-	{
-		swipeStartPos.x = Input.mousePosition.x;
-		swipeStartPos.y = Input.mousePosition.y;
-	}
-	//if mouse down or touch set end pos
-	if(Input.GetKeyUp (KeyCode.Mouse0))
-	{
-		swipeEndPos.x = Input.mousePosition.x;
-		swipeEndPos.y = Input.mousePosition.y;
-		//Get direction of swipe
-		swipeVector = swipeStartPos - swipeEndPos;
-
-		if (swipeVector.y > 100)
-		{
-			Debug.Log("Swipe Down");
-			TurnShipDown();
-		} 
-		else if(swipeVector.y < -100)
-		{
-			Debug.Log("Swipe Up");
-			TurnShipUp();
 		}
-	}
-
-	if(yAngle < 90)
-	{
-		transform.Rotate(0,Time.deltaTime * turnSpeed,0);
-	} 
-	else if(yAngle > 90)
-	{
-		transform.Rotate(0,-Time.deltaTime * turnSpeed,0);
-	}
-
-	*/
-
-
-}
-/*  ///////////OLD SWIPE TO MOVE CONTROLS///////////////////
-function TurnShipUp()
-{
-	if(transform.position.z < maxZ)
-	{
-		if(yAngle > 45)
-		transform.Rotate(0,-10,0);
-	}
-}
-
-
-
-function TurnShipDown()
-{
-	if(transform.position.z > minZ)
-	{
-		if(yAngle < 130)
-		transform.Rotate(0,10,0);
-	}
-}
-*/
 function Analytic(name: String, num: Object, eventName: String)
 {
 	//Test for analytics. Might change. 

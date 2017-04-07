@@ -46,6 +46,12 @@ public var opening: boolean;
 public var chestAnim: Animator;
 public var item: Animator;
 public var update: boolean;
+public var mainMenuUIManager: MainMenuUIManager;
+
+function Start()
+{
+	mainMenuUIManager = GameObject.FindGameObjectWithTag ("UIManager").GetComponent(MainMenuUIManager);
+}
 
 
 function ButtonStart () 
@@ -172,7 +178,7 @@ function OnMouseDown()
 	if(opened)
 	{
 		ChestOpen(false);
-
+		mainMenuUIManager.CloseUI();
 		Destroy(button.gameObject);
 		Destroy(this.gameObject);
 	}

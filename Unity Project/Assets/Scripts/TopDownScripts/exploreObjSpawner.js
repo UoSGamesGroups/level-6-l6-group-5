@@ -12,6 +12,9 @@ public var maxZ: float;
 public var endOfTile: float;
 //padding = size of space between tiles
 public var padding: float;
+public var bossSpawned: boolean;
+public var boss: GameObject;
+public var exploreScript: exploreControls;
 
 function Start ()
 {
@@ -43,7 +46,9 @@ function GetNextSpawnPos()
 }
  function SpawnTile()
 {
-	var tile = Instantiate(tiles[Random.Range(0,tiles.Length)],spawnPos,transform.rotation);
+	if(spawnPos.x < exploreScript.endDistance)
+	{
+			var tile = Instantiate(tiles[Random.Range(0,tiles.Length)],spawnPos,transform.rotation);
 	var lastX: float;
 	var tileParent: Transform = tile.transform;
 	for(var childObj : Transform in tileParent)
@@ -54,6 +59,13 @@ function GetNextSpawnPos()
 			endOfTile = childObj.transform.position.x;
 		}
 	}
+	} else if (!bossSpawned) {
+	var boss = Instantiate(boss,spawnPos,transform.rotation);
+	boss.GetComponent(MoveBoss).player = player;
+	bossSpawned = true;
+	}
+
+
 }
  
 /* old system function SpawnObj(){

@@ -5,6 +5,7 @@ public var panel: GameObject;
 public var wood: Text;
 public var cloth: Text;
 public var metal: Text;
+public var resourcesUI: GameObject;
 
 function Update () 
 {
@@ -17,4 +18,5 @@ function Clicked ()
 {
 	visibility = !visibility;
 	panel.SetActive(visibility);
+	resourcesUI.SetActive (visibility);
 }

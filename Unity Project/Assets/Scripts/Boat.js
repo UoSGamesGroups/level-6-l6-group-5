@@ -39,8 +39,9 @@ function Start()
 	{
 		PlayerPrefs.SetInt("Health", 1);
 	}
-	health = 100 * PlayerPrefs.GetInt("Health");
-	healthStart = health;
+// old way	health = 100 * PlayerPrefs.GetInt("Health");
+	health = (PlayerPrefs.GetFloat("healthAtEndOfExplore"));
+	healthStart = 100 * PlayerPrefs.GetInt("Health");
 
 	Analytic("Level " + currentLevel.ToString() + " Boss", true, "Loaded");
 }
