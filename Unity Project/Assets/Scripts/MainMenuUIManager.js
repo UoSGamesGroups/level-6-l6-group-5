@@ -2,6 +2,7 @@
 public var upgradesPanel: GameObject;
 public var cosmeticsPanel: GameObject;
 public var chestsPanel: GameObject;
+public var resourcesUI: GameObject;
 public var closeUIButton: GameObject;
 public var mainMenuButtons: GameObject;
 public var zones: GameObject;
@@ -32,6 +33,7 @@ function OpenUpgradesPanel()
 	upgradesPanel.SetActive (true);
 	closeUIButton.SetActive (true);
 	mainMenuButtons.SetActive (false);
+	resourcesUI.SetActive (true);
 }
 
 function OpenCosmeticsPanel()
@@ -51,5 +53,6 @@ function CloseUI()
 	mainMenuButtons.SetActive (true);
 	boatObj.SetActive (false);
 	zones.SetActive (false);
+	resourcesUI.SetActive (false);
 	
 }
