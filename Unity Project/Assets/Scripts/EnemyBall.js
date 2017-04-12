@@ -43,6 +43,7 @@ function OnCollisionEnter(other: Collision)
 	if(other.gameObject.tag == "BoatObj" && canDamage)
 	{
 		other.gameObject.GetComponentInParent(Boat).health -= damage;
+		other.gameObject.GetComponentInParent(Boat).CameraShake();
 		canDamage = false;
 		Instantiate(explosion, transform.position, transform.rotation);
 		//Instantiate(wood, transform.position, Quaternion.Euler(new Vector3(-51, -224, 40)));

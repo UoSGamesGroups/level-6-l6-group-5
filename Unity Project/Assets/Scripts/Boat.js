@@ -25,6 +25,7 @@ public var healthImage: Image;
 public var dead: GameObject;
 public var reachedEnd: boolean;
 public var currentLevel: int;
+public var cameraAnim: Animator;
 
 function Start()
 {
@@ -115,19 +116,9 @@ function CreateKraken ()
 	hasKraken = true; 
 }
 
-function OnMouseDown()
+function CameraShake()
 {
-/*
-	if(!controller.GetComponent(Controller).selectedBoat)
-	{
-		Debug.Log("Boat Clicked");
-		mainCamera.SetActive(false);
-		boatCamera.SetActive(true);
-		backButton.SetActive(true);
-		controller.GetComponent(Controller).selectedBoat = true;
-		GetComponent(BoxCollider).enabled = false;
-		
-	}*/
+	cameraAnim.SetTrigger("Shake");
 }
 
 function Analytic(name: String, num: Object, eventName: String)

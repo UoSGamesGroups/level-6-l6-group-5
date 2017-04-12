@@ -42,7 +42,7 @@ function Start()
 	//scale speed
 	speed = speed + (speedMultiplier * PlayerPrefs.GetInt("currentLevel"));
 	//scale end distance
-	endDistance = 140 + (distanceMultiplier * PlayerPrefs.GetInt("currentLevel"));
+	endDistance = 130 + (distanceMultiplier * PlayerPrefs.GetInt("currentLevel"));
 	
 	currentLevel = PlayerPrefs.GetInt("currentLevel");
 
@@ -79,9 +79,10 @@ function Update ()
 
 	if(currentDistance >= endDistance)
 	{
-	waterBreakEffectLeft.Stop();
-	waterBreakEffectRight.Stop();
-	waterBreakEffectBack.Stop();
+		waterBreakEffectLeft.Stop();
+		waterBreakEffectRight.Stop();
+		waterBreakEffectBack.Stop();
+
 		Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Won"); 
 		Debug.Log("explore finished with - health: " + health + " endDistance: " + endDistance);
 		anim.enabled = true;

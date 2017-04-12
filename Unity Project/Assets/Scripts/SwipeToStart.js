@@ -19,7 +19,7 @@ function Update ()
 	if(Time.time > 1.6 && !clicked)
 	{
 		button.SetActive(true);
-		camAnimation.enabled = false;
+		//camAnimation.enabled = false;
 		cam.transform.parent = null;
 		cam.transform.position = Vector3(42.28744,151.1406,-24.0975);
 		cam.transform.rotation = Quaternion.Euler(Vector3(0,0,0));
