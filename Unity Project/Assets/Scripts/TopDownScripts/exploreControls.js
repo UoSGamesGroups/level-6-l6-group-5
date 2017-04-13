@@ -26,16 +26,20 @@ private var distanceUI: float;
 public var rotateUpSpeed: float;
 public var rotateDownSpeed: float;
 public var tapToStartImage: GameObject;
+public var releaseToGoDownImage: GameObject;
+public var started: float;
 public var anim: Animator;
 public var endTime: float;
 public var end: boolean;
 public var waterBreakEffectLeft: ParticleSystem;
 public var waterBreakEffectRight: ParticleSystem;
 public var waterBreakEffectBack: ParticleSystem;
+public var released: boolean;
+public var holdStarted: boolean;
 
 function Start()
 {
-	//GEt UI start pos for % of progress
+	//Get UI start pos for % of progress
 	startPosHealthUI = healthObj.transform.position;
 	bossUIObjPos = bossUIObj.transform.position;
 	distanceUI = startPosHealthUI.x - bossUIObjPos.x;
@@ -48,21 +52,43 @@ function Start()
 
 	Analytic("Level " + currentLevel.ToString() + " Exploration", true, "Loaded");
 	//create boss for the end
-//	var bossPos: Vector3;
-//	bossPos.x = endDistance + 5;
-//	var boss: GameObject = Instantiate(boss,bossPos,Quaternion.Euler(0,0,0));
-//	boss.GetComponent(MoveBoss).player = this.gameObject;
+	//var bossPos: Vector3;
+	//bossPos.x = endDistance + 5;
+	//var boss: GameObject = Instantiate(boss,bossPos,Quaternion.Euler(0,0,0));
+	//boss.GetComponent(MoveBoss).player = this.gameObject;
 	Time.timeScale = 0;
 }
 
 function Update () 
 {
-	//TAP TO START
-	if(Input.GetKey(KeyCode.Mouse0))
+	if(Input.GetMouseButtonUp(0))
+	{
+		released = true;
+	}
+
+	if(Input.GetKey(KeyCode.Mouse0) && !holdStarted)
 	{
 		Time.timeScale = 1;
 		tapToStartImage.SetActive(false);
+		started = Time.time + 1;
+		holdStarted = true;
 	}
+
+	if(PlayerPrefs.GetInt("currentLevel") == 1)
+	{
+		if(Time.time > started && !released)
+		{
+			releaseToGoDownImage.SetActive(true);
+			Time.timeScale = 0;
+		}
+
+		if(released)
+		{
+			releaseToGoDownImage.SetActive(false);
+			Time.timeScale = 1;
+		}
+	}
+
 	//Move UI to show progress
 	percentageCompleted = (currentDistance / endDistance);
 	healthObj.transform.position.x = startPosHealthUI.x - (distanceUI * percentageCompleted);
@@ -122,20 +148,23 @@ function Update ()
 		transform.position += (transform.forward * speed) * Time.deltaTime;
 
 	// if boat at bottom of screen
-	if(transform.position.z < minZ){
+	if(transform.position.z < minZ)
+	{
 		if(yAngle > 45)
 		transform.Rotate(0, (-Time.deltaTime*rotateUpSpeed),0);
 
 		transform.position.z = minZ;
-		}
+	}
+
 	//if boat at top of screen
-	if(transform.position.z > maxZ){
+	if(transform.position.z > maxZ)
+	{
 		if(yAngle < 130)
 		transform.Rotate(0,(Time.deltaTime*rotateDownSpeed),0);
 
 		transform.position.z = maxZ;
 		}
-		}
+	}
 function Analytic(name: String, num: Object, eventName: String)
 {
 	//Test for analytics. Might change. 
