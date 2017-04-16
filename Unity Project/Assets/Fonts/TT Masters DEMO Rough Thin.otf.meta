@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 183063b61220f4d44bdb12c8e15920b2
+timeCreated: 1492341059
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: TT Masters DEMO Rough Thin
+  fontNames:
+  - TT Masters DEMO Rough Thin
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

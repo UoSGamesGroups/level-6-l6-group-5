@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 93286af4b9aef2442beac774d01a4158
+timeCreated: 1492341059
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Overdrive Sunset
+  fontNames:
+  - Overdrive Sunset
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
