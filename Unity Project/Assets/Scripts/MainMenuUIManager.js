@@ -8,6 +8,7 @@ public var mainMenuButtons: GameObject;
 public var zones: GameObject;
 public var boatObj: GameObject;
 public var cosmeticsCamera: GameObject;
+public var LevelGen: GameObject;
 
 function Start()
 {
@@ -17,7 +18,9 @@ function Start()
 
 function ExploreButton()
 {
-	zones.SetActive (true);
+	cosmeticsCamera.SetActive (true);
+	LevelGen.SetActive (true);
+	//zones.SetActive (true);
 	mainMenuButtons.SetActive (false);
 	closeUIButton.SetActive (true);
 }
@@ -48,6 +51,7 @@ function OpenCosmeticsPanel()
 
 function CloseUI()
 {
+	LevelGen.SetActive (false);
 	cosmeticsCamera.SetActive (false);
 	upgradesPanel.SetActive (false);
 	cosmeticsPanel.SetActive (false);
