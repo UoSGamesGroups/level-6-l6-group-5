@@ -2,12 +2,21 @@
 
 public var startLevelButton: GameObject;
 public var levelsToGen: int;
+public var zoneUnlocked: int;
 public var xSpacing: float;
 public var nextLevelPos: Vector3;
 public var maxZPosObj: GameObject;
 public var minZPosObj: GameObject;
 
 function Start () {
+
+		zoneUnlocked = PlayerPrefs.GetInt ("zoneUnlocked");
+		Debug.Log("zones unlocked " + zoneUnlocked);
+		if (zoneUnlocked < 1)
+		{
+		zoneUnlocked = 1;
+		PlayerPrefs.SetInt("zoneUnlocked", zoneUnlocked);
+		}
 
 	Random.InitState(3);
 

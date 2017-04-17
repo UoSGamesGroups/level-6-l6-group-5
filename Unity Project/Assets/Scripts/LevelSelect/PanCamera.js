@@ -2,6 +2,7 @@
 public var lastMousePos: Vector3;
 public var currentMousePos: Vector3;
 public var panSpeed: float;
+public var levelSelectActive: boolean;
 
 function Start () 
 {
@@ -13,10 +14,10 @@ function Update ()
 	if(Input.GetKey(KeyCode.Mouse0))
 	{
 		currentMousePos = Input.mousePosition;
-		if(currentMousePos.x < lastMousePos.x)
+		if(currentMousePos.x < lastMousePos.x && levelSelectActive)
 		{
 			transform.position.x += panSpeed * Time.deltaTime;
-		} else if (currentMousePos.x > lastMousePos.x)
+		} else if (currentMousePos.x > lastMousePos.x && transform.position.x > 0 && levelSelectActive)
 		{
 			transform.position.x -= panSpeed * Time.deltaTime;
 		}
