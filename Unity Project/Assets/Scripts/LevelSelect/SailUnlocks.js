@@ -4,6 +4,7 @@ public var sailName: String;
 public var unlocked: boolean;
 public var lockedImage: GameObject;
 public var sailColour: Renderer;
+public var sailMenu: Renderer;
 public var colour: Color;
 public var isColour: boolean;
 public var material: Material;
@@ -56,6 +57,7 @@ function Check()
 		 	else
 		 	{
 		 		sailColour.material = material;
+	 			sailMenu.material = material;
 		 	}
 		 }
 	}
@@ -74,6 +76,7 @@ function Clicked()
 	 	else
 	 	{
 	 		sailColour.material = material;
+	 		sailMenu.material = material;
 	 	}
 	 }
 	 else

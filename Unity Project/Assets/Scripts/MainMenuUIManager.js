@@ -14,8 +14,10 @@ public var panCamera: PanCamera;
 
 function Start()
 {
-//some reason starts active
+	//some reason starts active
 	boatObj.SetActive (false);
+	OpenCosmeticsPanel();
+	CloseUI();
 }
 
 function ExploreButton()
@@ -39,7 +41,6 @@ function OpenChestPanel()
 	closeUIButton.SetActive (true);
 	mainMenuButtons.SetActive (false);
 	titleImage.SetActive (false);
-	
 }
 
 function OpenUpgradesPanel()
@@ -49,7 +50,6 @@ function OpenUpgradesPanel()
 	mainMenuButtons.SetActive (false);
 	resourcesUI.SetActive (true);
 	titleImage.SetActive (false);
-	
 }
 
 function OpenCosmeticsPanel()
@@ -61,7 +61,8 @@ function OpenCosmeticsPanel()
 	mainMenuButtons.SetActive (false);
 	boatObj.SetActive (true);
 	titleImage.SetActive (false);
-	
+	cosmeticsPanel.GetComponent(IsPanelOpen).OpenAll();
+	cosmeticsPanel.GetComponent(IsPanelOpen).CloseAll();
 }
 
 function CloseUI()
@@ -78,6 +79,4 @@ function CloseUI()
 	zones.SetActive (false);
 	resourcesUI.SetActive (false);
 	titleImage.SetActive (true);
-	
-	
 }

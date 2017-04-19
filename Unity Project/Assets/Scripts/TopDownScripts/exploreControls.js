@@ -57,6 +57,8 @@ function Start()
 	//var boss: GameObject = Instantiate(boss,bossPos,Quaternion.Euler(0,0,0));
 	//boss.GetComponent(MoveBoss).player = this.gameObject;
 	Time.timeScale = 0;
+
+	started = 1000000;
 }
 
 function Update () 
@@ -66,7 +68,7 @@ function Update ()
 		released = true;
 	}
 
-	if(Input.GetKey(KeyCode.Mouse0) && !holdStarted)
+	if(Input.GetKeyDown(KeyCode.Mouse0) && !holdStarted)
 	{
 		Time.timeScale = 1;
 		tapToStartImage.SetActive(false);
@@ -87,6 +89,10 @@ function Update ()
 			releaseToGoDownImage.SetActive(false);
 			Time.timeScale = 1;
 		}
+	}
+	else
+	{
+			releaseToGoDownImage.SetActive(false);
 	}
 
 	//Move UI to show progress
@@ -160,11 +166,12 @@ function Update ()
 	if(transform.position.z > maxZ)
 	{
 		if(yAngle < 130)
-		transform.Rotate(0,(Time.deltaTime*rotateDownSpeed),0);
+			transform.Rotate(0,(Time.deltaTime*rotateDownSpeed),0);
 
 		transform.position.z = maxZ;
-		}
 	}
+}
+
 function Analytic(name: String, num: Object, eventName: String)
 {
 	//Test for analytics. Might change. 

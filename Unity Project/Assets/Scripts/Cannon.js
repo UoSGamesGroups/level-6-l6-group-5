@@ -144,36 +144,39 @@ function Update ()
 
 function Fire()
 {
-	if(once && reloaded && selected && hasAmmo)
-	{
-		var childBall = Instantiate(ball, ballPos, transform.rotation);
-		childBall.transform.parent = cannon.transform;
-		Instantiate(explosionParticles, ballPos, transform.rotation);
-		reloadImage.SetActive(true);
-		reloaded = false;
-		finishReload = reloadTime + Time.time;
-		once = false;
-		shotCounter++;
-
-		//take one away from type and then update the ammo in cannonController
-		switch (type.ToString())
+	if(!Boat.isDead)
+	{	
+		if(once && reloaded && selected && hasAmmo)
 		{
+			var childBall = Instantiate(ball, ballPos, transform.rotation);
+			childBall.transform.parent = cannon.transform;
+			Instantiate(explosionParticles, ballPos, transform.rotation);
+			reloadImage.SetActive(true);
+			reloaded = false;
+			finishReload = reloadTime + Time.time;
+			once = false;
+			shotCounter++;
 
-			case "Normal": 
-			break;
+			//take one away from type and then update the ammo in cannonController
+			switch (type.ToString())
+			{
 
-			case "Slow": cannonController.GetComponent(CannonController).slowShots --;
-			break;
+				case "Normal": 
+				break;
 
-			case "Heavy": cannonController.GetComponent(CannonController).heavyShots --;		  
-			break;
+				case "Slow": cannonController.GetComponent(CannonController).slowShots --;
+				break;
 
-			case "Burn": cannonController.GetComponent(CannonController).fireShots --;
-			break;
+				case "Heavy": cannonController.GetComponent(CannonController).heavyShots --;		  
+				break;
+
+				case "Fire": cannonController.GetComponent(CannonController).fireShots --;
+				break;
+			}
+
+			cannonController.GetComponent(CannonController).UpdateAmmo();
 		}
-		cannonController.GetComponent(CannonController).UpdateAmmo();
 	}
-
 }
 
 function OnMouseDown () 

@@ -10,7 +10,7 @@ public var blueSailLockedImage: GameObject;
 //Shows the player what sails are locked. Make sure you add new sails here too.
 function Start()
 {
-blueSailLockedImage.SetActive (blueSailLocked);
+	blueSailLockedImage.SetActive (blueSailLocked);
 }
 
 //Add in new sails here

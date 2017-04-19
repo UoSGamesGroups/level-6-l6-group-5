@@ -4,6 +4,7 @@ public var birdName: String;
 public var unlocked: boolean;
 public var lockedImage: GameObject;
 public var birdColour: Renderer;
+public var birdMenu: Renderer;
 public var colour: Color;
 public var isColour: boolean;
 public var material: Material;
@@ -56,6 +57,7 @@ function Check()
 		 	else
 		 	{
 		 		birdColour.material = material;
+	 			birdMenu.material = material;
 		 	}
 		 }
 	}
@@ -74,6 +76,7 @@ function Clicked()
 	 	else
 	 	{
 	 		birdColour.material = material;
+	 		birdMenu.material = material;
 	 	}
 	 }
 	 else

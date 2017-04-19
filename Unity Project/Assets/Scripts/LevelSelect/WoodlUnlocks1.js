@@ -4,6 +4,7 @@ public var woodName: String;
 public var unlocked: boolean;
 public var lockedImage: GameObject;
 public var woodColour: Renderer;
+public var woodMenu: Renderer;
 public var colour: Color;
 public var isColour: boolean;
 public var material: Material;
@@ -56,6 +57,7 @@ function Check()
 		 	else
 		 	{
 		 		woodColour.material = material;
+	 			woodMenu.material = material;
 		 	}
 		 }
 	}
@@ -74,6 +76,7 @@ function Clicked()
 	 	else
 	 	{
 	 		woodColour.material = material;
+	 		woodMenu.material = material;
 	 	}
 	 }
 	 else

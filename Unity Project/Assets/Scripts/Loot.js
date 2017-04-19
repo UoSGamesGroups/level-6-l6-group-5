@@ -16,6 +16,9 @@ public var boss: GameObject[];
 public var runOnce: boolean; 
 public var currentBoss: int;
 public var click: boolean; 
+public var chest: Image; 
+public var chestPlus: Text; 
+public var chestFound: boolean; 
 
 function Start()
 {
@@ -43,6 +46,13 @@ function Update()
 function LootAmounts()
 {
 	yield WaitForSeconds(2);
+
+	if(!chestFound)
+	{
+		//chest.sprite = null;
+		chest.color = Color(0,0,0,0);
+		chestPlus.color = Color(0,0,0,0);
+	}
 
 	wood = Random.Range(3, 7);
 	cloth = Random.Range(3, 7);	

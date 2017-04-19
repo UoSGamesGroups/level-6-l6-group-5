@@ -45,6 +45,7 @@ function OnCollisionEnter(other: Collision)
 		other.gameObject.GetComponentInParent(Boat).health -= damage;
 		other.gameObject.GetComponentInParent(Boat).CameraShake();
 		canDamage = false;
+		Handheld.Vibrate(); 
 		Instantiate(explosion, transform.position, transform.rotation);
 		//Instantiate(wood, transform.position, Quaternion.Euler(new Vector3(-51, -224, 40)));
 		Destroy(this.gameObject);

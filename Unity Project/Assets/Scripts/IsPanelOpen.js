@@ -10,11 +10,6 @@ public var woodButton: GameObject;
 public var birdButton: GameObject;
 public var zoneText: GameObject;
 
-function Start () 
-{
-	
-}
-
 function Update () 
 {
 	if(sail.activeSelf || wood.activeSelf || bird.activeSelf)
@@ -26,7 +21,6 @@ function Update ()
 		isObjectActive = false;
 	}
 }
-
 
 function CloseAll()
 {

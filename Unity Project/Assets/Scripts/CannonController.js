@@ -11,6 +11,9 @@ public var slowOutline: GameObject;
 public var fireShots: int;
 public var heavyShots: int;
 public var slowShots: int;
+public var fireAmmoCounter: TextMesh;
+public var heavyAmmoCounter: TextMesh;
+public var slowAmmoCounter: TextMesh;
 
 public var normalAnim: Animator;
 public var fireAnim: Animator;
@@ -40,6 +43,10 @@ function Update()
 	PlayerPrefs.SetInt("PowerUp1", fireShots);
 	PlayerPrefs.SetInt("PowerUp2", heavyShots);
 	PlayerPrefs.SetInt("PowerUp3", slowShots);
+
+	fireAmmoCounter.text = fireShots.ToString();
+	heavyAmmoCounter.text = heavyShots.ToString();
+	slowAmmoCounter.text = slowShots.ToString();
 }
 
 function UpdateAmmo()

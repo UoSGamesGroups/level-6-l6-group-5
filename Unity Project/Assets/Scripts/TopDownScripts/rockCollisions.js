@@ -11,6 +11,7 @@ function OnCollisionEnter (other: Collision)
 		other.gameObject.GetComponent.<exploreControls>().health -= collisionDamage;
 		Debug.Log("Damage dealt from collision" + collisionDamage);
 		Instantiate(explosion,other.gameObject.transform.position, transform.rotation);
+		Handheld.Vibrate();
 		Destroy (gameObject);
 	}
 }

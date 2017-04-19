@@ -26,6 +26,7 @@ public var dead: GameObject;
 public var reachedEnd: boolean;
 public var currentLevel: int;
 public var cameraAnim: Animator;
+static var isDead: boolean;
 
 function Start()
 {
@@ -40,11 +41,12 @@ function Start()
 	{
 		PlayerPrefs.SetInt("Health", 1);
 	}
-// old way	health = 100 * PlayerPrefs.GetInt("Health");
+	// old way	health = 100 * PlayerPrefs.GetInt("Health");
 	health = (PlayerPrefs.GetFloat("healthAtEndOfExplore"));
 	healthStart = 100 * PlayerPrefs.GetInt("Health");
 
 	Analytic("Level " + currentLevel.ToString() + " Boss", true, "Loaded");
+	isDead = false;
 }
 
 function Update () 
@@ -71,6 +73,7 @@ function Update ()
 		Analytic("Level " + currentLevel.ToString() + " Boss", true, "Lost");
 		
 		dead.SetActive(true);
+		isDead = true;
 	}
 
 	if(Input.GetKeyDown(KeyCode.T))
