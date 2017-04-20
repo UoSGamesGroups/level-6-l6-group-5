@@ -46,8 +46,10 @@ function HasBeenSelected()
 		selectPrompt.SetActive(true);
 		newCosPrompt.GetComponent(NewCosmetic).newCosmetic = true;
 	}
-	else 		
+	else 	
+	{
 		selectPrompt.SetActive(false);
+	}
 }
 
 function Check()

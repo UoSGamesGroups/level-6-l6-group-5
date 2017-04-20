@@ -35,6 +35,7 @@ public var type: Type;
 public var material: Material;
 public var anim: Animator;
 public var hasAmmo: boolean;
+public var screenWidth: float;
 
 enum Type {Normal, Fire, Heavy, Slow}
 
@@ -46,10 +47,29 @@ function Start ()
 
 	//ballPos = new Vector3(transform.position.x  + 0.65, transform.position.y + 1.44, transform.position.z + 2.29);
 
+
 	enemy = GameObject.FindGameObjectWithTag("Enemy");
 	acuracyLevel = PlayerPrefs.GetInt("Cannon");
 	
 	reloadTime = 1.25 - (PlayerPrefs.GetInt("Reload") / 10);
+
+
+	/*
+	screenWidth = Screen.width;
+
+	Get screen height
+		get 10% 
+		get 15%
+
+		when swiping check travel distance against.
+
+		if < 10 % weak shot
+
+		if > 10 && < 15 goods
+
+		if > 15 bad
+
+	*/
 }
 
 function Update () 
