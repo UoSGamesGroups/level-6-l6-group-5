@@ -11,6 +11,7 @@ public var cosmeticsCamera: GameObject;
 public var LevelGen: GameObject;
 public var titleImage: GameObject;
 public var panCamera: PanCamera;
+public var cosmeticButton: NewCosmetic;
 
 function Start()
 {
@@ -79,4 +80,6 @@ function CloseUI()
 	zones.SetActive (false);
 	resourcesUI.SetActive (false);
 	titleImage.SetActive (true);
+	cosmeticsPanel.GetComponent(IsPanelOpen).OpenAll();
+	cosmeticsPanel.GetComponent(IsPanelOpen).CloseAll();
 }

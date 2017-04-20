@@ -21,9 +21,19 @@ public var woodText: Text;
 public var clothText: Text;
 public var metalText: Text;
 public var upgradeButton: Button;
+public var arrow: GameObject;
 
-function Start () 
+function Start()
 {
+	OnLoad();
+}
+
+function OnLoad () 
+{
+	wood = PlayerPrefs.GetInt("Wood");
+	cloth = PlayerPrefs.GetInt("Cloth");
+	metal = PlayerPrefs.GetInt("Metal");
+
 	upgradeLevel = PlayerPrefs.GetInt(upgradeName);
 
 	if(upgradeLevel == 0)
@@ -72,9 +82,26 @@ function Upgrade ()
 		clothCost = clothMulti * upgradeLevel;
 		metalCost = metalMulti * upgradeLevel;
 
+		arrow.GetComponent(UpgradeArrow).UpgradeAvailable();
+
 		var params = new System.Collections.Generic.Dictionary.<System.String,System.Object>();
 		params.Add("Upgrades", upgradeLevel);
 		var returnVal = Analytics.Analytics.CustomEvent(upgradeName, params);
 		Debug.Log(returnVal);
+	}
+}
+
+function CanPurchase()
+{
+	OnLoad();
+	if(woodCost <= wood && clothCost <= cloth && metalCost <= metal)
+	{
+		Debug.Log("Can Purchase " + upgradeName);
+		return true;
+	}
+	else
+	{
+		Debug.Log("Can't Purchase " + upgradeName);
+		return false;
 	}
 }

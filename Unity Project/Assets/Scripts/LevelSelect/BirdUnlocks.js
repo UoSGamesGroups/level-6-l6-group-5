@@ -2,6 +2,7 @@
 
 public var birdName: String;
 public var unlocked: boolean;
+public var hasBeenSelected: boolean;
 public var lockedImage: GameObject;
 public var birdColour: Renderer;
 public var birdMenu: Renderer;
@@ -14,6 +15,8 @@ public var image: Image;
 public var unlockNum: int;
 public var prompt: GameObject;
 public var defaultItem: boolean;
+public var selectPrompt: GameObject;
+public var newCosPrompt: NewCosmetic;
 
 function Start()
 {
@@ -29,6 +32,22 @@ function Start()
 			Clicked();
 		}
 	}
+}
+
+function HasBeenSelected()
+{
+	 if(PlayerPrefs.GetInt(birdName + "beenSelected") == 1)
+		hasBeenSelected = true;
+	else
+		hasBeenSelected = false;
+
+	if(!hasBeenSelected && unlocked)
+	{
+		selectPrompt.SetActive(true);
+		newCosPrompt.GetComponent(NewCosmetic).newCosmetic = true;
+	}
+	else 		
+		selectPrompt.SetActive(false);
 }
 
 function Check()
@@ -61,13 +80,20 @@ function Check()
 		 	}
 		 }
 	}
+
+	HasBeenSelected();
 }
 
 function Clicked()
 {
  	if(unlocked)
 	 {
+	 	hasBeenSelected = true;
+
+	 	PlayerPrefs.SetInt(birdName + "beenSelected", 1);
 	 	PlayerPrefs.SetString("SelectedBird", birdName);
+
+	 	HasBeenSelected();
 
 	 	if(isColour)
 	 	{

@@ -31,7 +31,7 @@ function CloseAll()
 	birdButton.GetComponent(BirdButton).panelOpen = false;
 	bird.SetActive(false);
 	boat.SetActive(false);
-	zoneText.SetActive(true);
+	//zoneText.SetActive(true);
 }
 
 function OpenAll()

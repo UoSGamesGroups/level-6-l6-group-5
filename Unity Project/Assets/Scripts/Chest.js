@@ -47,10 +47,12 @@ public var chestAnim: Animator;
 public var item: Animator;
 public var update: boolean;
 public var mainMenuUIManager: MainMenuUIManager;
+public var newCos: NewCosmetic;
 
 function Start()
 {
 	mainMenuUIManager = GameObject.FindGameObjectWithTag ("UIManager").GetComponent(MainMenuUIManager);
+	newCos = GameObject.FindGameObjectWithTag ("UIManager").GetComponent(NewCosmetic);
 }
 
 
@@ -150,8 +152,6 @@ function ChestOpen(opening: boolean)
 
 function Update()
 {
-
-
 	if(parent == null)
 	{
 
@@ -316,6 +316,8 @@ function Destroy()
 	totalChests = PlayerPrefs.GetInt("Zone"+ chestLevel);
 	totalChests --;
 	PlayerPrefs.SetInt("Zone"+ chestLevel, totalChests);
+
+	newCos.GetComponent(NewCosmetic).newCosmetic = true;
 
 	PlayerPrefs.SetInt(selectedItem + selectedItemType , 1);
 
