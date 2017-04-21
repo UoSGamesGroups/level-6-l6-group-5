@@ -36,6 +36,8 @@ public var material: Material;
 public var anim: Animator;
 public var hasAmmo: boolean;
 public var screenWidth: float;
+public var audioSource: AudioSource;
+public var cannonSound: AudioClip;
 
 enum Type {Normal, Fire, Heavy, Slow}
 
@@ -168,6 +170,7 @@ function Fire()
 	{	
 		if(once && reloaded && selected && hasAmmo)
 		{
+			audioSource.PlayOneShot(cannonSound);
 			var childBall = Instantiate(ball, ballPos, transform.rotation);
 			childBall.transform.parent = cannon.transform;
 			Instantiate(explosionParticles, ballPos, transform.rotation);
