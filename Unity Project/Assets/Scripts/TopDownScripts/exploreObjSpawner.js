@@ -15,6 +15,7 @@ public var padding: float;
 public var bossSpawned: boolean;
 public var boss: GameObject;
 public var exploreScript: exploreControls;
+public var chestPickUp: GameObject;
 
 function Start ()
 {
@@ -63,6 +64,13 @@ function GetNextSpawnPos()
 	var boss = Instantiate(boss,spawnPos,transform.rotation);
 	boss.GetComponent(MoveBoss).player = player;
 	bossSpawned = true;
+	// make a powerup a chest
+	var powerUps:GameObject[] = GameObject.FindGameObjectsWithTag ("PowerUp");
+	var randPowerUpNumber: int = Random.Range(0, powerUps.Length);
+	var randPowerUp: GameObject = powerUps[randPowerUpNumber];
+	var randPowerUpPos: Vector3 = randPowerUp.transform.position;
+	Destroy (randPowerUp);
+	Instantiate (chestPickUp, randPowerUpPos, transform.rotation);
 	}
 
 

@@ -1,5 +1,6 @@
 ﻿#pragma strict
 import UnityEngine.UI;
+import UnityEngine.SceneManagement;
 
 private var swipeStartPos: Vector2;
 private var swipeEndPos: Vector2;
@@ -36,9 +37,25 @@ public var waterBreakEffectRight: ParticleSystem;
 public var waterBreakEffectBack: ParticleSystem;
 public var released: boolean;
 public var holdStarted: boolean;
+public var healthStart: float;
+public var async: AsyncOperation;
+
+function Load()
+{
+	async = SceneManager.LoadSceneAsync("Boss");
+	async.allowSceneActivation = false;
+}
 
 function Start()
 {
+//load next scene
+	Load();
+	//load health
+	health = 100 * PlayerPrefs.GetInt("Health");
+	healthStart = 100 * PlayerPrefs.GetInt("Health");
+	// set chest collected to false at start of explore scene
+	var chestCollected: boolean = false;
+	PlayerPrefs.SetInt("ChestCollected", (chestCollected ? 1 : 0));
 	//Get UI start pos for % of progress
 	startPosHealthUI = healthObj.transform.position;
 	bossUIObjPos = bossUIObj.transform.position;
@@ -99,7 +116,7 @@ function Update ()
 	percentageCompleted = (currentDistance / endDistance);
 	healthObj.transform.position.x = startPosHealthUI.x - (distanceUI * percentageCompleted);
 	//show health
-	healthUI.fillAmount = health/100;
+	healthUI.fillAmount = health/healthStart;
 
 	if(health <= 0)
 	{
@@ -129,7 +146,7 @@ function Update ()
 		if(endTime <= Time.time)
 		{
 			PlayerPrefs.SetFloat("healthAtEndOfExplore", health);
-			Application.LoadLevel("Boss");
+	async.allowSceneActivation = true;			
 		}
 	}
 

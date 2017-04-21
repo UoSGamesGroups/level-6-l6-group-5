@@ -22,6 +22,7 @@ public var chestFound: boolean;
 
 function Start()
 {
+	chestFound = (PlayerPrefs.GetInt("ChestCollected") !=0);
 	boss = GameObject.FindGameObjectsWithTag("Boss");
 	loot.SetActive(false);
 }
