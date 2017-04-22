@@ -38,6 +38,7 @@ public var hasAmmo: boolean;
 public var screenWidth: float;
 public var audioSource: AudioSource;
 public var cannonSound: AudioClip;
+public var percentageMinMax: Vector2;
 
 enum Type {Normal, Fire, Heavy, Slow}
 
@@ -55,36 +56,21 @@ function Start ()
 	
 	reloadTime = 1.25 - (PlayerPrefs.GetInt("Reload") / 10);
 
-
-	/*
 	screenWidth = Screen.width;
 
-	Get screen height
-		get 10% 
-		get 15%
-
-		when swiping check travel distance against.
-
-		if < 10 % weak shot
-
-		if > 10 && < 15 goods
-
-		if > 15 bad
-
-	*/
+	percentageMinMax.x = (screenWidth / 10) * 6;
+	percentageMinMax.y = (screenWidth / 10) * 7;
 }
 
 function Update () 
 {
 	if(!selected)
 	{
-		//material.color = Color(1,1,1,0);
 		anim.SetBool("Selected", false);
 	}
 	else
 	{
 		anim.SetBool("Selected", true);
-		//material.color = Color(0.25,0.25,0.25,0.25);
 	}
 
 	if (Input.touchCount > 0)
@@ -116,6 +102,25 @@ function Update ()
 								
 								touchTrav.x = touchTrav.x + Random.Range(acuracy.x, acuracy.y);
 
+								if(touchTrav.y <= percentageMinMax.x && touchTrav.y >= percentageMinMax.y)
+								{
+									force = new Vector3 (touchTrav.x, 700, 450);
+									Analytic("Ok", touchTrav.y);
+								}
+								else if(touchTrav.y < percentageMinMax.x)
+								{
+									force = new Vector3 (touchTrav.x, (touchTrav.y/percentageMinMax.x) * 700, 450);
+									Analytic("Short", touchTrav.y);
+								}
+								else if(touchTrav.y > percentageMinMax.y)
+								{
+									force = new Vector3 (touchTrav.x, (touchTrav.y/percentageMinMax.y) * 700, 450);
+									Analytic("Too far", touchTrav.y);
+								}
+
+
+								/*
+								Old swipe
 								if(touchTrav.y <= forceMinMax.y && touchTrav.y >= forceMinMax.x)
 								{
 									force = new Vector3 (touchTrav.x, 700, 450);
@@ -131,6 +136,7 @@ function Update ()
 									force = new Vector3 (touchTrav.x, (touchTrav.y/forceMinMax.y) * 700, 450);
 									Analytic("Too far", touchTrav.y);
 								}
+								*/
 
 								Fire();
 							}
