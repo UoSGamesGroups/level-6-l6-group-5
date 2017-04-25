@@ -80,7 +80,7 @@ function Start()
 
 function Update () 
 {
-	if(Input.GetMouseButtonUp(0))
+	if(Input.GetMouseButton(0))
 	{
 		released = true;
 	}
@@ -93,6 +93,7 @@ function Update ()
 		holdStarted = true;
 	}
 
+	/*
 	if(PlayerPrefs.GetInt("currentLevel") == 1)
 	{
 		if(Time.time > started && !released)
@@ -111,7 +112,7 @@ function Update ()
 	{
 			releaseToGoDownImage.SetActive(false);
 	}
-
+	*/
 	//Move UI to show progress
 	percentageCompleted = (currentDistance / endDistance);
 	healthObj.transform.position.x = startPosHealthUI.x - (distanceUI * percentageCompleted);
@@ -146,7 +147,7 @@ function Update ()
 		if(endTime <= Time.time)
 		{
 			PlayerPrefs.SetFloat("healthAtEndOfExplore", health);
-	async.allowSceneActivation = true;			
+			async.allowSceneActivation = true;			
 		}
 	}
 

@@ -56,10 +56,10 @@ function Start ()
 	
 	reloadTime = 1.25 - (PlayerPrefs.GetInt("Reload") / 10);
 
-	screenWidth = Screen.width;
+	screenWidth = Screen.height;
 
-	percentageMinMax.x = (screenWidth / 10) * 6;
-	percentageMinMax.y = (screenWidth / 10) * 7;
+	percentageMinMax.x = (screenWidth / 10) * 5;
+	percentageMinMax.y = (screenWidth / 10) * 6;
 }
 
 function Update () 
