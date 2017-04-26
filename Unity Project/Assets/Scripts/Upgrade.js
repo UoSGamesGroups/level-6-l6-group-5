@@ -13,7 +13,9 @@ public var lockedColor: ColorBlock;
 public var woodMulti: int;
 public var clothMulti: int;
 public var metalMulti: int;
-
+public var woodImage: Image;
+public var metalImage: Image;
+public var clothImage: Image;
 public var titleText: Text;
 public var descText: Text;
 public var levelText: Text;
@@ -56,6 +58,38 @@ function Update ()
 	woodText.text = woodCost.ToString();
 	clothText.text = clothCost.ToString();
 	metalText.text = metalCost.ToString();
+
+	if(wood < woodCost)
+	{
+		woodImage.color = Color(0.2,0.2,0.2,1);
+		woodText.color = Color.red;
+	}
+	else
+	{
+		woodImage.color = Color(0.6,0.6,0.6,1);
+		woodText.color = Color.white;
+	}
+
+	if(metal < metalCost)
+	{
+		metalImage.color = Color(0.2,0.2,0.2,1);
+		metalText.color = Color.red;
+	}
+	else
+	{
+		metalImage.color = Color(0.6,0.6,0.6,1);
+		metalText.color = Color.white;
+	}
+	if(cloth < clothCost)
+	{
+		clothImage.color = Color(0.2,0.2,0.2,1);
+		clothText.color = Color.red;
+	}
+	else
+	{
+		clothImage.color = Color(0.6,0.6,0.6,1);
+		clothText.color = Color.white;
+	}
 }
 
 function Upgrade () 
@@ -96,12 +130,10 @@ function CanPurchase()
 	OnLoad();
 	if(woodCost <= wood && clothCost <= cloth && metalCost <= metal)
 	{
-		Debug.Log("Can Purchase " + upgradeName);
 		return true;
 	}
 	else
 	{
-		Debug.Log("Can't Purchase " + upgradeName);
 		return false;
 	}
 }

@@ -102,22 +102,24 @@ function Update ()
 								
 								touchTrav.x = touchTrav.x + Random.Range(acuracy.x, acuracy.y);
 
-								if(touchTrav.y <= percentageMinMax.x && touchTrav.y >= percentageMinMax.y)
+								if(touchTrav.y > 5)
 								{
-									force = new Vector3 (touchTrav.x, 700, 450);
-									Analytic("Ok", touchTrav.y);
+									if(touchTrav.y <= percentageMinMax.x && touchTrav.y >= percentageMinMax.y)
+									{
+										force = new Vector3 (touchTrav.x, 700, 450);
+										Analytic("Ok", touchTrav.y);
+									}
+									else if(touchTrav.y < percentageMinMax.x)
+									{
+										force = new Vector3 (touchTrav.x, (touchTrav.y/percentageMinMax.x) * 700, 450);
+										Analytic("Short", touchTrav.y);
+									}
+									else if(touchTrav.y > percentageMinMax.y)
+									{
+										force = new Vector3 (touchTrav.x, (touchTrav.y/percentageMinMax.y) * 700, 450);
+										Analytic("Too far", touchTrav.y);
+									}
 								}
-								else if(touchTrav.y < percentageMinMax.x)
-								{
-									force = new Vector3 (touchTrav.x, (touchTrav.y/percentageMinMax.x) * 700, 450);
-									Analytic("Short", touchTrav.y);
-								}
-								else if(touchTrav.y > percentageMinMax.y)
-								{
-									force = new Vector3 (touchTrav.x, (touchTrav.y/percentageMinMax.y) * 700, 450);
-									Analytic("Too far", touchTrav.y);
-								}
-
 
 								/*
 								Old swipe
