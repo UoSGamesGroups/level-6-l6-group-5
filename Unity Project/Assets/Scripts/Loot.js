@@ -78,10 +78,12 @@ function LootAmounts()
 	PlayerPrefs.SetInt("Cloth", cloth + playerCloth);
 	PlayerPrefs.SetInt("Metal", metal + playerMetal);
 
-	currentChests = PlayerPrefs.GetInt("Zone"+ currentLevel);
-	currentChests ++;
-	PlayerPrefs.SetInt("Zone"+ currentLevel, currentChests);
-
+	if(chestFound)
+	{
+		currentChests = PlayerPrefs.GetInt("Zone"+ currentLevel);
+		currentChests ++;
+		PlayerPrefs.SetInt("Zone"+ currentLevel, currentChests);
+	}
 
 	currentBoss ++;
 
