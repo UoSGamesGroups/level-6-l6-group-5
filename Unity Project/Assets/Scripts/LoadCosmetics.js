@@ -5,7 +5,6 @@ public class cosmetics
 	public var name: String;
 	public var cosmeticsType: cosmeticsTypes;
 	public var material: Material;
-	
 }
 
 enum cosmeticsTypes {Sail, Wood, Pet};
