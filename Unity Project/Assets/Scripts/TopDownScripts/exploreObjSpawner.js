@@ -45,13 +45,14 @@ function GetNextSpawnPos()
 {
 	spawnPos.x = endOfTile + padding;
 }
+
  function SpawnTile()
 {
 	if(spawnPos.x < exploreScript.endDistance)
 	{
-			var tile = Instantiate(tiles[Random.Range(0,tiles.Length)],spawnPos,transform.rotation);
-	var lastX: float;
-	var tileParent: Transform = tile.transform;
+		var tile = Instantiate(tiles[Random.Range(0,tiles.Length)],spawnPos,transform.rotation);
+		var lastX: float;
+		var tileParent: Transform = tile.transform;
 	for(var childObj : Transform in tileParent)
 	{
 		var currentX = childObj.transform.position.x;
@@ -60,20 +61,20 @@ function GetNextSpawnPos()
 			endOfTile = childObj.transform.position.x;
 		}
 	}
-	} else if (!bossSpawned) {
-	var boss = Instantiate(boss,spawnPos,transform.rotation);
-	boss.GetComponent(MoveBoss).player = player;
-	bossSpawned = true;
-	// make a powerup a chest
-	var powerUps:GameObject[] = GameObject.FindGameObjectsWithTag ("PowerUp");
-	var randPowerUpNumber: int = Random.Range(0, powerUps.Length);
-	var randPowerUp: GameObject = powerUps[randPowerUpNumber];
-	var randPowerUpPos: Vector3 = randPowerUp.transform.position;
-	Destroy (randPowerUp);
-	Instantiate (chestPickUp, randPowerUpPos, transform.rotation);
+	} 
+	else if (!bossSpawned) 
+	{
+		var boss = Instantiate(boss, Vector3(spawnPos.x, spawnPos.y + 0.393, spawnPos.z) , Quaternion.Euler(-90,0,0));
+		boss.GetComponent(MoveBoss).player = player;
+		bossSpawned = true;
+		// make a powerup a chest
+		var powerUps:GameObject[] = GameObject.FindGameObjectsWithTag ("PowerUp");
+		var randPowerUpNumber: int = Random.Range(0, powerUps.Length);
+		var randPowerUp: GameObject = powerUps[randPowerUpNumber];
+		var randPowerUpPos: Vector3 = randPowerUp.transform.position;
+		Destroy (randPowerUp);
+		Instantiate (chestPickUp, randPowerUpPos, transform.rotation);
 	}
-
-
 }
  
 /* old system function SpawnObj(){
