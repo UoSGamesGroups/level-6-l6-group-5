@@ -15,11 +15,8 @@ function Update ()
 
 	if (timer > 20 && zonesUnlocked == 0)
 	{
-		hint1.SetActive (true);
+		//hint1.SetActive (true);
 	}
-
-
-
 }
 
 function Hint2 ()
