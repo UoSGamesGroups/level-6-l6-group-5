@@ -6,11 +6,14 @@ public var powerUp4Count: int;
 public var pickupEffect: GameObject;
 public var textPrefab: GameObject;
 public var powerName: String;
+public var audioSource: AudioSource;
+public var pickupClip: AudioClip;
 
 function OnCollisionEnter(other:Collision)
 {
 	if(other.gameObject.tag == "PowerUp")
 	{
+		audioSource.PlayOneShot(pickupClip);
 		var powerCollected: int = other.gameObject.GetComponent.<PowerUpPickUpObj>().powerId;
 		var effectPos: Vector3;
 		effectPos = transform.position;
