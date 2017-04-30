@@ -34,7 +34,7 @@ function Start () {
 	 	newZone.transform.SetParent(this.gameObject.transform);
 	 }
 
-
+	 /*
 	 //Generate Islands
 	 for(var x : int = 1; x < islandsToGen; x++)
 	 {
@@ -46,6 +46,6 @@ function Start () {
 	 	
 	 	
 	 }
-	
+	*/
 }
 
