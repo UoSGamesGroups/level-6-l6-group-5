@@ -64,7 +64,7 @@ function GetNextSpawnPos()
 	} 
 	else if (!bossSpawned) 
 	{
-		var boss = Instantiate(boss, Vector3(spawnPos.x, spawnPos.y + 0.393, spawnPos.z) , Quaternion.Euler(-90,0,0));
+		var boss = Instantiate(boss, Vector3(exploreScript.endDistance + 5, spawnPos.y + 0.393, spawnPos.z) , Quaternion.Euler(-90,0,0));
 		boss.GetComponent(MoveBoss).player = player;
 		bossSpawned = true;
 		// make a powerup a chest
