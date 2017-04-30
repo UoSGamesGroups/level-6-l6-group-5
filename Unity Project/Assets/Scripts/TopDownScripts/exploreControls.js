@@ -80,6 +80,10 @@ function Start()
 
 function Update () 
 {
+	if(end)
+	{
+	transform.position.x = endDistance;
+	}
 	if(Input.GetMouseButton(0))
 	{
 		released = true;
@@ -138,17 +142,21 @@ function Update ()
 		anim.enabled = true;
 		anim.SetBool("End", true);
 		anim.applyRootMotion = false;
-
+		transform.position.x += 1;
 		if(!end)
+		{
 			endTime = Time.time + 1.5;
+		}
 
 		end = true;
-		
+		Debug.Log(Time.time);
 		if(endTime <= Time.time)
 		{
+
 			PlayerPrefs.SetFloat("healthAtEndOfExplore", health);
 			async.allowSceneActivation = true;			
 		}
+
 	}
 
 	if(Input.GetKey(KeyCode.Mouse0))
@@ -189,6 +197,8 @@ function Update ()
 		transform.position.z = maxZ;
 	}
 }
+
+
 
 function Analytic(name: String, num: Object, eventName: String)
 {
