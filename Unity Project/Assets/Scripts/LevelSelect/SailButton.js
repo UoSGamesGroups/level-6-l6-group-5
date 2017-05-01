@@ -22,7 +22,7 @@ function SailsButton ()
 	}
     sailsPanel.SetActive(panelOpen);
     boatToShowSails.SetActive(panelOpen);
-    zoneText.SetActive(!panelOpen);
+  //  zoneText.SetActive(!panelOpen);
     boatToShowSails.transform.position = boatPosition;
     boatToShowSails.transform.rotation = Quaternion.Euler(boatRotation);
 }

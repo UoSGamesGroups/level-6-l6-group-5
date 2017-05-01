@@ -22,7 +22,7 @@ function WoodButton ()
 	}
     woodPanel.SetActive(panelOpen);
     boatToShowWood.SetActive(panelOpen);
-    zoneText.SetActive(!panelOpen);
+   // zoneText.SetActive(!panelOpen);
     boatToShowWood.transform.position = boatPosition;
     boatToShowWood.transform.rotation = Quaternion.Euler(boatRotation);
 }

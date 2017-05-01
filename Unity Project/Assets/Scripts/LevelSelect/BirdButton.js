@@ -22,7 +22,7 @@ function BirdButton ()
 	}
     birdPanel.SetActive(panelOpen);
     boatToShowBird.SetActive(panelOpen);
-    zoneText.SetActive(!panelOpen);
+   // zoneText.SetActive(!panelOpen);
     boatToShowBird.transform.position = boatPosition;
     boatToShowBird.transform.rotation = Quaternion.Euler(boatRotation);
 }
