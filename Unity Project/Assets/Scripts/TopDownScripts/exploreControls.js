@@ -61,9 +61,9 @@ function Start()
 	bossUIObjPos = bossUIObj.transform.position;
 	distanceUI = startPosHealthUI.x - bossUIObjPos.x;
 	//scale speed
-	speed = speed + (speedMultiplier * PlayerPrefs.GetInt("currentLevel"));
+	//speed = speed + (speedMultiplier * PlayerPrefs.GetInt("currentLevel"));
 	//scale end distance
-	endDistance = 130 + (distanceMultiplier * PlayerPrefs.GetInt("currentLevel"));
+	//endDistance = 130 + (distanceMultiplier * PlayerPrefs.GetInt("currentLevel"));
 	
 	currentLevel = PlayerPrefs.GetInt("currentLevel");
 

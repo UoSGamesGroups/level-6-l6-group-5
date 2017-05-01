@@ -14,7 +14,7 @@ function Update ()
 	if(Input.GetKey(KeyCode.Mouse0))
 	{
 		currentMousePos = Input.mousePosition;
-		if(currentMousePos.x < lastMousePos.x && levelSelectActive)
+		if(currentMousePos.x < lastMousePos.x && levelSelectActive && transform.position.x < 970)
 		{
 			transform.position.x += panSpeed * Time.deltaTime;
 		} else if (currentMousePos.x > lastMousePos.x && transform.position.x > 0 && levelSelectActive)
